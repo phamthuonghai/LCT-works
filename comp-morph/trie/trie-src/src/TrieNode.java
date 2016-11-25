@@ -1,36 +1,63 @@
 /**
  * Created by phamthuonghai on 11/25/16.
  */
+
+import java.util.ArrayList;
+
 public class TrieNode {
     char nodeChar;
     boolean endToken = false;
-    TrieNode[] ChildNodes = new TrieNode[0];
+    ArrayList<TrieNode> ChildNodes = new ArrayList<>();
+
     public TrieNode() { } //empty constructor
     public TrieNode(char c) {
         this.nodeChar = c;
     }
+
     public char getNodeChar() {
         return this.nodeChar;
     }
+
     public TrieNode getChildNode(char c) {
-        //search through ChildNodes[]
-        //if you find a node represented by c
-        //then return that node
-        //else return null
+        for (TrieNode node: ChildNodes) {
+            if (node.getNodeChar() == c) {
+                return node;
+            }
+        }
+
         return null;
     }
+
     public boolean addEntry(String input) {
-        //take the first char of the input string
-        //and check whether it exists, and if not
-        //create a childNode with that char
-        //use the childNode to addEntry with
-        //the remaining of the String
-        //When you reach the last letter of the input string
-        //set endToken = true
-        //return true upon success
-        return false;
+        if (input == null) {
+            return false;
+        }
+
+        if (input.isEmpty()) {
+            endToken = true;
+            return true;
+        }
+
+        TrieNode t = this.getChildNode(input.charAt(0));
+        if (t == null) {
+            t = new TrieNode(input.charAt(0));
+            this.ChildNodes.add(t);
+        }
+
+        return t.addEntry(input.substring(1));
     }
+
     public boolean hasEntry(String input) {
-        return false;
+        if (input == null) {
+            return false;
+        }
+
+        if (input.isEmpty()) {
+            return endToken;
+        }
+
+        TrieNode t = this.getChildNode(input.charAt(0));
+
+        return t != null && t.hasEntry(input.substring(1));
     }
 }
