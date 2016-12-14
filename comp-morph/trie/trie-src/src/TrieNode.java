@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class TrieNode {
     char nodeChar;
     boolean endToken = false;
+    int tokenCount = 0;
     ArrayList<TrieNode> ChildNodes = new ArrayList<>();
 
     public TrieNode() { } //empty constructor
@@ -28,10 +29,12 @@ public class TrieNode {
         return null;
     }
 
-    public boolean addEntry(String input) {
+    public boolean addEntry(String input, int count) {
         if (input == null) {
             return false;
         }
+
+        tokenCount += count;
 
         if (input.isEmpty()) {
             endToken = true;
@@ -44,7 +47,7 @@ public class TrieNode {
             this.ChildNodes.add(t);
         }
 
-        return t.addEntry(input.substring(1));
+        return t.addEntry(input.substring(1), count);
     }
 
     public boolean hasEntry(String input) {
@@ -59,5 +62,23 @@ public class TrieNode {
         TrieNode t = this.getChildNode(input.charAt(0));
 
         return t != null && t.hasEntry(input.substring(1));
+    }
+
+    public int getTokenCount(String input)
+    {
+        if (input == null) {
+            return 0;
+        }
+
+        if (input.isEmpty()) {
+            return tokenCount;
+        }
+
+        TrieNode t = this.getChildNode(input.charAt(0));
+        if (t == null) {
+            return 0;
+        } else {
+            return t.getTokenCount(input.substring(1));
+        }
     }
 }
