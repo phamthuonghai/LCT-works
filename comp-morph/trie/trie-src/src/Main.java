@@ -1,35 +1,67 @@
-import java.util.ArrayList;
-import java.util.Map;
-import java.util.HashMap;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.time.Duration;
+import java.time.Instant;
+import java.util.*;
 
 public class Main {
 
-    private static void testWord(TrieDictionary trie, String word)
-    {
-        for (int i = 1; i < word.length(); i++)
-        {
-            String alpha = word.substring(0, i-1);
-            String alphaA = word.substring(0, i);
-            String alphaAB = word.substring(0, i+1);
-            String Bbeta = word.substring(i);
-            System.out.println("\nBoundary check: " + alphaA + " - " + Bbeta);
+    public static void main(String[] args) {
+        mainProd("../English.txt", "../English_prefix.out", true);
+        mainProd("../English.txt", "../English_suffix.out", false);
+    }
 
-            System.out.println("Test 1 for " + alphaA + " is " + trie.hasEntry(alphaA));
+    /**
+     * myReverse
+     * @param st input string
+     * @return the reversed string
+     */
+    private static String myReverse(String st) {
+        StringBuilder tmp = new StringBuilder(st);
+        return tmp.reverse().toString();
+    }
 
-            System.out.println("Test 2: Freq of alphaA / Freq of alpha = is it approx equal to 1?");
-            int freqAlphaA = trie.getTokenCount(alphaA);
-            int freqAlpha = trie.getTokenCount(alpha);
-            System.out.println("alphaA: " + freqAlphaA + " / alpha: " + freqAlpha + " = " +
-                    (Math.abs((float)freqAlphaA/freqAlpha - 1) < 10e-3));
+    /**
+     * mainProd which does the affix discovery
+     * @param inputFileName string
+     * @param outputFileName string
+     * @param prefix discover the prefix (if true) or suffix (false)
+     */
+    private static void mainProd(String inputFileName, String outputFileName, boolean prefix) {
+        TrieDictionary myTrie = new TrieDictionary();
+        Map<String, Integer> affixes = new HashMap<>();
+        try {
+            Instant start = Instant.now();
+            Set<String> words = myTrie.fromFile(new File(inputFileName), prefix);
+            Instant end = Instant.now();
+            System.out.println("Constructing tree from file: " + Duration.between(start, end));
 
-            System.out.println("Test 3: Freq of alphaAB / Freq of alphaA = is it much less than 1?");
-            int freqAlphaAB = trie.getTokenCount(alphaAB);
-            System.out.println("alphaAB: " + freqAlphaAB + " / alphaA: " + freqAlphaA + " = " +
-                    ((float)freqAlphaAB/freqAlphaA < 1));
+            start = Instant.now();
+            for (String w : words) {
+                myTrie.findAffixes(w, affixes, false);
+            }
+            end = Instant.now();
+            System.out.println("Discovering affixes: " + Duration.between(start, end));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try(  PrintWriter out = new PrintWriter(outputFileName)  ){
+            affixes.entrySet().stream()
+                    .filter(w -> w.getValue() > 0)                                  // filter all non-positive score
+                    .sorted((k1, k2) -> -k1.getValue().compareTo(k2.getValue()))    // sort affixes based on score
+                    .forEach(k -> out.println((prefix ? myReverse(k.getKey()) : k.getKey()) + " " + k.getValue()));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
-    public static void main(String[] args) {
+    /**
+     * this is purely for testing purpose (instead of writing unit test)
+     */
+    private static void mainTest1() {
         TrieDictionary myTrie = new TrieDictionary();
         Map<String, Integer> goodWords = new HashMap<>();
         ArrayList<String> badWords = new ArrayList<>();
@@ -62,6 +94,9 @@ public class Main {
             System.out.println("Checking for " + s3 + " " + myTrie.hasEntry(s3));
         }
 
-        testWord(myTrie, "reporters");
+        System.out.println("−−−−−−− Morphemes found from reporters −−−−−−−");
+        Map<String, Integer> morphemes = new HashMap<>();
+        myTrie.findAffixes("reporters", morphemes, true);
+        System.out.println(morphemes);
     }
 }
