@@ -1,0 +1,76 @@
+\documentclass[]{article}
+\usepackage{minted}
+\usemintedstyle{emacs}
+
+%opening
+\title{Assignment \#2: Discovering Affixes Automatically}
+\author{Thuong-Hai Pham}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+
+\end{abstract}
+
+\section{TrieNode}
+% Requirement: In your documentation take care to explain clearly why only one node class is required, and demonstrate how you cater for the different node ‘types’ with one class.
+
+Although we have three different kinds of node in our algorithm, these nodes are implemented in only one single class because the attributes in this class and the way we construct our algorithm help distinguishing an instance into these three kinds.
+
+First, every node instance is created (equal and) to be ``regular node". Then, by having the attribute ``endToken" set to true or false, it will be considered as ``end token node" or still ``regular node", respectively.
+
+After introducing ``endToken" attribute, the only problem is how to mark ``root node" from those two. If we look closely to the diagram, there is only one root node which has no parent, i.e. no node points to this root node as its child. Hence, we will have to handle this node from outside the tree, e.g. in ``main class" or in 
+``Trie Dictionary" (which will be implemented later). Therefore, there is no need to mark one node is root or not.
+
+% Next item to consider: each node can have several children. How would you store these children? Remember, these are nodes as well. So in your node class, you need storage for a list of children of type Node.
+Our straightforward approach to manage the child nodes is to create an ArrayList (supported by Java) of TrieNode to handle child nodes of a specific node.
+\begin{listing}[ht]
+	\begin{minted}[frame=single]{java}
+ArrayList<TrieNode> ChildNodes = new ArrayList<>();
+	\end{minted}
+	\caption{Declaration of ChildNodes}
+\end{listing}
+
+Whenever we need to add a new child node (e.g. add new entry), we first check whether it exists then initiate the new one, add it in the list.
+
+
+\begin{listing}[ht]
+	\begin{minted}[frame=single]{java}
+TrieNode t = this.getChildNode(input.charAt(0));
+if (t == null) {
+	t = new TrieNode(input.charAt(0));
+	this.ChildNodes.add(t);
+}
+	\end{minted}
+	\caption{Add new child node}
+\end{listing}
+
+\section{Trie Dictionary}
+
+\section{Main Class}
+
+\section{Comment}
+cycl - cyclostome
+b-frankcomb 19
+b-mphilb 19
+b-assistanceb 19
+
+Constructing tree from file: PT4.978S
+Discovering affixes: PT10.413S
+
+
+Constructing tree from file: PT4.495S
+Discovering affixes: PT10.007S
+
+
+Constructing tree from file: PT6.415S
+Discovering affixes: PT8.432S
+Constructing tree from file: PT4.169S
+Discovering affixes: PT9.858S
+
+
+
+
+\end{document}
