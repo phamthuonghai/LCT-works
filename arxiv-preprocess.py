@@ -33,11 +33,11 @@ for cur_time in tqdm(time_range(data_time_start, data_time_end)):
                 tmp = json.loads(data_line)
                 if 'text' in tmp and ('lang' in tmp and tmp['lang'] == 'en'):
                     tmp['text'] = [w for w in tknzr.tokenize(tmp['text'].lower()) if re.match('^#?\w+$', w)]
-                    tweets_json.append([tmp['text'], tmp['lang'], tmp['user']['id']])
-    except:
-        pass
+                    tweets_json.append([tmp['id'], tmp['text'], tmp['timestamp_ms'], tmp['user']['id']])
+    except Exception as inst:
+        print(inst)
 
-tweets = pd.DataFrame(tweets_json, columns=['text', 'lang', 'user'])
+tweets = pd.DataFrame(tweets_json, columns=['id', 'text', 'timestamp', 'user'])
 
 tweets.to_pickle('./data_%s_%s.pkl' % (data_time_start.strftime('%Y-%m-%d-%H-%M'),
                                               data_time_end.strftime('%Y-%m-%d-%H-%M')))
