@@ -9,7 +9,7 @@ from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
 
 # year, month, day, hour, minute
-data_time_start = datetime.datetime(2016, 7, 01, 0, 0)
+data_time_start = datetime.datetime(2016, 7, 1, 0, 0)
 data_time_end = datetime.datetime(2016, 7, 31, 23, 59)
 
 def time_range(start_time, end_time):
@@ -23,7 +23,7 @@ tweets_json = []
 
 for cur_time in tqdm(time_range(data_time_start, data_time_end)):
     try:
-        with bz2.BZ2File('/media/phamthuonghai/DATA/twitter-data/%s.json.bz2' 
+        with bz2.BZ2File('../twitter-data/%s.json.bz2'
                          % cur_time.strftime('%Y/%m/%d/%H/%M'), 'r') as f:
             data_lines = f.readlines()
             tknzr = TweetTokenizer(strip_handles=True, reduce_len=True)
