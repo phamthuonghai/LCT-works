@@ -44,9 +44,8 @@ def xml_bz2_processor(this_date):
 
     tweets = pd.DataFrame(tweets_json, columns=['id', 'text', 'timestamp', 'user'])
 
-    tweets.to_pickle('./data_%s_%s.pkl' % (data_time_start.strftime('%Y-%m-%d-%H-%M'),
-                                                  data_time_end.strftime('%Y-%m-%d-%H-%M')))
-    print("Read %s: %d successes, %d failures" % (this_date.strftime('%Y/%m/%d'), ok, err))
+    tweets.to_pickle('./data_%s.pkl' % this_date.strftime('%Y-%m-%d'))
+    print("Read %s: %d successes, %d failures" % (this_date.strftime('%Y-%m-%d'), ok, err))
 
 if __name__ == '__main__':
 
