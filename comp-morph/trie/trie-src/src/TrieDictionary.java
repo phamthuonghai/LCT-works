@@ -6,7 +6,10 @@ import java.util.*;
  * Created by phamthuonghai on 11/25/16.
  */
 public class TrieDictionary {
-    TrieNode rootNode;
+
+    private final double ESP = 10e-3;
+    private TrieNode rootNode;
+
     public TrieDictionary() {
         rootNode = new TrieNode();
     }
@@ -96,7 +99,8 @@ public class TrieDictionary {
 
             int freqAlphaA = this.getTokenCount(alphaA);
             int freqAlpha = this.getTokenCount(alpha);
-            boolean test2 = Math.abs((float) freqAlphaA / freqAlpha - 1) < 10e-3;
+            // approximation to 1 within ESP
+            boolean test2 = Math.abs((float) freqAlphaA / freqAlpha - 1) < ESP;
             if (verbose) {
                 System.out.println("alphaA: " + freqAlphaA + " / alpha: " + freqAlpha + " = " + test2);
 
@@ -104,7 +108,8 @@ public class TrieDictionary {
             }
 
             int freqAlphaAB = this.getTokenCount(alphaAB);
-            boolean test3 = (float) freqAlphaAB / freqAlphaA < 1;
+            // < 1 within ESP (escape the ESP interval around 1)
+            boolean test3 = (float) freqAlphaAB / freqAlphaA < 1 - ESP;
             if (verbose)
                 System.out.println("alphaAB: " + freqAlphaAB + " / alphaA: " + freqAlphaA + " = " + test3);
 

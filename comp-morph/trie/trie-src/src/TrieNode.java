@@ -44,7 +44,7 @@ public class TrieNode {
     /**
      * addEntry adds the input string to Trie from this current node, created new child node if needed
      * @param input string
-     * @param count occurrence of input strin
+     * @param count occurrence of input string
      * @return true if succeeded
      */
     boolean addEntry(String input, int count) {
