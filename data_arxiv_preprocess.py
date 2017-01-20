@@ -4,6 +4,7 @@ import re
 import bz2
 import datetime
 import pandas as pd
+import os
 
 from nltk.tokenize import TweetTokenizer
 from nltk.corpus import stopwords
@@ -44,13 +45,18 @@ def xml_bz2_processor(this_date):
 
     tweets = pd.DataFrame(tweets_json, columns=['id', 'text', 'timestamp', 'user'])
 
-    tweets.to_csv('./data_%s.pkl' % this_date.strftime('%Y-%m-%d'))
+    tweets.to_csv('./data/data_%s.pkl' % this_date.strftime('%Y-%m-%d'))
     print("Read %s: %d successes, %d failures" % (this_date.strftime('%Y-%m-%d'), ok, err))
 
 if __name__ == '__main__':
 
     tknzr = TweetTokenizer(strip_handles=True, reduce_len=True)
     punc = set('!$%^&*()_-+=\|{}[]:;"\'<>,.?/')
+
+    try:
+        os.mkdir('./data')
+    except Exception as e:
+        print('./data already exists')
 
     # year, month, day
     data_time_start = datetime.datetime(2016, 7, 1)
