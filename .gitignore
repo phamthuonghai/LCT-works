@@ -5,6 +5,7 @@
 *.index
 *.html
 *.pkl
+sftp-config.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
