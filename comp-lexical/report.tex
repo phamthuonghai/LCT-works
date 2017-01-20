@@ -1,0 +1,150 @@
+\documentclass[]{article}
+\usepackage{csquotes}
+\usepackage{cite}
+\usepackage{minted}
+\usemintedstyle{emacs}
+
+% Title Page
+\title{Computational Lexical Semantics \\Final Assignment}
+\author{Thuong-Hai Pham}
+
+
+\begin{document}
+\maketitle
+
+\section{Question 1}
+
+The Distributional Hypothesis dated back to the discussion of Harris \cite{harris1954distributional} about meaning as a function of distribution when he observed that,
+\blockquote{[I]f we consider words or
+	morphemes A and B to be more different in meaning than A and C, then we will
+	often find that the distributions of A and B are more different than the distributions of A and C. In other words, difference of meaning correlates with difference
+	of distribution.}
+Having that observation and transposition rule, the similarity between the distributions of (A, B) and (A, C) leads to the similarity in meaning of those considered words (or morphemes).
+
+Please note that the hypothesis stated above is also called Weak Distributional Hypothesis, in which it only assumes the correlation between semantic content and contextual distributions. A stronger version of the Distributional Hypothesis which take into account the assumption of causal role in the creation of semantic content is not covered in this report as underlying idea of Distributional Semantics Models (DSMs).
+
+\section{Question 2}
+Although lexical output of DSMs and lexical semantic content of WordNet both generate lists of semantically similar words, the difference between those two school are still evident. While DSMs results in a ranked list of similar words (by using a specific score function), manually built lexical resource such as such as WordNet does not provide the ranking system. However, these resources clearly declare the relation labels between words (e.g. synonym, antonym, hypernym...) which are missing in DSMs.
+
+The main differences between those two approaches are listed in table \ref{table:1} below
+\begin{table}
+	\begin{tabular}{ | c | p{5cm} | p{5cm} | }
+		\hline
+		& Manually built (WordNet...) & DSM output \\
+		\hline
+		Pros &
+			Precise \newline
+			Well-defined relations \newline
+		& 
+			Quantifiable semantic relatedness \newline
+			Empirical, cheap to construct \newline
+			Domain-independent \newline
+			Language-independent \newline
+			Flexible \newline
+			Scalable, depending on the corpus size \newline
+		\\ 
+		\hline
+		Cons & 
+			Expensive to be manually built \newline
+			Domain-dependent characterisations \newline
+			No frequency information \newline
+			Binary-relation (related \{synonym, antonym...\} or not) \newline
+			Static resource \newline
+		& 
+			Approximative \newline
+			Unexplainable relation label \newline
+		\\
+		\hline
+	\end{tabular}
+	\caption{Advantages and drawbacks of DSMs output and manually built lexical resources}
+	\label{table:1}
+\end{table}
+
+\section{Question 3}
+
+The monolingual text goes with DISSECT provides us lemmas for both words and contexts.
+
+Using lemma instead of word (after tokenisation) will prevent our co-occurrence matrix getting sparse. Hence, it will improve the latter process which is matrix decomposition or dimension reduction. More importantly, our ultimate goal is to analyse the underlying meaning of words, not the morphological process or meaning aspects produced by the morphological process. Therefore, choosing lemma to be our experiment subject is a better choice in compare with morphological words.
+
+\section{Question 4}
+
+Lemmatisation \& Part-of-speech (PoS) tagging in VN \& EN
+
+\section{Question 5}
+Without doubt, PoS information helps us to distinguish words which are identical in spelling but have distinct meanings - the linguistic phenomenon of homonymy.
+
+For examples, in DISSECT provided data, we have:
+
+\begin{table}
+	\begin{tabular}{ | c | c | p{10cm} | }
+		\hline
+		Word & PoS & Meaning\footnotemark \\
+		\hline
+		present-j & adj. & (something presented as a gift) "his tie was a present from his wife"  \\
+		\hline
+		present-n & noun & (give an exhibition of to an interested audience) "She shows her dogs frequently"; "We will demo the new software in Washington" \\
+		\hline
+		present-v & verb & (temporal sense; intermediate between past and future; now existing or happening or in consideration) "the present leader"; "articles for present use"; "the present topic"; "the present system"; "present observations" \\	
+		\hline
+	\end{tabular}
+\caption{Advantages and drawbacks of DSMs output and manually built lexical resources}
+\label{table:2}
+\end{table}
+\footnotetext{First sense for "present" in each of its PoS from http://wordnetweb.princeton.edu/}
+
+It is clearly that those three words listed in \ref{table:2} above all represented by ``present". However, these words read totally different meanings with their corresponding PoS.
+
+\section{Question 6}
+
+\section{Question 7}
+
+\section{Question 8}
+
+\section{Question 9}
+After 5
+
+\begin{minted}{bash}
+	log_e likelihood: -8.04984e+07
+	log_2 likelihood: -1.16135e+08
+	cross entropy: 6.46774
+	perplexity: 88.5082
+	posterior p0: 0
+	posterior al-feat: 0
+	size counts: 3398
+\end{minted}
+
+After 100
+\begin{minted}{bash}
+	log_e likelihood: -7.99788e+07
+	log_2 likelihood: -1.15385e+08
+	cross entropy: 6.42599
+	perplexity: 85.9838
+	posterior p0: 0
+	posterior al-feat: 0
+	size counts: 3398
+	
+	#	redo
+	  log_e likelihood: -8.04505e+07
+	  log_2 likelihood: -1.16065e+08
+	  cross entropy: 6.41889
+	  perplexity: 85.5613
+	  posterior p0: 0
+	  posterior al-feat: 0
+	  size counts: 3355
+	# with PoS  
+	    log_e likelihood: -7.9048e+07
+	    log_2 likelihood: -1.14042e+08
+	    cross entropy: 6.30699
+	    perplexity: 79.1757
+	    posterior p0: 0
+	    posterior al-feat: 0
+	    size counts: 3680
+	    
+\end{minted}
+
+\section{Question 10}
+
+\bibliography{report}{}
+\bibliographystyle{apalike}
+
+\end{document}          
