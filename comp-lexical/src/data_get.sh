@@ -1,10 +1,7 @@
 #!/bin/bash
 
-echo "Getting OpenSubtitles2016 data"
-wget -r --no-parent --reject "index.html*" http://opus.lingfil.uu.se/OpenSubtitles2016/xml/en/ &
-wget -r --no-parent --reject "index.html*" http://opus.lingfil.uu.se/OpenSubtitles2016/xml/vi/ &
-
-wait
-
-### Extract all gzip files
-for file in ./*/*/*/*.gz; do gzip -dk $file; done
+echo "======= Getting OpenSubtitles2016 data ======="
+wget http://opus.lingfil.uu.se/download.php?f=OpenSubtitles2016%2Fen-vi.txt.zip
+mkdir ./bilingual_data
+unzip download.php\?f\=OpenSubtitles2016%2Fen-vi.txt.zip -d ./bilingual_data
+rm download.php\?f\=OpenSubtitles2016%2Fen-vi.txt.zip

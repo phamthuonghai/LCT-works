@@ -1,4 +1,12 @@
 
+# Install prerequisites
+~~~ bash
+sudo apt-get update
+sudo apt-get -y install unzip python3 python3-pip python-virtualenv git
+sudo apt-get -y install cmake libgoogle-perftools-dev libsparsehash-dev
+sudo apt-get -y install default-jdk maven 
+~~~
+
 # Convert xml to raw text files, parallel
 
 ~~~ raw

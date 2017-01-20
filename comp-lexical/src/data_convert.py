@@ -1,88 +1,80 @@
+# encoding=utf8  
+import sys  
+
+reload(sys)  
+sys.setdefaultencoding('utf8')
 
 from tqdm import tqdm
 from collections import defaultdict
-from nltk.stem import WordNetLemmatizer
-import sys
 
+'''
+The tagset used by Vitk is that of the Vietnamese treebank. There are 18 different tags:
 
-lines = [None, None]
+Np - Proper noun
+Nc - Classifier
+Nu - Unit noun
+N - Common noun
+V - Verb
+A - Adjective
+P - Pronoun
+R - Adverb
+L - Determiner
+M - Numeral
+E - Preposition
+C - Subordinating conjunction
+CC - Coordinating conjunction
+I - Interjection
+T - Auxiliary, modal words
+Y - Abbreviation
+Z - Bound morphemes
+X - Unknown
+'''
 
-with open('./xces/en.txt', 'r') as f:
-    lines[0] = [line.strip().split() for line in f.readlines()]
+CONTENT_WORD_POS = ['a', 'v', 'n'] # Adjective, verb and noun
 
-with open('./xces/vi.token.txt', 'r') as f:
-    lines[1] = [line.strip().split() for line in f.readlines()]
+f_text = open('./bilingual_data/en-vi.txt', 'r')
 
-align = []
-with open('./xces/en-vi.align', 'r') as f:
-    for line in f.readlines():
-        tmp = []
-        for pair in line.strip().split():
-            tmp.append([int(id) for id in pair.split('-')])
-        align.append(tmp)
+f_align = open('./bilingual_data/en-vi.align', 'r')
 
+res = defaultdict(lambda : defaultdict(int))
+set2 = set()
 
-lemmatizer = WordNetLemmatizer()
+def parse_text(raw_text):
+    temp = raw_text.split('|||')
+    l1 = temp[0].strip().split()
+    l2 = temp[1].strip().split()
+    return l1, l2
 
+for (c_text, c_align) in tqdm(zip(f_text, f_align)):
+    text1, text2 = parse_text(c_text)
+    for pair in c_align.strip().split():
+        align_pair = pair.split('-')
+        if len(align_pair) != 2:
+            continue
 
-def word_matched(src_word, target_word, lang, pos):
-#     return src_word == target_word
-    if lang == 0:
-        return src_word == lemmatizer.lemmatize(target_word, pos)
-    else:
-        return src_word == target_word
-
-def words_in_line(word, line, lang, pos):
-    return [idx for idx, w in enumerate(line) if word_matched(word, w, lang, pos)]
-
-def find(word, lang, pos='n'):
-    word = word.replace(' ', '_')
-    res = []
-
-    for idx, line in tqdm(enumerate(lines[lang])):
-        word_ids = words_in_line(word, line, lang, pos)
-        if word_ids and len(word_ids) > 1:
-            for word_id in word_ids:
-                tmp = [pair[1-lang] for pair in align[idx] if pair[lang] == word_id]
-                if len(tmp) > 0:
-                    res += [(idx, word_id, tmp)]
-    
-    return res
-
-
-def print_lines(res_indexes, lang, max_lines = -1):
-    display(Markdown('---'))
-    cnt = 0
-
-    for res_id in res_indexes:
-        src_sen = ''
-        dst_sen = ''
-        
-        for idx, w in enumerate(lines[lang][res_id[0]]):
-            if idx == res_id[1]:
-                src_sen += ' **' + w + '** '
-            else:
-                src_sen += ' ' + w + ' '
-
-        for idx, w in enumerate(lines[1-lang][res_id[0]]):
-            if idx in res_id[2]:
-                dst_sen += ' **' + w + '** '
-            else:
-                dst_sen += ' ' + w + ' '
-        
-        display(Markdown(src_sen))
-        display(Markdown(dst_sen))
-        display(Markdown('---'))
-        
-        if max_lines > 0 and max_lines >= cnt:
-            break
-
-def print_freq(res_indexes, lang):
-    res = defaultdict(int)
-    for res_id in res_indexes:
         try:
-            tmp_word = ' '.join([lines[1-lang][res_id[0]][idx] for idx in res_id[2]])
-            res[tmp_word] += 1
-        except:
-            print("Unexpected error:", sys.exc_info()[0])
-    print(sorted(list(res.items()), key=lambda x: x[1], reverse=True))
+            w1 = text1[int(align_pair[0])]
+            w2 = text2[int(align_pair[1])]
+            if ((len(w1) > 2 and w1[-2] == '/' and w1[-1] in CONTENT_WORD_POS) and 
+                (len(w2) > 2 and w2[-2] == '/' and w2[-1] in CONTENT_WORD_POS)):
+                # res[w1[:-2]][w2[:-2]] += 1
+                # set2.add(w2[:-2])
+                res[w1][w2] += 1
+                set2.add(w2)
+        except Exception as e:
+            print(e)
+            pass
+
+f_text.close()
+f_align.close()
+
+with open('./bilingual_data/en-vi.rows', 'w') as f:
+    f.write('\n'.join(res.keys()))
+
+with open('./bilingual_data/en-vi.cols', 'w') as f:
+    f.write('\n'.join(set2))
+
+with open('./bilingual_data/en-vi.sm', 'w') as f:
+    for k, v in res.iteritems():
+        for k2, v2 in v.iteritems():
+            f.write(k + '\t' + k2 + '\t' + str(v2) + '\n')
