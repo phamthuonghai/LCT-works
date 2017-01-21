@@ -33,23 +33,28 @@ if __name__ == '__main__':
 
     res = {}
     for user in df_user.user:
-        if start_after:
-            if user == start_after:
-                start_after = None
-            continue
+        try:
+            if start_after:
+                if user == start_after:
+                    start_after = None
+                continue
 
-        print("Retrieving followers for user " + user)
-        ids = []
-        for page in tweepy.Cursor(api.followers_ids, user_id=user).pages():
-            ids.extend(page)
+            print("Retrieving followers for user " + user)
+            ids = []
+            for page in tweepy.Cursor(api.followers_ids, user_id=user).pages():
+                ids.extend(page)
 
-        tmp_res = set_user.intersection(set(ids))
-        if len(tmp_res) > 0:
-            res[user] = tmp_res
-            
-            if len(res.keys()) > 100:
-                print("Writing followers to file after " + file_suffix + " to " + user)
-                pickle.dump(res, './data/part_user_followers_' 
-                    + file_suffix + '_' + user + '.pkl')
-                res = {}
-                file_suffix = user
+            ids = set(ids)
+            if len(ids) > 0:
+                tmp = ids.intersection(set_user)
+                res[user] = (tmp, ids.difference(tmp))
+                
+                if len(res.keys()) >= 100:
+                    print("Writing followers to file after " + file_suffix + " to " + user)
+                    pickle.dump(res, './data/part_user_followers_'
+                        + file_suffix + '_' + user + '.pkl')
+                    res = {}
+                    file_suffix = user
+        except Exception as e:
+            print('Error! Passed user ' + user)
+            print(e)
