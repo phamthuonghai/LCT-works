@@ -29,7 +29,11 @@ cat ./bilingual_data/vi.pos/part-* > ./bilingual_data/vi.pos.txt
 rm -rd ./bilingual_data/vi.pos
 
 echo "======= Tokenizing & PoS taggin EN text ======="
-./env/bin/python ./data_en_preprocess.py
+wget http://nlp.stanford.edu/software/stanford-postagger-2016-10-31.zip
+unzip stanford-postagger-2016-10-31.zip
+rm stanford-postagger-2016-10-31.zip
+mv stanford-postagger-2016-10-31/ stanford-postagger
+./env/bin/python -u data_en_preprocess.py ./bilingual_data/OpenSubtitles2016.en-vi.en ./bilingual_data/en.token.txt ./bilingual_data/en.pos.txt
 
 echo "======= Merging EN & VN text ======="
 ./env/bin/python ./data_convert_pre_align.py
