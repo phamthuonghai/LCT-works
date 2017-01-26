@@ -28,7 +28,7 @@ echo "======= PoS tagging VN text ======="
 cat ./bilingual_data/vi.pos/part-* > ./bilingual_data/vi.pos.txt
 rm -rd ./bilingual_data/vi.pos
 
-echo "======= Tokenizing & PoS taggin EN text ======="
+echo "======= Tokenizing & PoS tagging EN text ======="
 wget http://nlp.stanford.edu/software/stanford-postagger-2016-10-31.zip
 unzip stanford-postagger-2016-10-31.zip
 rm stanford-postagger-2016-10-31.zip

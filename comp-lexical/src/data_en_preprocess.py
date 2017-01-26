@@ -10,24 +10,6 @@ from nltk.tag import StanfordPOSTagger
 from nltk.tokenize import TreebankWordTokenizer
 from nltk.stem import WordNetLemmatizer
 import sys
-from multiprocessing import Pool
-
-def process_line(line_en):
-    t = tknzr.tokenize(line_en.strip().strip('"'))
-    # p = nltk.pos_tag(t, tagset='universal')
-    p = tagger.tag(t)
-    r = []
-    for pos in p:
-        if pos[1][0] == 'J':
-            r.append(wnl.lemmatize(pos[0].lower().strip('.,!'), pos='a') + u'/A')
-        elif pos[1][0] == 'V':
-            r.append(wnl.lemmatize(pos[0].lower().strip('.,'), pos='v') + u'/V')
-        elif pos[1][0] == 'N':
-            r.append(wnl.lemmatize(pos[0].lower().strip('.,!'), pos='n') + u'/N')
-        else:
-            r.append(pos[0].lower()+ u'/' + pos[1])
-    print('d') # to count during running instead of tqdm
-    return ' '.join(t) + '\n', ' '.join(r) + '\n'
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:
@@ -102,12 +84,27 @@ if __name__ == '__main__':
 
 
         '''
-        pool = Pool(3)
-        res = pool.map(process_line, list(f))
-            
-        for r in res:
-            fout_token.write(r[0])
-            fout_pos.write(r[1])
+        ts = [tknzr.tokenize(line_en.strip().strip('"')) for line_en in tqdm(f)]
+
+        # p = nltk.pos_tag(t, tagset='universal')
+        ps = tagger.tag_sents(ts)
+
+        for p in tqdm(ps):
+            r = []
+            t = []
+            for pos in p:
+                t.append(pos[0].lower().strip('.,!'))
+                if pos[1][0] == 'J':
+                    r.append(wnl.lemmatize(pos[0].lower().strip('.,!'), pos='a') + u'/A')
+                elif pos[1][0] == 'V':
+                    r.append(wnl.lemmatize(pos[0].lower().strip('.,'), pos='v') + u'/V')
+                elif pos[1][0] == 'N':
+                    r.append(wnl.lemmatize(pos[0].lower().strip('.,!'), pos='n') + u'/N')
+                else:
+                    r.append(pos[0].lower()+ u'/' + pos[1])
+
+            fout_token.write(' '.join(t) + '\n')
+            fout_pos.write(' '.join(r) + '\n')
 
         fout_token.close()
         fout_pos.close()
