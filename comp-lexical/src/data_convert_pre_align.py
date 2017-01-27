@@ -1,4 +1,5 @@
 # import os
+import sys
 from tqdm import tqdm
 # import xml.etree.ElementTree as ET
 # from collections import defaultdict
@@ -52,14 +53,18 @@ from tqdm import tqdm
 
 
 ### Merge two raw text files to fast_align format
+if __name__ == '__main__':
+    if len(sys.argv) != 4:
+        print("data_convert_pre_align.py input_file_lang1 input_file_lang2 output_file")
+        exit()
 
-fin_en = open('./bilingual_data/en.pos.txt', 'r')
-fin_vi = open('./bilingual_data/vi.pos.txt', 'r')
-fout = open('./bilingual_data/en-vi.txt', 'w')
+    fin_en = open(sys.argv[1], 'r')
+    fin_vi = open(sys.argv[2], 'r')
+    fout = open(sys.argv[3], 'w')
 
-for (line_en, line_vi) in tqdm(zip(fin_en, fin_vi)):
-    fout.write(line_en.lower().strip() + ' ||| ' + line_vi.lower().strip() + '\n')
+    for (line_en, line_vi) in tqdm(zip(fin_en, fin_vi)):
+        fout.write(line_en.lower().strip() + ' ||| ' + line_vi.lower().strip() + '\n')
 
-fout.close()
-fin_en.close()
-fin_vi.close()
+    fout.close()
+    fin_en.close()
+    fin_vi.close()

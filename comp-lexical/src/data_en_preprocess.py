@@ -9,11 +9,12 @@ import nltk
 from nltk.tag import StanfordPOSTagger
 from nltk.tokenize import TreebankWordTokenizer
 from nltk.stem import WordNetLemmatizer
-import sys
+
+contractions = {"'s/V": 'be/V', "'re/V": 'be/V', "'m/V": 'be/V', "'ve/V": 'have/V', "ma'am/N": 'madam/N'}
 
 if __name__ == '__main__':
     if len(sys.argv) != 4:
-        print("data_en_preprocess input_file output_no_pos output_with_pos")
+        print("data_en_preprocess.py input_file output_no_pos output_with_pos")
         exit()
 
     tknzr = TreebankWordTokenizer()
@@ -95,13 +96,15 @@ if __name__ == '__main__':
             for pos in p:
                 t.append(pos[0].lower().strip('.,!'))
                 if pos[1][0] == 'J':
-                    r.append(wnl.lemmatize(pos[0].lower().strip('.,!'), pos='a') + u'/A')
+                    r.append(wnl.lemmatize(pos[0].lower().strip('.,!-'), pos='a') + u'/A')
                 elif pos[1][0] == 'V':
-                    r.append(wnl.lemmatize(pos[0].lower().strip('.,'), pos='v') + u'/V')
+                    r.append(wnl.lemmatize(pos[0].lower().strip('.,!-'), pos='v') + u'/V')
                 elif pos[1][0] == 'N':
-                    r.append(wnl.lemmatize(pos[0].lower().strip('.,!'), pos='n') + u'/N')
+                    r.append(wnl.lemmatize(pos[0].lower().strip('.,!-'), pos='n') + u'/N')
                 else:
                     r.append(pos[0].lower()+ u'/' + pos[1])
+                if r[-1] in contractions:
+                    r[-1] = contractions[r[-1]]
 
             fout_token.write(' '.join(t) + '\n')
             fout_pos.write(' '.join(r) + '\n')
