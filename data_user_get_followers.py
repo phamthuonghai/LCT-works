@@ -51,10 +51,10 @@ if __name__ == '__main__':
                 
                 if len(res.keys()) >= 100:
                     print("Writing followers to file after " + file_suffix + " to " + user)
-                    pickle.dump(res, './data/part_user_followers_'
-                        + file_suffix + '_' + user + '.pkl')
+                    with open('./data/part_user_followers_'
+                            + file_suffix + '_' + user + '.pkl', 'wb') as pickle_file:
+                        pickle.dump(res, pickle_file)
                     res = {}
                     file_suffix = user
         except Exception as e:
-            print('Error! Passed user ' + user)
-            print(e)
+            print('Error! Passed user ' + user + ': ' + str(e))
