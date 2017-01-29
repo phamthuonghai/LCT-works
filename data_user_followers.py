@@ -3,21 +3,21 @@ try:
 except ImportError:
     import simplejson as json
 
+import argparse
 from data_twitter_token import *
 import pandas as pd
 import tweepy
 import sys
 import pickle
+import glob
 
-if __name__ == '__main__':
-    if len(sys.argv) < 2:
-        print("Start at begining")
-        start_after = None
-        file_suffix = '0'
-    else:
-        print("Start after " + sys.argv[1])
-        start_after = sys.argv[1]
+def get_followers(start_after):
+    if start_after:
+        print("Start after " + start_after)
         file_suffix = start_after
+    else:
+        print("Start at begining")
+        file_suffix = '0'
 
 
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
@@ -58,3 +58,34 @@ if __name__ == '__main__':
                     file_suffix = user
         except Exception as e:
             print('Error! Passed user ' + user + ': ' + str(e))
+
+def combine_result():
+    dict_data = {}
+    for file_name in glob.glob('./data/part_user_followers_*.pkl'):
+        with open(file_name, 'rb') as pickle_file:
+            dict_tmp = pickle.load(pickle_file)
+            dict_data.update(dict_tmp)
+
+    df_data = pd.DataFrame.from_dict(dict_data, orient='index')
+    df_data.columns = ['inner_group', 'outer_group']
+
+    df_user = pd.read_pickle('./data/data_user_tweets_count.pkl')
+    df_user.set_index('user', inplace=True)
+    df_user.columns = ['tweets_count']
+
+    df_res = pd.merge(df_data, df_user, left_index=True, right_index=True, how='inner')
+    df_res.sort_values('tweets_count', ascending=False, inplace=True)
+    df_res.to_pickle('./data/data_user_selected_full.pkl')
+    df_res[['tweets_count']].to_pickle('./data/data_user_selected.pkl')
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    parser.add_argument("task", help="task to do: get or combine")
+    parser.add_argument("-s", "--start-after",
+        help="retreive followers after user with specified id")
+    args = parser.parse_args()
+
+    if args.task == 'get':
+        get_followers(args.start_after)
+    elif args.task == 'combine':
+        combine_result()
