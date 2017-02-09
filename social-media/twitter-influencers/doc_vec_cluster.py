@@ -1,6 +1,6 @@
 '''
 to train doc2vec:
-    python doc_vec_cluster.py train_doc2vec -t ./data/data_tweets_selected.pkl -d ./data/doc2vec_model.model
+    python doc_vec_cluster.py train_doc2vec -t ./data/data_tweets_selected.pkl -d ./model/doc2vec_model_tune.model
 '''
 # encoding=utf8  
 import sys  
@@ -32,8 +32,10 @@ def train_doc2vec(tweets_file, doc2vec_file, author_topic, workers, iterations, 
             f_tmp.write(' '.join(item) + '\n')
 
     sentences = models.doc2vec.TaggedLineDocument(tmp_file)
-    model = models.doc2vec.Doc2Vec(sentences, size=feature_size, window=10, min_count=5,
-        iter=iterations, workers=workers)
+    # model = models.doc2vec.Doc2Vec(sentences, size=feature_size, window=10, min_count=5,
+        # iter=iterations, workers=workers)
+    model = models.doc2vec.Doc2Vec(sentences, dm=0, dbow_words=1, size=100, window=10, hs=0,
+        negative=5, sample=1e-4, iter=20, min_count=1, workers=workers)
 
     print('Writing doc2vec model to ' + doc2vec_file)
     model.save(doc2vec_file)
