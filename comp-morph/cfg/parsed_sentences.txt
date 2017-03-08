@@ -1,0 +1,222 @@
+# http://nlp.stanford.edu:8080/parser/index.jsp
+
+(ROOT
+  (S
+    (NP (NNP Work))
+    (VP (VBZ accelerates)
+      (NP
+        (NP (DT the) (NN growth))
+        (PP (IN of)
+          (NP (NNS muscles)))))
+    (. .)))
+
+(ROOT
+  (S
+    (NP (NNS Muscles))
+    (VP (VBP grow)
+      (PP (IN in)
+        (NP (NN response)))
+      (S
+        (VP (TO to)
+          (VP (VB work)))))
+    (. .)))
+
+(ROOT
+  (S
+    (S
+      (NP (DT An) (JJ average) (NN adult) (NN male))
+      (VP (VBZ is)
+        (VP (VBN made)
+          (PRT (RP up))
+          (PP (IN of)
+            (NP
+              (ADJP (CD 45) (NN %))
+              (JJ skeletal) (NN muscle))))))
+    (CC and)
+    (S
+      (NP (DT an) (JJ average) (NN adult) (NN female))
+      (VP (VBZ is)
+        (VP (VBN made)
+          (PRT (RP up))
+          (PP (IN of)
+            (NP
+              (ADJP (CD 35) (NN %))
+              (JJ skeletal) (NN muscle))))))
+    (. .)))
+
+(ROOT
+  (S
+    (NP (DT The) (JJ pyramidal) (NN motor) (NN system))
+    (VP (VBZ controls)
+      (NP (JJ voluntary) (NNS movements)))
+    (. .)))
+
+
+(ROOT
+  (S
+    (NP (JJ Old) (NNS people))
+    (VP (VBP are)
+      (PP (IN at)
+        (NP
+          (NP (NN risk))
+          (PP (IN for)
+            (NP (NN arthritis))))))
+    (. .)))
+
+(ROOT
+  (S
+    (NP (NNP Dr) (NNP David) (NNP Cook))
+    (VP (VBZ is)
+      (NP
+        (NP (DT a) (NN researcher))
+        (PP (IN of)
+          (NP (DT the) (NN motor) (NN system)))))
+    (. .)))
+
+(ROOT
+  (S
+    (NP (DT The) (NN muscle) (NN action))
+    (VP (VBZ is)
+      (VP (VBN determined)
+        (PP (IN by)
+          (NP (DT the) (NN origin)
+            (CC and)
+            (NN insertion) (NNS locations)))))
+    (. .)))
+
+(ROOT
+  (S
+    (NP (DT The) (NN motor) (NN system))
+    (VP (VBZ is)
+      (ADJP (JJ responsible)
+        (PP (IN for)
+          (NP (JJ physical) (NN movement)))))
+    (. .)))
+
+(ROOT
+  (SQ (VBZ Is)
+    (NP (DT the) (NN muscle))
+    (ADJP (JJ tired))
+    (. ?)))
+
+(ROOT
+  (SQ (VBP Do)
+    (NP (PRP you))
+    (VP (VB have)
+      (NP
+        (NP (NN pain))
+        (PP (IN in)
+          (NP (DT the) (NNS muscles))))
+      (PP (IN on)
+        (NP
+          (NP (DT the) (NN side))
+          (PP (IN of)
+            (NP (DT the) (NN face))))))
+    (. ?)))
+
+(ROOT
+  (S
+    (NP (NNS Scientists))
+    (ADVP (RB finally))
+    (VP (VBD realized)
+      (SBAR (IN that)
+        (S
+          (NP (NNP DNA))
+          (VP (VBZ controls)
+            (NP (NN heredity))))))
+    (. .)))
+
+(ROOT
+  (S
+    (NP
+      (NP (DT A) (NN pain))
+      (PP (IN in)
+        (NP
+          (NP (DT the) (NN abdomen))
+          (RRC
+            (ADJP (JJ lasting))
+            (NP
+              (QP (JJR more) (IN than) (DT a))
+              (NN week))))))
+    (VP (MD could)
+      (VP (VB be)
+        (ADJP (JJ appendicitis))))
+    (. .)))
+
+(ROOT
+  (S
+    (NP (DT The) (NN muscle))
+    (VP (VBZ is)
+      (VP (VBG functioning)
+        (ADVP (RB normally))))
+    (. .)))
+
+(ROOT
+  (NP (RB Not) (DT that) (NN one) (. .)))
+
+(ROOT
+  (S
+    (PP (IN Before)
+      (NP
+        (NP (DT the) (NN discovery))
+        (PP (IN of)
+          (NP (NNP DNA)))))
+    (NP (NN heredity))
+    (VP (VBD was)
+      (NP (DT a) (NN mystery)))
+    (. .)))
+
+(ROOT
+  (S
+    (NP
+      (NP (DT The) (NN discovery))
+      (PP (IN of)
+        (NP (NNP DNA))))
+    (VP (VBD was)
+      (NP (DT a)
+        (ADJP (RB very) (JJ important))
+        (NN milestone)))
+    (. .)))
+
+(ROOT
+  (S
+    (NP (EX There))
+    (VP (VBZ is)
+      (NP
+        (NP (JJ much) (NN research))
+        (PP (IN on)
+          (NP
+            (NP (DT the) (NN growth))
+            (PP (IN of)
+              (NP (NNS muscles)))))))
+    (. .)))
+
+(ROOT
+  (S
+    (NP (DT Some) (NNS muscles))
+    (VP (VBP have)
+      (NP (JJ many) (NN insertion) (NNS locations)))
+    (. .)))
+
+(ROOT
+  (S
+    (NP
+      (NP (JJ Few) (NNS people))
+      (ADJP (JJ privy)
+        (PP (TO to)
+          (NP (DT the) (NN research)))))
+    (VP (VBP are)
+      (ADJP (JJ willing)
+        (S
+          (VP (TO to)
+            (VP (VB dispute)
+              (NP (PRP it)))))))
+    (. .)))
+
+(ROOT
+  (S
+    (NP (JJ Old) (NNS people))
+    (VP (VBP consider)
+      (NP (NN arthritis))
+      (NP (DT a) (JJ scary) (NN disease)))
+    (. .)))
