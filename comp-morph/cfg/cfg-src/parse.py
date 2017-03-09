@@ -1,8 +1,10 @@
 import nltk
+from nltk.grammar import Nonterminal
 from nltk.parse import EarleyChartParser
 from nltk.tokenize import WordPunctTokenizer
 
 grammar = nltk.data.load('grammar.cfg')
+grammar._start = Nonterminal('ROOT')
 parser = EarleyChartParser(grammar)
 
 tokenizer = WordPunctTokenizer()
@@ -10,19 +12,23 @@ tokenizer = WordPunctTokenizer()
 sum_cnt = 0
 sen_cnt = 0
 
-with open('../sentences.txt') as f:
+fo = open('parses.out', 'w')
+
+with open('sentences.txt') as f:
     for sentence in f:
         tk_sentence = tokenizer.tokenize(sentence)
         pars = parser.parse(tk_sentence)
         cnt = 0
         for par in pars:
-            print(par)
-            print('\n')
+            fo.write(str(par))
+            fo.write('\n\n')
             cnt += 1
 
-        print(cnt)
-        print('-------------------------------------')
+        fo.write(str(cnt))
+        fo.write('\n-------------------------------------\n')
         sum_cnt += cnt
         sen_cnt += 1
 
-    print('There are on average %.2f parses per sentence.' % (float(sum_cnt)/sen_cnt))
+    fo.write('\nThere are on average %.2f parses per sentence.\n' % (float(sum_cnt)/sen_cnt))
+
+fo.close()

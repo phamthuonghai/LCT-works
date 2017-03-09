@@ -1,14 +1,15 @@
 # http://nlp.stanford.edu:8080/parser/index.jsp
+# from sentences.txt
 
 (ROOT
   (S
-    (NP (NNP Work))
+    (NP (NN Work))
     (VP (VBZ accelerates)
       (NP
         (NP (DT the) (NN growth))
         (PP (IN of)
           (NP (NNS muscles)))))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (S
@@ -19,7 +20,7 @@
       (S
         (VP (TO to)
           (VP (VB work)))))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (S
@@ -42,14 +43,14 @@
             (NP
               (ADJP (CD 35) (NN %))
               (JJ skeletal) (NN muscle))))))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (S
     (NP (DT The) (JJ pyramidal) (NN motor) (NN system))
     (VP (VBZ controls)
       (NP (JJ voluntary) (NNS movements)))
-    (. .)))
+    (PUNC .)))
 
 
 (ROOT
@@ -61,7 +62,7 @@
           (NP (NN risk))
           (PP (IN for)
             (NP (NN arthritis))))))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (S
@@ -71,7 +72,7 @@
         (NP (DT a) (NN researcher))
         (PP (IN of)
           (NP (DT the) (NN motor) (NN system)))))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (S
@@ -82,7 +83,7 @@
           (NP (DT the) (NN origin)
             (CC and)
             (NN insertion) (NNS locations)))))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (S
@@ -91,13 +92,13 @@
       (ADJP (JJ responsible)
         (PP (IN for)
           (NP (JJ physical) (NN movement)))))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (SQ (VBZ Is)
     (NP (DT the) (NN muscle))
     (ADJP (JJ tired))
-    (. ?)))
+    (PUNC ?)))
 
 (ROOT
   (SQ (VBP Do)
@@ -112,7 +113,7 @@
           (NP (DT the) (NN side))
           (PP (IN of)
             (NP (DT the) (NN face))))))
-    (. ?)))
+    (PUNC ?)))
 
 (ROOT
   (S
@@ -124,7 +125,7 @@
           (NP (NNP DNA))
           (VP (VBZ controls)
             (NP (NN heredity))))))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (S
@@ -141,7 +142,7 @@
     (VP (MD could)
       (VP (VB be)
         (ADJP (JJ appendicitis))))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (S
@@ -149,10 +150,10 @@
     (VP (VBZ is)
       (VP (VBG functioning)
         (ADVP (RB normally))))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
-  (NP (RB Not) (DT that) (NN one) (. .)))
+  (NP (RB Not) (DT that) (NN one) (PUNC .)))
 
 (ROOT
   (S
@@ -164,7 +165,7 @@
     (NP (NN heredity))
     (VP (VBD was)
       (NP (DT a) (NN mystery)))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (S
@@ -176,7 +177,7 @@
       (NP (DT a)
         (ADJP (RB very) (JJ important))
         (NN milestone)))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (S
@@ -189,14 +190,14 @@
             (NP (DT the) (NN growth))
             (PP (IN of)
               (NP (NNS muscles)))))))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (S
     (NP (DT Some) (NNS muscles))
     (VP (VBP have)
       (NP (JJ many) (NN insertion) (NNS locations)))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (S
@@ -211,7 +212,7 @@
           (VP (TO to)
             (VP (VB dispute)
               (NP (PRP it)))))))
-    (. .)))
+    (PUNC .)))
 
 (ROOT
   (S
@@ -219,4 +220,4 @@
     (VP (VBP consider)
       (NP (NN arthritis))
       (NP (DT a) (JJ scary) (NN disease)))
-    (. .)))
+    (PUNC .)))
