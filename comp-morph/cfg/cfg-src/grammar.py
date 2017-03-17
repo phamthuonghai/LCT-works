@@ -17,6 +17,7 @@ with open('parsed_sentences.txt') as f:
             t = tree.Tree.fromstring(s)
             prod += t.productions()
             t.chomsky_normal_form()
+            t.collapse_unary(collapsePOS=True)
             prod_cnf += t.productions()
             s = ''
 

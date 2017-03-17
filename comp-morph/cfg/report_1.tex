@@ -13,11 +13,29 @@
 
 \maketitle
 
-For \textbf{task 1}, we parsed the sentences with Stanford parser \footnote{http://nlp.stanford.edu:8080/parser/index.jsp} \cite{klein2003accurate}, then converted these parsed structures to Context-free grammar (CFG) rules in \textbf{grammar.py} using \textbf{nltk.tree} and \textbf{nltk.grammar.CFG}. The output file is \textbf{grammar.cfg}. 
+\section{Task 1}
+For task 1, we parsed the sentences with Stanford parser \footnote{http://nlp.stanford.edu:8080/parser/index.jsp} \cite{klein2003accurate}, then converted these parsed structures to Context-free grammar (CFG) rules in \textbf{grammar.py} using \textbf{nltk.tree} and \textbf{nltk.grammar.CFG}\cite{bird2009natural}. The output file is \textbf{grammar.cfg}. 
 
-The Chomsky normal form (CNF) was also achieved in grammar.py paralleling with non-CNF CFG. The function \textbf{t.chomsky\_normal\_form()} allows us to convert non-CNF tree to CNF tree. This can be double checked with \textbf{is\_chomsky\_normal\_form()} function of the CFG object. Our CNF CFG is stored in \textbf{grammar\_cnf.cfg}
+The Chomsky normal form (CNF) was also achieved in grammar.py paralleling with non-CNF CFG. The functions \textbf{tree.chomsky\_normal\_form()} and \textbf{tree.collapse\_unary()} allow us to convert non-CNF tree to CNF tree. This can be double checked with \textbf{is\_chomsky\_normal\_form()} function of the CFG object. Our CNF CFG is stored in \textbf{grammar\_cnf.cfg}. The converting process is quite trivial by:
+\begin{itemize}
+	\item eliminating chain of unary productions until reaching binary one or terminal
+	\begin{minted}{text}
+	NP -> EX -> 'There'
+	# merging the unary chain to one non-terminal
+	=> NP+EX -> 'There'
+	\end{minted}
+	\item replacing group of nodes with an intermediate non-terminal if the production is tertiary or more
+	\begin{minted}{text}
+	NP -> JJ NN NNS
+	# introducing new non-terminal NP|<NN-NNS>
+	=> NP -> JJ NP|<NN-NNS>; NP|<NN-NNS> -> NN NNS
+	\end{minted}
+\end{itemize}
 
-Parsing raw sentences (\textbf{task 2}) with grammar.cfg was implemented in \textbf{parse.py}, in which we initiated \textbf{nltk.parse.EarleyChartParser} with loaded grammar and parsed the sentences after being tokenised by \textbf{nltk.tokenize.WordPunctTokenizer}. It is important to note that we have to specify the grammar start non-terminal \mint{python}{grammar._start = Nonterminal('ROOT')} or else the grammar object will be loaded with starting non-terminal assigned by the first rule.
+It is important to set collapsePOS=True in tree.collapse\_unary() to keep reducing until reaching terminals. This is set to false as in some cases, the direct parent of a terminal is POS tag, which should be kept intact. In the same function, parameter collapseRoot must be kept False to prevent collapsing ROOT node and producing grammar with multiple root nodes.
+
+\section{Task 2}
+Parsing raw sentences (task 2) with grammar.cfg was implemented in \textbf{parse.py}, in which we initiated \textbf{nltk.parse.EarleyChartParser} with loaded grammar and parsed the sentences after being tokenised by \textbf{nltk.tokenize.WordPunctTokenizer}. It is important to note that we have to specify the grammar start non-terminal \mint{python}{grammar._start = Nonterminal('ROOT')} or else the grammar object will be loaded with starting non-terminal assigned by the first rule.
 
 \bibliographystyle{ieeetr}
 \bibliography{report}
