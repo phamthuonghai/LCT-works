@@ -90,7 +90,7 @@ def extract_mfccs(file_list, label_list, use_deltas=True):
 
 
 def main():
-    # preprocess data files, get a list of files per emotion
+    # preprocess data files, get a list of files per speaker
     speaker_files = get_file_lists(data_dir=DATA_DIR)
     # assign numeric labels for each class
     data_labels = assign_class_labels(speaker_files)
@@ -117,17 +117,17 @@ def main():
 
                 # train models
                 gmms = []
-                # train a GMM for each emotion
-                emotion_classes = [1, 2, 3, 4, 5, 6]
-                for emotion in emotion_classes:
+                # train a GMM for each speaker
+                speaker_classes = [1, 2, 3, 4, 5, 6]
+                for speaker in speaker_classes:
                     ubm_copy = copy.deepcopy(ubm)
-                    # print("Training model for emotion: %d" % emotion)
-                    emotion_data = []
+                    # print("Training model for speaker: %d" % speaker)
+                    speaker_data = []
                     for file in train_files:
                         data = mfccs[file]
-                        if data["labels"][0] == emotion:
-                            emotion_data.extend(data["data"])
-                    ubm_copy.fit(emotion_data)
+                        if data["labels"][0] == speaker:
+                            speaker_data.extend(data["data"])
+                    ubm_copy.fit(speaker_data)
                     gmms.append(ubm_copy)
 
                 # test models

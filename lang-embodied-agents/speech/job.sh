@@ -17,4 +17,4 @@
 #$ -S /bin/bash
 #
 
-./venv/bin/python3 speaker_identification.py
+./venv/bin/python3 -u speaker_identification.py
