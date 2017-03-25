@@ -21,17 +21,21 @@ VALIDATE_SIZE = 0.3
 def get_file_lists(data_dir='.'):
     speaker_files_list = {}
     get_id = re.compile('Speaker (\d+)')
+    speaker_ids = []
 
     for root, sub_folders, files in os.walk(data_dir):
         for file in files:
             full_path = os.path.join(root, file)
             speaker_id = get_id.findall(root)[-1]   # Get the final matched
             if speaker_id not in speaker_files_list:
+                speaker_ids.append(speaker_id)
                 speaker_files_list[speaker_id] = []
 
             speaker_files_list[speaker_id].append(full_path)
 
-    return [v for _, v in speaker_files_list.items()]
+    speaker_ids = sorted(speaker_ids)
+    print('Speaker IDs: %s' % str(speaker_ids))
+    return [speaker_files_list[_id] for _id in speaker_ids]
 
 
 def fold_split(data_set, data_labels, test_size=0.3):
