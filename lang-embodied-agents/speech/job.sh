@@ -17,4 +17,6 @@
 #$ -S /bin/bash
 #
 
+date
 ./venv/bin/python3 -u speaker_identification.py
+date

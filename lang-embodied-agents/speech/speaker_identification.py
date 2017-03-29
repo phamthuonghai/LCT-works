@@ -14,7 +14,7 @@ from python_speech_features import delta
 
 DATA_DIR = "./Audio"
 GMM_K = [16, 32, 64, 128, 256]
-K_FOLD = 4
+K_FOLD = 5
 VALIDATE_SIZE = 0.3
 
 
