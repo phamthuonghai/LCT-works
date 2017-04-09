@@ -122,7 +122,7 @@ def main():
                 # train models
                 gmms = []
                 # train a GMM for each speaker
-                speaker_classes = [1, 2, 3, 4, 5, 6]
+                speaker_classes = sorted(set(data_labels))
                 for speaker in speaker_classes:
                     ubm_copy = copy.deepcopy(ubm)
                     # print("Training model for speaker: %d" % speaker)
@@ -138,7 +138,7 @@ def main():
                 results = []
                 for _, file in enumerate(test_files):
                     # eval file under all models
-                    model_results = numpy.zeros(6)
+                    model_results = numpy.zeros(len(speaker_classes))
                     for idx, model in enumerate(gmms):
                         test_mfccs = mfccs[file]["data"]
                         score = model.score(test_mfccs)
