@@ -1,0 +1,69 @@
+\documentclass[12pt]{article}
+\usepackage{minted}
+\usepackage[pdftex]{graphicx}
+\usemintedstyle{emacs}
+
+%\usepackage[margin=1.25in]{geometry}
+\usepackage[onehalfspacing]{setspace}
+%opening
+\title{Task \#3 part 2\\Implementing the CKY algorithm}
+\author{Thuong-Hai Pham}
+
+\begin{document}
+
+\maketitle
+
+\section{Source code overview}
+Beside \textbf{main()} function, which reads the grammar, input file and does preliminary checking, the main part of our program can be divided into two parts: \textbf{parse()} (parsing) and \textbf{back\_track()} (backtracking).
+
+\subsection{parse()}
+As a tradition to Dynamic Programming algorithm, we need a table to memorise previous results. In this program, we use a 2D table: \mint{python}{f[i][j] = {label: [(k, prod)...]...}}
+in which:
+\begin{itemize}
+	\item \textbf{i, j} denote the sentence segment that our current cell coverages (from word $i$ to word $j-1$)
+	\item Each cell maintains list of key-value pair \textbf{label: [(k, prod)...]} (for backtracking purpose)
+	\begin{itemize}
+		\item \textbf{label} is the current node label (i.e. left-hand side (lhs) of the production rule), for faster search from parent cells
+		\item \textbf{k} denotes the separation index, that divided this current segment into two sub-segments $(i, k)$ and $(k, j)$
+		\item \textbf{prod} stores the production rule that does the splitting (with labels of the two child nodes, or one child node if $k$ is None). This is required because a triplet $(i, k, j)$ can be produced by different production rules (composed by various child node labels)
+	\end{itemize}
+\end{itemize}
+
+Having our table, we first fill it with production rules lead to a terminal. To be more specific, we fill all $f[i][i+1]$ cells ($i < l$: length of the input sentence). Then, we follow these steps:
+\begin{enumerate}
+	\item Generate all triplet $(i, k, j)$, $(i<k<j)$
+	\item Search for production rules that matches our condition defined by CKY algorithm
+	\item Add new valid separation index (k) and production rule to current cell
+	\item Until we reach $f[0][l]$
+\end{enumerate}
+
+\subsection{back\_track()}
+In backtracking part, we implement \textbf{go()} function that traverses through the result table in Depth-First-Search approach.
+\begin{enumerate}
+	\item Start with (0, $l$, grammar.start) (the only valid top node)
+	\item If the node can not be divided ($k$ is None, production: Non-terminal -\textgreater terminal), then return a single tree: Non-terminal -\textgreater terminal.
+	\item else, get two lists of left and right possible sub-trees by traversing to left, right node, consequently, then, return a Cartesian product of those two lists.
+\end{enumerate}
+
+\section{Problems and Solutions}
+Grammar provided is not minimised, some rules are duplicated. As a consequence, the output has some identical trees.
+\begin{minted}[linenos,firstnumber=102]{text}
+Nom -> X15 Nom
+Nom -> Nom PP	# duplicated
+Nom -> Nom NP
+Nom -> Adj Nom
+Nom -> Nom PP	# duplicated
+Nom -> ADJP Nom
+\end{minted}
+
+To solve this problem, when querying production rules from grammar, we need to remove duplicated rule by using ``set" as below
+\begin{minted}[linenos,firstnumber=27]{python}
+for _prod in set(grammar.productions(rhs=lhs_1)):
+\end{minted}
+instead of
+\begin{minted}[linenos,firstnumber=27]{python}
+for _prod in grammar.productions(rhs=lhs_1):
+\end{minted}
+
+
+\end{document}
