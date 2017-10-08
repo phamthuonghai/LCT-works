@@ -1,0 +1,930 @@
+SRC	Osmadvacetiletý šéfkuchař nalezen mrtev v obchodě v San Francisku
+MT	Eight-year-old chef found dead in store in San Francisco
+	28-Year-Old Chef Found Dead at San Francisco Mall
+NOTES: lex:Osmadvacetiletý
+
+SRC	Osmadvacetiletý šéfkuchař, který se nedávno přistěhoval do San Franciska, byl tento týden schodech místního obchodu.
+MT	The 28-year-old chef, who recently moved to San Francisco, was the steps of a local store this week.
+	A 28-year-old chef who had recently moved to San Francisco was found dead in the stairwell of a local mall this week.
+NOTES: betterThanRef
+
+SRC	Bratr oběti ale říká, že ho nenapadá, kdo by mu chtěl ublížit, a dodává: „Konečně se mu začalo dařit.“
+MT	But the victim's brother says he can't think of who would want to hurt him, adding: "He's finally started to thrive."
+	But the victim's brother says he can't think of anyone who would want to hurt him, saying, "Things were finally going well for him."
+NOTES: betterThanRef
+
+SRC	Tělo nalezené ve Westfield Mall ve středu ráno bylo identifikováno jako osmadvacetiletý obyvatel San Franciska Frank Galicia, uvedla kancelář soudního lékaře.
+MT	The body found in Westfield Mall on Wednesday morning was identified as 8-year-old San Francisco resident Frank Galicia, the medical examiner's office said.
+	The body found at the Westfield Mall Wednesday morning was identified as 28-year-old San Francisco resident Frank Galicia, the San Francisco Medical Examiner's Office said.
+NOTES: lex:osmadvacetiletý
+
+SRC	Sanfranciské policejní oddělení sdělilo, že se jedná o násilnou smrt a probíhá vyšetřování.
+MT	The San Francisco Police Department said the death was ruled a homicide and an investigation is ongoing.
+	The San Francisco Police Department said this is a violent death and an investigation is underway.
+NOTES: lex:násilnou smrt
+
+SRC	Bratr oběti Louis Galicia pro stanici ABC KGO v San Francisku řekl, že Frank, který byl dříve řadovým kuchařem v Bostonu, získal svou vysněnou práci šéfkuchaře v restauraci Sons & Daughters před šesti měsíci.
+MT	The victim's brother Louis Galicia for the ABC KGO station in San Francisco said Frank, who was previously a regular chef in Boston, got his dream job as a chef at the Sons & Daughters restaurant six months ago.
+	The victim's brother, Louis Galicia, told ABC station KGO in San Francisco that Frank, previously a line cook in Boston, had landed his dream job as line chef at San Francisco's Sons & Daughters restaurant six months ago.
+NOTES: grammar:for...said
+
+SRC	Mluvčí restaurace Sons & Daughters řekl, že jsou jeho smrtí „šokováni a zničeni“.
+MT	A spokesman for the restaurant Sons & Daughters said they were "shocked and devastated" by his death.
+	A spokesperson for Sons & Daughters said they were "shocked and devastated" by his death.
+NOTES: flawless
+
+SRC	„Máme malý tým, který pracuje jako úzce spojená rodina. Bude nám moc chybět,“ uvedl mluvčí.
+MT	"We have a small team that works as a close-knit family. We will miss him very much," said a spokesman.
+	"We are a small team that operates like a close knit family and he will be dearly missed," the spokesperson said.
+NOTES: flawless; determiner?
+
+SRC	V této těžké době patří naše myšlenky a zármutek Frankově rodině a přátelům.
+MT	At this difficult time, our thoughts and grief belong to Frank's family and friends.
+	Our thoughts and condolences are with Frank's family and friends at this difficult time.
+NOTES: flawless
+
+SRC	Louis Galicia uvedl, že Frank nejprve přespával v ubytovnách, ale že nedávno „se mu konečně začalo dařit.“
+	Louis Galicia said Frank initially stayed in hostels, but recently, "Things were finally going well for him."
+MT	Louis Galicia said that Frank first slept in the accommodation, but that recently "he had finally begun to thrive."
+NOTES: lex:ubytovnách
+
+SRC	„Našel si byt, chodil s dívkou,“ řekl Louis Galicia pro KGO.
+	"He found an apartment, he was dating a girl," Louis Galicia told KGO.
+MT	"He found an apartment, he was dating a girl," said Louis Galicia for KGO.
+NOTES: grammar:said...for
+
+SRC	Louis Galicia řekl, že ho nenapadá, kdo by chtěl jeho mladšímu bratrovi ublížit.
+MT	Louis Galicia said he could not think of anyone who would want to hurt his younger brother.
+	Louis Galicia said he couldn't think of anyone who wanted to hurt his younger brother.
+NOTES: flawless
+
+SRC	Měl laskavou duši a velké srdce.
+	He had a kind soul and a big heart.
+MT	He was a kind spirit with a big heart.
+NOTES: notNice:kind spirit; lex:Měl
+
+SRC	Když se chtěl spojit s rodinou, vždy nám uvařil jídlo, udělal nám večeři,“ řekl Louis Galicia.
+MT	When he wanted to connect with his family, he always cooked us food, he made us dinner, "Louis Galicia said.
+	His way of connecting with the family was always making us a dish, making us dinner," Louis Galicia said.
+NOTES: betterThanRef
+
+SRC	Nikdy se nechtěl účastnit žádné hádky.
+?	He never wanted to be in any kind of altercation.
+?	He never wanted to participate in any argument.
+NOTES: flawless
+
+SRC	Byl to bratr, který bral věci takové, jaké jsou.
+MT	He was a brother who took things the way they are.
+	He was the brother that went with the flow.
+NOTES: notNice
+
+SRC	„I kdyby všechno ostatní na světě bylo špatně, on byl nebroušený diamant, který ozářil každý den“, řekl.
+MT	"With everything else that's going wrong with the world, he was that diamond in the rough that was shining bright every day," he said.
+	"Even if everything else in the world was wrong, he was a rough diamond that lit up every day," he said.
+NOTES: grammar:diamond in the rough; notNice:With everything else
+
+SRC	Pokud byste měli jakékoliv informace, volejte na linku SFPD na čísle: 415-575-4444.
+	Anyone with information is asked to call the SFPD Tip Line at 415-575-4444.
+MT	If you have any information, please call the SFPD line at number: 415-575-4444.
+NOTES: flawless
+
+SRC	České dráhy investovaly do modernizace vozidel přes 31 miliard.
+	Czech Railways has invested over $31 billion in upgrading vehicles.
+MT	České dráhy has invested over 31 billion in the modernisation of carriages.
+NOTES: lex:České dráhy
+
+SRC	Mají klimatizaci i nové toalety.
+MT	They have air conditioning and new toilets.
+	They are now equipped with air conditioning and new toilets.
+NOTES: flawless
+
+SRC	V posledních šesti letech investoval státní dopravce do modernizace vozidel přes 31 miliard korun.
+MT	Over the past six years, the state-owned rail operator has invested over 31 billion Czech crowns in the upgrade of train carriages.
+	In the last six years, the state carrier has invested over $31 billion in upgrading vehicles.
+NOTES: betterThanRef
+
+SRC	Třetina vozů je v současnosti vybavena klimatizací, zhruba polovina vlaků má nový systém uzavřených WC.
+?	A third of the cars are currently equipped with air-conditioning, about half of the trains have a new system of closed WC.
+?	One-third of the carriages is currently equipped with air conditioning, and roughly one-half of trains has a closed toilet system.
+NOTES: flawless
+
+SRC	Částky na modernizaci v jednotlivých letech s výjimkou roku 2012 ovšem postupně klesají.
+MT	However, the amounts for modernisation in individual years with the exception of 2012 are gradually decreasing.
+	Save for 2012, the annual amounts spent on modernisation have been steadily decreasing.
+NOTES: flawless
+
+SRC	České dráhy v posledních šesti letech investovaly do modernizace vozidel přes 31 miliard korun.
+MT	Over the past six years, Czech Railways invested over 31 billion in the modernisation of carriages.
+	Czech Railways has invested over $31 billion in upgrading vehicles over the past six years.
+NOTES: grammar:has invested
+
+SRC	Třetina vozů je v současnosti vybavená klimatizací, zhruba polovina vlaků má nový systém uzavřených WC.
+?	A third of the cars are currently equipped with air-conditioning, about half of the trains have a new system of closed WC.
+?	The state-owned carrier operates over two thousand locomotives, electric and diesel units and about 2,130 passenger carriages.
+NOTES: wtf
+
+SRC	Vynaložené peníze se projevily ve snížení průměrného stáří o dva roky u lokomotiv a samostatných jednotek a o šest let u klasických vagonů.
+MT	The money spent has been shown to reduce the average age by two years for locomotives and separate units and six years for classic cars.
+	As a result of the investment, the average age of locomotives and separate units has been reduced by two years and that of conventional carriages by six years.
+NOTES: flawless
+
+SRC	Větší podíl investic dal dopravce do regionální dopravy, kam směřovalo zhruba 60 procent uvedených peněz, 40 procent pak společnost investovala do obnovy vozidel pro dálkovou dopravu.
+MT	A greater share of the investment put the carrier in regional transport, where about 60 per cent of that money was directed, 40 per cent then the company invested in the recovery of vehicles for long-distance transport.
+	With 60 percent, the carrier spent a larger portion of the investment on regional transport, with 40 percent going into the upgrade of long-distance carriages.
+NOTES: grammar:put the carrier
+
+SRC	Průměrné stáří lokomotiv a jednotek v současnosti dosahuje 19 let.
+	The average age of locomotives and units is currently 19 years.
+MT	The average age of locomotives and units currently stands at 19 years.
+NOTES: betterThanRef
+
+SRC	Modernizovaná starší vozidla jsou ale v tomto ukazateli započítána jako zcela nová.
+MT	However, upgraded older carriages are counted towards the indicator as brand new.
+	However, the upgraded older vehicles are counted as completely new in this indicator.
+NOTES: missingDet; notNice
+
+SRC	Pokud by se modernizace vozidel nepočítaly, vzrostlo by průměrné stáří hnacích vozidel ČD o deset let.
+MT	Without the upgraded vehicles, the average age of traction vehicles of ČD would increase by ten years.
+	If vehicle upgrades were not counted, the average age of CHD driving vehicles would increase by 10 years.
+NOTES: flawless
+
+SRC	O něco starší jsou v průměru osobní vagony, jejichž průměrný věk při započtení modernizací činí 23 let.
+	The average age of passenger carriages tends to be higher. If the upgraded carriages are counted, the average age is 23 years.
+MT	Slightly older are, on average, passenger cars, whose average age at offsetting upgrades is 23 years.
+NOTES: lex:offsetting
+
+SRC	Pokud by se bral v úvahu jen věk od data výroby, průměrné stáří těchto vozidel by činilo 33,4 roku.
+?	If only the age from the date of production were taken into account, the average age of these vehicles would be 33.4 years.
+?	However, taking into account only the age based on the date of manufacture, the average age of these carriages would be 33.4 years.
+NOTES: flawless
+
+SRC	Klasické soupravy složené z vagonů a tažené lokomotivou nicméně v posledních letech z české i celosvětové železnice postupně mizí a jsou nahrazovány motorovými nebo elektrickými jednotkami.
+MT	However, classic sets made up of wagons and towed locomotives have gradually disappeared from both Czech and global railways in recent years and are being replaced by motor or electric units.
+	Conventional trains consisting of carriages and hauled by locomotives are gradually disappearing from railways not only in the Czech Republic but worldwide and replaced by motorised or electric-powered units.
+NOTES: flawless
+
+SRC	Mezi roky 2011 a 2015 ubylo lokomotiv z 280 na 223 kusů, podobně klesl i počet klasických vagonů z 2716 v roce 2011 na 2132 v polovině letošního roku.
+MT	Between 2011 and 2015, the locomotive dropped from 280 to 223 units, similarly dropping the number of classic cars from 2716 in 2011 to 2132 in the middle of this year.
+	Between 2011 and 2015, the number of locomotives decreased from 280 to 223 units, and the number of conventional carriages dropped from 2,716 in 2011 to 2,132 in the middle of this year.
+NOTES: grammar:plural; missingSubject
+
+SRC	Dopravce se zbavoval zejména starých vozidel vybavených koženkovými sedadly a dveřmi bez možnosti zablokování otevření během jízdy.
+MT	The carrier was mainly stripped of old vehicles equipped with leather seats and doors without the possibility of blocking the opening while driving.
+	The railway operator is mainly getting rid of older carriages fitted with faux leather seats and without a locking system to prevent doors from opening when the train is moving.
+NOTES: notNice
+
+SRC	Od ledna do července nechal dopravce sešrotovat 110 těchto vozů.
+MT	From January to July, the operator has had 110 of these carriages scrapped.
+	From January to July, the carrier let down 110 of these cars.
+NOTES: flawless
+
+SRC	Z investic, které do vozidlového parku plánují ČD uskutečnit v blízké budoucnosti, je možné uvést například nákup 50 vagonů pro rychlost do 200 kilometrů v hodině, které dopravce plánuje nasadit na mezinárodní lince Praha - Bratislava - Budapešť, nebo rámcovou smlouvu na nákup elektrických jednotek pro tuzemské rychlíkové trati.
+?	The rolling stock investment of ČD includes, for example, the purchase of 50 carriages for speeds up to 200 kilometres per hour, which the operator plans to use on the line Prague - Bratislava - Budapest, or a master agreement for the purchase of electric-powered units for domestic express railway links.
+?	For example, the purchase of 50 cars for speeds up to 200 kilometres per hour, which the carrier plans to deploy on the Prague-Bratislava-Budapest international line, or a framework contract for the purchase of electric units for the domestic speed track.
+NOTES: 
+
+SRC	Smlouva počítá s odběrem až 30 kusů motorových a 20 kusů elektrických jednotek.
+MT	The contract envisages a sampling of up to 30 pieces of motor and 20 pieces of electric units.
+	Under the contract, it plans to purchase up to 30 motorised units and up to 20 electric-powered units.
+NOTES: lex:odběrem; lex:envisages
+
+SRC	Zemědělci letos sklidí méně obilí, ale více řepky a máku, odhadují statistici.
+	Statisticians estimate that this year, farmers will harvest less grain and more rapeseed and poppy.
+MT	Farmers will reap less grain this year, but more rape and poppy, statisticians estimate.
+NOTES: flawless
+
+SRC	Podle odhadů Českého statistického úřadu bude sklizeň obilovin letos o 6,7 procenta nižší než loni.
+MT	According to estimates by the Czech Statistical Office, the cereal harvest this year will be 6.7 percent lower than last year.
+	According to the estimates of the Czech Statistical Office, the grain harvest will be 6.7 percent lower compared to last year.
+NOTES: missingDet
+
+SRC	Přesto letošní úroda převyšuje průměr za posledních pět i deset let.
+	This year's harvest will still be higher than the average over the past five to ten years.
+MT	Yet this year's harvest exceeds the average for the past five and 10 years.
+NOTES: notNice:five and 10
+
+SRC	Vyšší bude naopak sklizeň řepky (o 3,9 procenta) a máku (2,5 procenta).
+	In contrast, the harvest of rapeseed and poppy is expected to increase by 3.9 and 2.5 percent, respectively.
+MT	On the other hand, the harvest of beets (3.9 per cent) and poppy (2.5 per cent) will be higher.
+NOTES: lex:řepky
+
+SRC	Sklizeň obilovin bude letos o 6,7 procenta nižší než loni.
+MT	The harvest of grains will be 6.7 percent lower than last year.
+	The cereal harvest will be 6.7 percent lower this year than last year.
+NOTES: notNice
+
+SRC	Zemědělci sklidí 7,2 milionu tun obilí.
+	Farmers are expected to harvest 7.2 million tonnes of grain.
+MT	Farmers will reap 7.2 million tonnes of grain.
+NOTES: flawless
+
+SRC	Vyplývá to z odhadu, který podle stavu k 15. červenci zveřejnil Český statistický úřad.
+MT	This follows from the estimate as at 15 July, released by the Czech Statistical Office.
+	This is based on an estimate published by the Czech Statistical Office on 15 July.
+NOTES: grammar:at
+
+SRC	Prvotní odhad před měsícem byl pesimističtější a předpokládal desetinový pokles proti loňsku.
+?	The initial estimate released a month ago was more pessimistic as it assumed a 10 percent drop compared to last year.
+?	The initial estimate a month ago was more pessimistic and anticipated a tenth drop against last year.
+NOTES: flawless
+
+SRC	Loňská sklizeň obilovin ale byla nadprůměrná.
+	But last year's cereal harvest was above average.
+MT	Last year's harvest of cereals was above average.
+NOTES: notNice
+
+SRC	Letošní úroda převyšuje průměr za posledních pět i deset let.
+MT	This year's harvest exceeds the average for the past five and 10 years.
+	This year's harvest exceeds the average for the last five to ten years.
+NOTES: almost flawless: five and 10
+
+SRC	Naopak vyšší bude letos sklizeň řepky a máku.
+MT	On the other hand, higher will be the harvest of rape and poppy this year.
+	In contrast, the harvest of rapeseed and the poppy is expected to be higher this year.
+NOTES: grammar: inversion
+
+SRC	Řepky pěstitelé sklidí o 3,9 procenta více než před rokem, kdy dostali pod střechu 1,256 milionu tun.
+	This year, the rapeseed harvest is expected to be 3.9 percent higher than the 1.256 million tonnes harvested last year.
+MT	Beets growers shed 3.9 per cent more than a year ago, when they got 1.256 million tonnes under the roof.
+NOTES: lex:Řepky
+
+SRC	Letošní úroda máku by mohla být o 2,5 procenta vyšší než loňská.
+?	This year's poppy crop could be 2.5 per cent higher than last year's.
+?	This year's poppy harvest could increase by 2.5 percent year-on-year.
+NOTES: flawless
+
+SRC	Předpokládaný pokles produkce obilovin je způsobený jak snížením hektarového výnosu o 3,7 procenta na 5,71 tuny z hektaru, tak poklesem osevní plochy.
+	The projected decline in cereal production is due to both a reduction in the hectare yield of 3.7 per cent to 5.71 tonnes from the hectare and the decline in the sowing area.
+MT	The projected decline in grain harvest is due to a decrease in planted areas as well as a reduction in the yield per hectare by 3.7 percent to 5.71 tonnes per hectare.
+NOTES: notNice
+
+SRC	Zemědělci letos oseli o tři procenta méně polí.
+	This year, planted areas decreased by three percent.
+MT	Farmers have trimmed 3 percent fewer fields this year.
+NOTES: lex:oseli
+
+SRC	Pšenice ozimé, která je pro Česko nejvýznamnější obilovinou, se letos podle odhadu sklidí o 3,3 procenta méně.
+MT	Wheat ozone, which is the most important grain for the Czech Republic, is estimated to be down 3.3 percent this year.
+	The harvest of winter wheat, which is the most important grain in the Czech Republic, is expected to drop by 3.3 this year.
+NOTES: lex:ozimé-ozone
+
+SRC	Farmáři ji přitom vyseli na více polí.
+?	This is despite the fact that the areas planted under winter wheat have increased.
+?	The farmers sat it out in more fields.
+NOTES: wtf
+
+SRC	Na poklesu se ale podepíše nižší hektarový výnos, který klesne na 6,04 tuny.
+	The decline is due to a lower yield per hectare, which is expected to drop to 6.04 tonnes.
+MT	But it will sign a lower heatwave yield on the decline, which drops to 6.04 tonnes.
+NOTES: extra:hektarový-heatwave; lex:podepíše
+
+SRC	Zhruba pětinový pokles statistici předpokládají u ječmene jarního, který se nejčastěji používá na výrobu piva.
+	Czech Statistical Office projects roughly a one-fifth decline in spring barley, which is mainly used in the production of beer.
+MT	About a fifth drop the statisticians assume for barley spring, which is most commonly used to make beer.
+NOTES: refExtra:Czech Statistical Office
+
+SRC	Za snížením úrody stojí snížení osevních ploch o 15,2 procenta, ale i nižší hektarový výnos.
+MT	The reduction in crop yields stands at 15.2 per cent, as well as a lower heatwave yield.
+	This is attributable to a 15.2 percent reduction in planted areas and a lower per hectare yield.
+NOTES: lex:hektarový-heatwave
+
+SRC	Ječmene ozimého se naopak urodí o 6,3 procenta více.
+	In contrast, the harvest of winter barley is estimated to grow by 6.3 percent.
+	Barley ozone, on the other hand, is born 6.3 per cent more.
+NOTES: lex:ozimého-ozone
+
+SRC	Vzroste také sklizeň žita.
+	The rye harvest is also expected to be higher year-on-year.
+MT	The harvest of rye will also rise.
+NOTES: flawless
+
+SRC	Úrodu řepky statistici odhadují na 1,305 milionu tuny, což je proti loňsku více.
+MT	The crop of rape statisticians is estimated at 1.305 million tonnes, which is up against last year.
+	The Czech Statistical Office estimates rapeseed harvest to increase year-on-year to 1.305 million tonnes,
+NOTES: refExtra:Czech Statistical Office
+
+SRC	Osevní plochy se totiž rozšířily o 7,3 procenta.
+	In fact, the sowing areas expanded by 7.3 percent.
+MT	on the back of a 7.3 percent increase in planted areas.
+NOTES: missVerb
+
+SRC	Hektarový výnos ale bude o 3,2 procenta nižší než loni.
+	However, the yield per hectare will be about 3.2 percent lower than last year.
+MT	But the heatwave yield will be 3.2 percent lower than last year.
+NOTES: lex:Hektarový-heatwave
+
+SRC	Letošní úroda řepky převýší desetiletý průměr o 13,3 procenta, zaseta je přitom na ploše o třetinu rozsáhlejší než před deseti lety.
+MT	This year's crop of beets will exceed the 10-year average of 13.3 per cent, sitting on an area a third more extensive than a decade ago.
+	This year's rapeseed harvest is projected to be 13.3 percent higher than the ten-year average, on the back of a one-third increase in planted areas.
+NOTES: lex:řepky-beets; lex:sitting ion
+
+SRC	V posledních čtyřech letech také přibývá polí s mákem.
+?	Poppy fields have also been increasing in the last four years.
+?	The area planted with poppy seed has also increased over the past four years
+NOTES: flawless
+
+SRC	Letos ho farmáři vyseli na 35.543 hektarech.
+	to reach 35,543 hectares this year.
+MT	This year, the farmers sat it out on 35.543 acres.
+NOTES: lex:sat out
+
+SRC	Proti roku 2008, kdy se mák v Česku pěstoval na rekordních 70 000 hektarech, je ale polí polovina.
+	Compared to 2008, when poppy seed was planted on a record area of 70,000 hectares, the planted area has halved.
+MT	But against 2008, when the poppy in the Czech Republic grew to a record 70,000 hectares, the field is half.
+NOTES: notNice
+
+SRC	Díky rozšíření osevních ploch bude letošní sklizeň máku bohatší.
+MT	Thanks to the expansion of the crop areas, this year's poppy harvest will be richer.
+	Thanks to the increase in sown areas, this year's poppy harvest is expected to be a success.
+NOTES: notNice
+
+SRC	Stoupne proti loňsku o 2,5 procenta na 27 423 tun.
+	It will increase compared to last year by 2.5 percent to 27,423 tons.
+MT	It will rise by 2.5 per cent to 27,423 tonnes last year.
+NOTES: almost flawless
+
+SRC	Hektarový výnos ale bude o 6,1 procenta nižší.
+MT	But the hectare yield will be 6.1 per cent lower.
+	The yield per hectare will be about 6.1 percent lower.
+NOTES: almost flawless
+
+SRC	Olomoučtí policisté obvinili dva muže za útok nožem a mačetou, soud je poslal do vazby.
+	The police in Olomouc arrested two men for an assault with a knife and machete, and the court ordered to take them into custody.
+MT	Peel police have charged two men for a knife attack and a machete, a court has sent them into custody.
+NOTES: namedEntity:Olomoučtí; grammar:parallel structure
+
+SRC	Policie obvinila dva útočníky, kteří v úterý v centru Olomouce napadli nožem a mačetou pětatřicetiletého muže.
+	The police arrested two men, who on Tuesday attacked a thirty-five-year-old man with a knife and a machete.
+MT	Police have charged two attackers who attacked a knife and machete of a 35-year-old man on Tuesday in the centre of Olomouc.
+NOTES: missDet; attachment:attacked a knife and machete
+
+SRC	"Přestože se napadený snažil utéct, způsobili mu sečné a řezné zranění, které si vyžádalo ošetření v nemocnici a další léčení," uvedla policejní mluvčí Marie Štrbáková.
+	"Although the victim tried to escape, he suffered stabbing and cutting wounds which required hospital treatment and further rehabilitation," said the police spokeswoman Marie Štrbáková.
+MT	"Although the assailant tried to escape, they caused a septic and cutting wound, which required treatment at the hospital and other treatment," said police spokeswoman Maria Shults.
+NOTES: namedEntity:Štrbáková; betterThanRef:způsobili-caused
+
+SRC	Oba zřejmé pachatele bezprostředně po útoku zadrželi policisté.
+?	The perpetrators were arrested by the police immediately after the attack.
+?	The two obvious offenders were detained by police immediately after the attack.
+NOTES: 
+
+SRC	Žalobce podal návrh soudu na jejich vzetí do vazby a soud mu v pátek vyhověl.
+MT	The plaintiff filed a motion with the court on their custody and the court granted it on Friday.
+	The prosecutor filed a detention order which was upheld by the court on Friday.
+NOTES: flawless
+
+SRC	Oběma mužům hrozí tři až deset let vězení.
+	The men could spend between three and ten years in prison.
+MT	Both men face three to 10 years in prison.
+NOTES: notNice
+
+SRC	Policisté obvinili dva zadržené z napadení pětatřicetiletého muže v centru Olomouce nožem a mačetou.
+MT	The police arrested two men detained on suspicion of attacking a thirty-five-year-old man with a knife and a machete in the centre of Olomouc.
+	Officers have charged two detainees of assaulting a 35-year-old man in the centre of Olomouc with a knife and a machete.
+NOTES: extra:suspicion
+
+SRC	Útočníci mu způsobili sečná a řezná poranění, muž skončil v nemocnici.
+	The attackers inflicted stabbing and cutting wounds on the victim, who required hospital treatment.
+MT	The attackers caused him to cut and cut injuries, and the man ended up in hospital.
+NOTES: lex:sečná a řezná-cut and cut
+
+SRC	Útoku předcházel incident mezi dvěma skupinami lidí, který se stal v úterý v pravé poledne na třídě Svobody, uvedla policie.
+	The attack was preceded by an incident between two groups of people that happened on Tuesday at noon on Liberty Avenue, police said.
+MT	According to the police, the attack was preceded by an incident between two groups of people on Tuesday noon at třída Svobody.
+NOTES: namedEntity: třídě Svobody
+
+SRC	Pachatelé skončili ve vazbě, informovala olomoucká policejní mluvčí Marie Štrbáková.
+	The perpetrators ended up in custody, said Marie Štrbáková, the spokeswoman of Olomouc police.
+MT	The offenders ended up in custody, Olomide police spokeswoman Maria Shtrban said.
+NOTES: namedEntity:Štrbáková; namedEntity:olomoucká
+
+SRC	Hromadná potyčka mezi dvěma rodinami se odehrála v prostoru zahrádky před barem Tratorie v bezprostřední blízkosti centra Olomouce.
+	This was preceded by a mass scuffle between two families outside the bar trattoria near the centre of Olomouc.
+MT	A mass scuffle between two families took place in the area of the garden outside the bar of the trattoria in the immediate vicinity of the centre of Olomouc.
+NOTES: refExtra:This was preceded
+
+SRC	Po agresivní slovní rozepři napadli dva útočníci za pomocí nože a mačety pětatřicetiletého muže.
+MT	After an aggressive verbal altercation, two attackers were attacked using a knife and a machete of a 35-year-old man.
+	Following an aggressive altercation, two men attacked a thirty-five-year-old man with a knife and a machete.
+NOTES: verbForm:passive;attachment:using a knife and a machete of a 35-year-old man
+
+SRC	Přestože se napadený muž snažil utéct, způsobili mu sečné a řezné zranění, které si vyžádalo ošetření v nemocnici a další léčení, uvedla policejní mluvčí.
+	Although the victim tried to escape, he suffered stabbing and cutting wounds which required hospital treatment and further rehabilitation," said the police spokeswoman.
+MT	Although the assailant tried to escape, they caused a septic and cutting wound that required treatment at the hospital and other treatment, a police spokeswoman said.
+NOTES: betterThanRef:způsobili-caused
+
+SRC	Při potyčce, která vzbudila v centru města velkou pozornost a kvůli které muselo na místě zasahovat několik policejních hlídek i strážníků, šlo o rodinné spory.
+?	In a scuffle that had attracted a lot of attention in the city centre and for which several police patrols and officers had to intervene, it was a family feud.
+?	The skirmish, which attracted a lot of attention in the city centre as several police units had to intervene at the scene, was the result of a family dispute.
+NOTES: flawless
+
+SRC	Kriminalisté čtyřiatřicetiletého muže ze Slovenska a sedmatřicetiletého muže z Olomouce obvinili z pokusu těžkého ublížení na zdraví a výtržnictví.
+MT	The criminals of a 34-year-old man from Slovakia and a seven-year-old man from Olomouc have been charged with attempted serious bodily harm and disorderly conduct.
+	Detectives arrested a thirty four-year-old man from Slovakia and a thirty-seven-year-old man from Olomouc on suspicion of attempted grievous bodily harm and disorderly conduct.
+NOTES: lex:sedmatřicetiletého-seven-year-old
+
+SRC	Žalobce podal návrh soudu na jejich vzetí do vazby a soud mu v pátek vyhověl, doplnila mluvčí.
+?	The prosecutor filed a detention order which was upheld by the court on Friday, added the spokeswoman.
+?	The plaintiff filed a motion with the court on their custody and the court granted it on Friday, the spokeswoman added.
+NOTES: flawless
+
+SRC	Mačetu použili v centru Olomouce při hromadné bitce útočníci také před pěti lety, stalo se to tehdy jen pár desítek metrů dále, před diskotékou Varna v Riegrově ulici.
+	Five years ago, a machete was used in another attack, during a mass brawl just a few dozen meters away, before the disco Varna in Riegrova ulice.
+MT	The machete was used in the centre of Olomouc in the mass battle of the attackers also five years ago, only a few hundred yards away, in front of the Varna disco in Rieger Street.
+NOTES: grammar:"the" instead of a
+
+SRC	Policisté tehdy uvedli, že skupina zhruba deseti cizinců se zbraněmi napadla hosty podniku, kteří stáli před vchodem.
+MT	Officers said at the time that a group of about 10 foreigners with guns attacked guests of the business who were standing outside the entrance.
+	According to the police, a group of roughly ten armed foreigners attacked guests of a restaurant who stood in front of the entrance.
+NOTES: betterThanRef
+
+SRC	Podle policie měli v rukou nože, hole a mačety.
+?	According to police, they had knives, sticks and machetes in their hands.
+?	According to the police, they were holding knives, sticks and machetes.
+NOTES: flawless
+
+SRC	Soud poté dva útočící cizince potrestal podmíněným trestem.
+MT	The court then punished the two attacking foreigners with a suspended sentence.
+	Two of the foreign attackers received a suspended sentence.
+NOTES: betterThanRef
+
+SRC	Opuštěné a prázdné domy v centru Prahy.
+?	Abandoned and empty houses in the centre of Prague.
+?	Abandoned and vacant buildings in the centre of Prague.
+NOTES: flawless
+
+SRC	Budete překvapeni, možná kolem nich denně chodíte.
+	You may be surprised to find that you walk pass them every day.
+MT	You'll be surprised, maybe you walk around them every day.
+NOTES: betterThanRef
+
+SRC	Jeden z nejkřiklavějších příkladů nevyužitého a prázdného domu je rozlehlá budova bývalého sídla IPB vprostřed Senovážného náměstí.
+	One of the most striking examples of an unused and empty building are the large former headquarters of IPB in the middle of Senovážné náměstí,
+MT	One of the most egregious examples of an unused and empty house is the vast building of the former IPB headquarters in the middle of the Senatorial Square.
+NOTES: lex:nejkřiklavějších-egregious
+
+SRC	Ta už měla dávno fungovat jako hotel.
+	which was supposed to be turned into a hotel.
+MT	It should have worked as a hotel by now.
+NOTES: betterThanRef
+
+SRC	Jenže pořád nic.
+MT	But still nothing.
+	So far, there has not been any progress.
+NOTES: betterThanRef
+
+SRC	Že je potřeba stavět v metropoli nové a nové byty a kanceláře?
+	We often hear how important it is to build new flats and offices in the capital.
+MT	That there is a need to build new and new apartments and offices in the metropolitan area?
+NOTES: betterThanRef
+
+SRC	A co využít stávající, často architektonicky cenné a chráněné?
+MT	What about using existing, often architecturally valuable and protected?
+	Would it not make more sense to take advantage of existing buildings, which are often protected because of their architectural or historical merit?
+NOTES: notNice
+
+SRC	Přímo v centru Prahy v bezprostředním okolí Václavského náměstí je několik činžovních domů, které i přes svou polohu, velikost a často i památkovou ochranu jen pustnou a zejí prázdnotou.
+MT	Right in the centre of Prague in the immediate vicinity of Wenceslas Square, there are several apartment houses which, despite their location, size and often memorial protection, are deserted and deserted.
+	Right in the centre of Prague in the immediate vicinity of Václavské náměstí, there are several blocks of flats which remain empty despite their premium location, size and heritage status.
+NOTES: grammar:deserted and deserted;lex:apartment houses
+
+SRC	Nemovitosti v centru jsme vybrali pomocí projektu Prázdnédomy.cz, který mapuje dlouhodobě prázdné nemovitosti na území Česka.
+	We have identified these properties in the city centre with the help of the project Prázdnédomy.cz, which maps long-term empty properties in the Czech Republic.
+MT	We have selected the properties at the centre using the Void Project, which maps long-term vacant properties in the Czech Republic.
+NOTES: namedEntity:Prázdnédomy.cz
+
+SRC	Domy jsou obvykle obětí finančních problémů svých majitelů, neprůhledných vztahů mezi firmami nebo patří státu, který se jich neumí či nechce zbavit.
+MT	Homes are usually victims of their owners "financial problems, opaque relationships between companies or belong to a state that can't or doesn't want to get rid of them.
+	The buildings are usually the victims of financial problems of their owners, non-transparent relationships between companies, or they are owned by the state, which is unable or unwilling to dispose of them.
+NOTES: lex:Domy-Homes;extra:"
+
+SRC	Prázdných domů je v Česku víc než bezdomovců.
+MT	There are more empty houses in the Czech Republic than the homeless.
+	The number of empty buildings in the Czech Republic exceeds the number of homeless people.
+NOTES: lex:domů-houses
+
+SRC	Ať za ně majitelé platí speciální daň, chce iniciativa
+	The initiative wants their owners to be liable for a special tax on these buildings.
+MT	Let owners pay special tax for them, wants initiative
+NOTES: grammar:inversion
+
+SRC	Málem tu zastřelili Fidela Castra, žil tu i Hitlerův bratr.
+MT	They almost shot Fidel Castro, and Hitler's brother lived here.
+	This is where they almost succeeded in shooting Fidel Castro; Hitler's brother also lived here.
+NOTES: flawless
+
+SRC	Spisovatelé ukázali jinou Malou Stranu.
+	Writers showed us a different Malá Strana.
+MT	The writers showed a different Little Party.
+NOTES: namedEntity:Malou Stranu-Little Party
+
+SRC	Nákupní apokalypsa.
+	A shopping apocalypse.
+MT	Shopping apocalypse.
+NOTES: missDet
+
+SRC	Obchodní centra v USA zejí prázdnotou.
+	Deserted shopping centres in the US.
+MT	Business centres in the US are deserted.
+NOTES: betterThanRef
+
+SRC	Na procházce Prahou Neznámou.
+MT	On a walk through unknown Prague.
+	On the walk of Prague Unknown.
+NOTES: namedEntity:Prahou Neznámou
+
+SRC	Územním plánem připomíná newyorský Manhattan, tvrdí architekt.
+MT	The territorial plan is reminiscent of New York's Manhattan, the architect says.
+	According to an architect, its regional plan resembles Manhattan in New York.
+NOTES: flawless
+
+SRC	Ruský prezident Putin propustil šéfa prezidentské kanceláře Sergeje Ivanova
+	Russia's Putin sacks chief of staff Sergei Ivanov
+MT	Russian President Putin dismissed chief of presidential office Sergei Ivanov
+NOTES: betterThanRef
+
+SRC	Ruský prezident Vladimir Putin v pátek nečekaně propustil Sergeje Ivanova z postu šéfa prezidentské kanceláře.
+	Russian President Vladimir Putin has unexpectedly dismissed his chief of staff Sergei Ivanov.
+MT	On Friday, Russian President Vladimir Putin unexpectedly dismissed Sergei Ivanov from his post as head of the presidential office.
+NOTES: betterThanRef
+
+SRC	Ivanov byl jedním z nejbližších Putinových spolupracovníků po mnoho let.
+MT	Ivanov was one of Putin's closest aides for many years.
+	Mr Ivanov has been part of Mr Putin's trusted inner circle for many years.
+NOTES: refExra:trusted inner circle
+
+SRC	Třiašedesátiletý Ivanov byl jmenován zvláštním zástupcem pro ekologii a dopravu.
+MT	The 63-year-old Ivanov was appointed special representative for ecology and transport.
+	The 63-year-old has now been made a special representative for environmental and transport issues.
+NOTES: flawless
+
+SRC	V prohlášení z Kremlu se uvádí, že Putin „uvolnil Ivanova z jeho služeb hlavy ruské prezidentské kanceláře,“ ale nebyl uveden důvod.
+MT	A statement from the Kremlin said that Mr Putin had "decreed to relieve Ivanov of his duties as head of the Russian presidential administration," but gave no reason.
+	In a statement from the Kremlin, it states that Putin "released Ivanov from his services of the head of the Russian presidential office," but no reason was given.
+NOTES: lex:prezidentské kanceláře
+
+SRC	Jeho místo převezme Anton Vajno, který byl Ivanovovým zástupcem od roku 2012.
+	Mr Ivanov's deputy since 2012, Anton Vaino, has been appointed as his successor.
+MT	His place will be taken over by Anton Vajno, who has been Ivanov's representative since 2012.
+NOTES: flawless
+
+SRC	Čtyřiačtyřicetiletý Vajno byl dříve diplomatem.
+	Mr Vaino, 44, is a former diplomat.
+MT	Forty-four-year-old Vajno was previously a diplomat.
+NOTES: flawless
+
+SRC	Narodil se v hlavním městě Estonska Tallinnu v roce 1972, promoval na prestižním Státním institutu mezinárodních vztahů v Moskvě (MGIMO) a pracoval na ambasádě v Tokiju.
+?	Born in the capital of Estonia Tallinn in 1972, he graduated from the prestigious State Institute of International Relations in Moscow (MGIMO) and worked at the embassy in Tokyo.
+?	Born in the Estonian capital Tallinn in 1972, he graduated from the prestigious Moscow State Institute of International Relations (MGIMO) and served in the Tokyo embassy.
+NOTES: flawless
+
+SRC	Na webových stránkách (v ruštině) se uvádí, že později dělal šéfa prezidentského protokolu a prezidentské kanceláře.
+MT	The website (in Russian) states that he later did the head of the presidential protocol and presidential office.
+	Later he managed presidential protocol and government staff, the Kremlin website says (in Russian).
+NOTES: flawless
+
+SRC	Při jmenování Putinovi řekl:„Děkuji Vám za Vaši důvěru.“
+MT	In appointing Putin, he said: "Thank you for your trust."
+	On being appointed, he told Mr Putin: "Thank you for your trust."
+NOTES: grammar:active voice
+
+SRC	Domnívám se, že nejdůležitější úlohou administrativy je podporovat Vaše aktivity hlavy státu ve smyslu návrhu zákonů a kontroly toho, do jaké míry jsou dodržovány Vaše pokyny.
+	I think the administration's most important task is to support your activity as head of state in terms of drafting laws and control over how your instructions are implemented.
+MT	I believe that the most important role of the administration is to support your activities of the head of state in terms of draft laws and control of the extent to which your guidelines are followed.
+NOTES: grammar:gerund "drafting"
+
+SRC	Putin v pátek ruské televizní stanici uvedl, že Ivanov jej požádal o uvolnění z postu a doporučil, aby jej nahradil právě Vajno.
+MT	Putin told a Russian television station on Friday that Ivanov had asked for a release from the post and recommended that he be replaced by Vajno.
+	Mr Putin told a Russian TV station on Friday that Mr Ivanov had asked to leave the post, and recommended that Mr Vaino should replace him.
+NOTES: grammar:bare-inf
+
+SRC	Přesvědčí úsměvy?
+MT	Will he convince the smiles?
+	Do the smiles convince?
+NOTES: attachment
+
+SRC	Tenhle krok zcela mystifikoval Moskvu.
+?	This is a move that has mystified Moscow.
+?	This move completely mystified Moscow.
+NOTES: flawless
+
+SRC	Sergej Ivanov byl podlouhou dobu jedním z nejbližších spolupracovníků Vladimira Putina a stejně jako Putin pracoval pro KGB.
+?	Sergei Ivanov has long been one of Vladimir Putin's closest allies and, like him, served in the Soviet security service, the KGB.
+?	Sergei Ivanov was one of Vladimir Putin's closest aides and, like Putin, worked for the KGB.
+NOTES: flawless
+
+SRC	Jako šéf prezidentské kanceláře byl jedním z nejmocnějších mužů v zemi.
+MT	As head of the presidential office, he was one of the most powerful men in the country.
+	As chief of staff he was one of the most powerful men in the country.
+NOTES: flawless
+
+SRC	Na setkání s prezidentem Putinem, které odvysílala státní televize, oba muži prohlásili, že z postu šéfa prezidentské kanceláře odchází na vlastní žádost.
+	In a meeting with President Putin shown on state television both men claimed that the chief of staff was stepping down at his own request.
+MT	At a meeting with President Putin that aired on state television, the two men declared that he was leaving the post as chief of the presidential office at his own request.
+NOTES: flawless
+
+SRC	Ale úsměvy do kamer přesvědčily jen několik málo lidí - především nyní, těsně před parlamentními volbami.
+?	But the smiles in the cameras convinced only a few people - especially now, just before the parliamentary election.
+?	But despite the smiles for the cameras, few here are convinced - especially now, just before parliamentary elections.
+NOTES: flawless
+
+SRC	Jedná se tedy o důsledek nějakého boje o moc?
+?	So is this the result of some struggle for power?
+?	So is this the fall-out from some kind of power struggle?
+NOTES: flawless
+
+SRC	To zatím nikdo neví.
+?	No-one knows yet.
+?	No one knows that yet.
+NOTES: flawless
+
+SRC	Ale oficiální tvrzení, že muž, o kterém se kdysi uvažovalo jako o možném prezidentovi, touží najednou vést ekologickou politiku Ruska, se setkalo s velkou nedůvěrou.
+MT	But the official claim that a man once thought of as a possible president is eager to suddenly lead Russia's environmental policy has been met with great disbelief.
+	But the official claim - that a man once touted as a potential president, suddenly wanted to run Russia's environmental policy - has been met with great scepticism.
+NOTES: flawless
+
+SRC	Na stránkách Kremlu jsou citovány poznámky určené Putinovi, ve kterých Ivanov uvádí: „Je pravdou, že v roce 2012 jsem Vás v rozhovoru požádal, abyste mi tento velmi náročný post, dokonce by se dalo říct problematický post, svěřil na čtyři roky.
+MT	The Kremlin's website quotes remarks intended by Putin, in which Ivanov states: "It is true that in 2012 I asked you in an interview to give me this very challenging post, even to say a problematic post, for four years.
+	In remarks to Mr Putin, quoted on the Kremlin website, Mr Ivanov said "it's true that in early 2012 I asked you, in a conversation, to entrust me with this very complicated post, even - you could say - troublesome post, for four years.
+NOTES: flawless
+
+SRC	Jak se zdá, byl jsem šéfem prezidentské kanceláře čtyři roky a osm měsíců.
+MT	Apparently, I was head of the presidential office for four years and eight months.
+	Well, it turns out that I've been presidential chief of staff for four years and eight months.
+NOTES: flawless
+
+SRC	Ivanov se postu ujal v prosinci 2011.
+	Mr Ivanov took up the post in December 2011.
+MT	Ivanov took up the post in December 2011.
+NOTES: flawless
+
+SRC	Předtím zastával funkci místopředsedy vlády a ministra obrany.
+?	He served previously as a deputy prime minister and defence minister.
+?	He previously held the role of deputy prime minister and defence minister.
+NOTES: flawless
+
+SRC	Je členem Ruské bezpečnostní rady a dříve, podobně jako Putin, pracoval pro výbor státní bezpečnosti (KGB).
+?	He is a member of the Russian Security Council and previously, like Putin, worked for the State Security Committee (KGB).
+?	He is a member of the Russian Security Council and a former member of the KGB state security service, like Mr Putin.
+NOTES: flawless
+
+SRC	Na konci 90. let, když Putin velel Federální službě bezpečnosti Ruské federace (FSB), která nahradila KGB, byl Ivanov jmenován jeho zástupcem.
+?	In the late 1990s, when Putin was in charge of the Federal Security Service of the Russian Federation (FSB), which replaced the KGB, Ivanov was appointed his deputy.
+?	In the late 1990s, when Mr Putin was head of the Federal Security Service (FSB), which replaced the KGB, Mr Ivanov was appointed as his deputy.
+NOTES: flawless
+
+SRC	Když Putin nastoupil k moci, jmenoval Ivanova jedním ze svých pěti nejbližších spolupracovníků.
+	When Mr Putin came to power, he named Mr Ivanov as one of the five people he trusted most.
+MT	When Putin came to power, he called Ivanov one of his five closest aides.
+NOTES: flawless
+
+SRC	Svého času se dokonce spekulovalo o tom, že by se Ivanov mohl stát nástupcem Putina v čele státu po jeho druhém volebním období, protože třetí období by pro Putina bylo protiústavní.
+	It was once thought that Mr Ivanov might become president of Russia after Mr Putin's second term, as a third term for Mr Putin would have been unconstitutional.
+MT	He even speculated on his time that Ivanov could become a successor to Putin at the head of the state after his second term, because a third period would be unconstitutional for Putin.
+NOTES: notNice
+
+SRC	Tento post ale převzal jiný blízký Putinův spolupracovník Dmitrij Medveděv.
+?	But this post was taken over by another close Putin associate, Dmitry Medvedev.
+?	But that post was taken by another close Putin ally, Dmitry Medvedev.
+NOTES: flawless
+
+SRC	Putin se před návratem do prezidentského úřadu o pouhé tři a půl roku později stal premiérem.
+?	Mr Putin became prime minister, before returning to the presidency just three-and-a-half years later.
+?	Putin became prime minister before returning to the presidency just three and a half years later.
+NOTES: flawless
+
+SRC	Thomas Gibson, hvězda seriálu Myšlenky zločince, byl propuštěn po té, co uhodil režiséra
+MT	Criminal Minds star Thomas Gibson sacked after hitting producer
+	Thomas Gibson, star of The Mystery of the Criminal, was released after hitting the director
+NOTES: grammar:active voice
+
+SRC	Gibson se minulý měsíc V Los Angeles zapletl do fyzické výměny názorů na scéně.
+?	Gibson became embroiled in a physical exchange of views on the scene last month in Los Angeles.
+?	Gibson was involved in a physical altercation on the set of the show in Los Angeles last month.
+NOTES: flawless
+
+SRC	Televizní stanice ABC a CBS, které seriál produkují, ve společném prohlášení jeho propuštění oznámily.
+MT	Broadcaster ABC and CBS, which are producing the series, announced in a joint statement its release.
+	ABC Studios and CBS Television Studios, which produce the series, announced his dismissal in a joint statement.
+NOTES: lex:propuštění-release
+
+SRC	Gibson, který hrál zvláštního agenta Aarona Hotchnera, se ve čtvrtek před oznámením jeho vyhazovu omluvil.
+	Gibson, who played Special Agent Aaron Hotchner, issued an apology on Thursday before his termination was announced.
+MT	Gibson, who played special agent Aaron Hotchner, apologized on Thursday before announcing his firing.
+NOTES: notNice
+
+SRC	Došlo ke vzniku kreativních rozdílů na scéně a k neshodám.
+?	There were creative differences on the set and a disagreement.
+?	There have been creative differences in the scene and disagreement.
+NOTES: flawless
+
+SRC	Je mi líto, že k tomu došlo,“ řekl v prohlášení.
+?	I am sorry that this happened, "he said in a statement.
+?	I regret that it occurred," he said in a statement.
+NOTES: flawless
+
+SRC	Podle prohlášení televizních stanic ABC a CBS jsou podrobnosti o tom, jakým způsobem postava Gibsona zmizí ze seriálu, který sleduje příběhy týmu agentů FBI, o něco později.
+	Details on how Gibson's character will be written out of the show, which follows a team of FBI agents, is expected to come at a later date, according to the ABC Studios and CBS Television Studios statement.
+MT	According to a statement from television stations ABC and CBS, the details of the way the character Gibson disappears from the show, which tracks the stories of a team of FBI agents, a little later.
+NOTES: missVerb; lex:sleduje-tracks
+
+SRC	Čtyřiapadesátiletý herec, kterého proslavila hlavní role v sitcomu Dharma a Greg, v seriálu účinkoval od první série v roce 2005.
+?	The 54-year-old, who previously starred on the sitcom Dharma & Greg, had been on the show since its first season in 2005.
+?	The 54-year-old actor, who has celebrated starring roles in the sitcom Dharma and Greg, has performed in the show since the first series in 2005.
+NOTES: flawless
+
+SRC	„Miluji Myšlenky zločince a během posledních dvanácti let jsem do nich dával srdce i duši,“ uvedl Gibson ve svém prohlášení, které vydal v pátek.
+	"I love Criminal Minds and have put my heart and soul into it for the last twelve years," Gibson said in a statement released on Friday.
+MT	"I love the Ideas of the Criminal, and over the last 12 years I have been putting my heart and soul into them," Gibson said in his statement issued Friday.
+NOTES: almost flawless
+
+SRC	Doufal jsem, že v něm budu až do konce. To ale teď nebude možné.
+MT	I had hoped to see it through to the end, but that won't be possible now.
+	I was hoping to be in it until the end.
+NOTES: betterThanRef
+
+SRC	Chtěl bych ještě vyjádřit svůj dík autorům, producentům, hercům, našemu úžasnému týmu a především skvělým fanouškům, v jaké kdy tahle show mohla doufat.
+?	I would just like to say thank you to the writers, producers, actors, our amazing crew, and, most importantly, the best fans that a show could ever hope to have.
+?	I would like to express my thanks to the authors, the producers, the actors, our amazing team and, above all, the great fans that this show could ever have hoped for.
+NOTES: flawless
+
+SRC	Návrat seriálu do dvanácté série se očekává 28. září.
+	The show is slated to return for its twelfth season on 28 September.
+MT	The return of the series to the 12th series is expected on September 28.
+NOTES: notNice:to the 12th series
+
+SRC	Ve městě Banff záhadně přistály v zahradě ryby
+	Mystery as fish land in Banff garden
+MT	In the town of Banff, the fish mysteriously landed in the garden
+NOTES: betterThanRef
+
+SRC	Muž z městečka Banff požádal o pomoc při identifikaci ryb, které se objevily v jeho zahradě.
+MT	A man from the town of Banff asked for help identifying the fish that appeared in his garden.
+	A Banff man has appealed for help in identifying fish that have appeared in his garden in Banff.
+NOTES: flawless
+
+SRC	Kevin Bain se domnívá, že 75 kusů ryb mohou být píseční úhoři, které tam zanechala vodní smršť.
+MT	Kevin Bain thinks the 75 fish could be sand eels deposited by a waterspout.
+	Kevin Bain believes that 75 pieces of fish may be the sand eel left there by a water storm.
+NOTES: notNice:the 75 fish
+
+SRC	Bain, který žije asi 500 metrů od moře, na kanálu Periscope uveřejnil krátký film svého nálezu v domnění, že by mu někdo mohl pomoci objasnit, jak se asi 5centimetrové rybky na jeho zahradu dostaly.
+MT	Bain, who lives about 500 metres from the sea, on the Periscope channel published a short film of his find in the belief that someone could help clarify how about 5centimetres of fish in his garden got.
+	Mr Bain, who lives about 500m from the sea, posted footage of the spectacle on Periscope in the hope someone could shed light on the appearance of the two-inch fish.
+NOTES: refExtra:two-inch;grammar:noun form for find;extra:about,got
+
+SRC	Queensferry Crossing: Most nyní spojuje s Fife
+?	Queensferry Crossing: Bridge now connected to Fife
+?	Queensferry Crossing: Bridge now connects to Fife
+NOTES: flawless
+
+SRC	Projekt za 1,35 mld. liber má být dokončen do května 2017
+?	The £1.35bn project is now due to be complete by May 2017
+?	The £1.35bn project is due to be completed by May 2017
+NOTES: flawless
+
+SRC	Inženýři propojili severní plošinu a Queensferry Crossing a viadukt - most tedy nyní spojuje s Fife.
+?	Engineers have linked the northern platform and the Queensferry Crossing and the viaduct - so the bridge now connects with Fife.
+?	Engineers have joined the Queensferry Crossing's north deck and viaduct - meaning the bridge is now connected to Fife.
+NOTES: flawless
+
+SRC	Jde tedy o první ze čtyř uzávěr mezi „vějíři plošin“, které jsou nyní téměř dokončené okolo každého ze tří pylonů mostu.
+	So this is the first of the four "platform fans" that are now almost finished around each of the bridge's three pylons.
+MT	It is the first of four closures between the "deck fans," which are now nearing completion around each of the bridge's three towers.
+NOTES: notNice:nearning completion
+
+SRC	Část mostu od Fife je nyní dlouhá 600 metrů a váží 30 000 tun.
+?	Part of the bridge from Fife is now 600 metres long and weighs 30,000 tonnes.
+?	The bridge section from Fife is now 600 metres long and weighs 30,000 tonnes.
+NOTES: flawless
+
+SRC	Je v ní 10 000 tun železa a 20 000 tun betonu a 46 závěsných lan.
+MT	It has 10,000 tons of iron and 20,000 tons of concrete and 46 suspension ropes.
+	It has 10,000 tonnes of steel and 20,000 tonnes of concrete and 46 stay-cables.
+NOTES: worldKnowledgeNeeded:závěsných lan-suspension ropes
+
+SRC	Projekt za 1,35 mld. liber má být dokončen do května 2017.
+?	The £1.35bn project is now due to be complete by May 2017.
+?	The £1.35bn project is due to be completed by May 2017.
+NOTES: flawless
+
+SRC	Ekonomický tajemník Keith Brown stavbu dnes navštívil a byl mezi prvními, kteří přišli z pevniny na most.
+	Economy Secretary Keith Brown visited the site today and was among the first to walk from the land on to the bridge.
+MT	Economic Secretary Keith Brown visited the building today and was among the first to come from the mainland to the bridge.
+NOTES: lex:stavbu-building
+
+SRC	Řekl: „Toto je historický okamžik a symbolický okamžik budování Queensferry Crossing.
+?	He said: "This is a historic moment and a symbolic moment of building the Queensferry Crossing.
+?	He said: "This is a historic and symbolic moment in the building of the Queensferry Crossing.
+NOTES: flawless
+
+SRC	Na tomto projektu jsme všichni svědky toho, jak stavební inženýři v skutku impozantním měřítku použili více než 30 000 tun betonu a oceli ke konstrukci této části mostu.
+	We're all witnessing engineering on a truly epic scale on this project, with over 30,000 tonnes of concrete and steel used just to build this part of the bridge.
+MT	On this project, we are all witnessing how building engineers, on an impressive scale, used more than 30,000 tons of concrete and steel to construct this part of the bridge.
+NOTES: flawless
+
+SRC	Navzdory masivním rozměrům a hmotnosti mostu bylo dokončení uzávěry mezi viaduktem a plošinou mostu delikátní operací, která vyžadovala mimořádnou přesnost.
+MT	Despite the massive size and weight of the bridge completing the closure between the viaduct and bridge deck is a delicate operation involving extremely precise tolerances for fit up.
+	Despite the massive dimensions and mass of the bridge, the completion of the seals between the viaduct and the bridge platform was a delicate operation that required extraordinary precision.
+NOTES: extra:for fit up
+
+SRC	Na svém místě je nyní celkem více než 79 % celkové plochy mostu, beton pro poslední části plošiny se nyní odlévá v Rosythu, takže celá plošina je připravena k vyzdvihnutí na most.
+	Overall, nearly 79% of the total bridge deck is now in place, the final section of deck is having its concrete deck cast in Rosyth today, meaning all the deck is ready to be lifted into place on the bridge.
+MT	In its place there is now a total of more than 79% of the total area of the bridge, the concrete for the last part of the platform is now departing in Rosyth, so the entire platform is ready to highlight the bridge.
+NOTES: lex:vyzdvihnutí-highlight
+
+SRC	Michael Martin, vedoucí projektu Forth Crossing Bridge Constructors, řekl: „První uzávěra při stavbě každého mostu je vždy důležitým milníkem.
+?	Michael Martin, Forth Crossing Bridge Constructors project director said: "The first closure on any bridge project is always a significant milestone.
+?	Michael Martin, head of the Forth Crossing Bridge Constructors, said: "The first closure in the construction of each bridge is always an important milestone.
+NOTES: flawless
+
+SRC	Na tomto úžasném projektu tato uzávěra představuje špičku pozemního stavitelství.
+MT	On this amazing project, this closure represents the point of ground construction.
+	On this fantastic project, this closure represents leading edge civil engineering.
+NOTES: lex:špičku pozemního-point of ground
+
+SRC	Po instalaci poslední části silniční plošiny a jejím připojení k rozšiřující plošině North Tower jsme pak museli uzavřít poslední mezeru na severní straně - směrem na pevninu.
+	After installing the last part of the road platform and its connection to the North Tower expansion platform, we then had to close the last gap on the north side - towards the mainland.
+MT	After installing the last road deck section and connecting it to the expanding North Tower road deck, we then had to close the remaining gap on the north - or landward - side.
+NOTES: lex:expanding North Tower road deck
+
+SRC	Toto jsme udělali protažením severního přibližovacího viaduktu 700 milimetrů jižním směrem.
+	This was done by pulling the northern approach viaduct 700 millimetres southwards.
+MT	We did this by stretching the northern approximate viaduct 700 millimeters south.
+NOTES: lex:jižním směrem-southwards
+
+SRC	Toto byla masivní a současně velice delikátní operace.
+?	This was a massive and, at the same time, very delicate operation.
+?	This was a massive and very delicate operation at the same time.
+NOTES: flawless
+
+SRC	Masivní proto, že viadukt je dlouhý 222 metrů, váží asi 6 000 tun a bylo nutné jej táhnout se stoupáním asi 3 %.
+?	Massive because the viaduct is 222 metres long, weighs approximately 6,000 tonnes and had to be pulled up a gradient of about 3%.
+?	Massive because the viaduct is 222 metres long, weighs about 6,000 tonnes and had to be pulled with a rise of about 3%.
+NOTES: flawless
+
+SRC	Delikátní proto, že tolerance, se kterými tým pracoval, byly velmi malé - pouze několik milimetrů každým směrem.
+MT	Delicate because the tolerances the team were working to were tiny - just a few millimetres either way.
+	Delicate because the tolerance the team worked with was very small - only a few millimetres in each direction.
+NOTES: almost flawless:working to
+
+SRC	Všechno šlo naštěstí velmi dobře.
+?	Fortunately, everything went very well.
+?	Happily, it all went very well.
+NOTES: flawless
+
+SRC	Záchrana v Moelfre Bay: Tři muži jsou „šťastní, že jsou naživu“
+	Moelfre Bay rescue: Three men are 'lucky to be alive'
+MT	Rescue in Moelfre Bay: Three men are 'happy to be alive'
+NOTES: lex:šťastní-lucky
+
+SRC	Tři muži jsou „šťastní, že jsou naživu“ poté, co je spláchla voda z jejich rybářské lodi u Anglesey.
+	Three men are "lucky to be alive" after they were thrown from their fishing boat off Anglesey.
+MT	Three men are "happy to be alive" after being flushed by water from their fishing boat at Anglesey.
+NOTES: lex:šťastní-lucky
+
+SRC	Stanice záchranných člunů Moelfre RNLI vyhlásila poplach v pátek ve 13:20 britského letního času poté, co posádka incident v zátoce Moelfre viděla.
+	Moelfre RNLI lifeboat station raised the alarm at 13:20 BST on Friday after a crew saw the incident unfold in Moelfre Bay.
+MT	Lifeboat station Moelfre RNLI declared the alarm on Friday at 13: 20 British Summer Time after the crew saw the incident at Moelfre Bay.
+NOTES: lex:vyhlásila-announced
+
+SRC	Všichni tři muži se snažili doplavat do bezpečí, zatímco jejich člun pokračoval neřízeně dál.
+MT	The three men struggled to swim to safety while their boat continued under its own power.
+	All three men tried to swim to safety while their boat continued unguided.
+NOTES: lex:neřízeně-uncontrollably
+
+SRC	„Viděli jsme, jak jejich člun krouží v jejich blízkosti a napadlo nás to nejhorší,“ řekl kormidelník záchranného člunu Moelfre Vince Jones.
+	"We saw their boat circling close to them and imagined the worst," said Moelfre lifeboat helm Vince Jones.
+MT	"We saw their boat circling in their vicinity and we thought the worst," said the helmsman of the lifeboat Moelfre Vince Jones.
+NOTES: grammar:thought of
+
+SRC	„Silný vítr jej naštěstí odvál pryč od nich ještě než jsme vyjeli,“ dodal.
+?	"Fortunately, by the time we had launched, the strong winds had blown it clear of them," he added.
+?	"Fortunately, the strong wind blew it away from them before we left," he added.
+NOTES: flawless
+
+SRC	Dva muže zachránila místní rybářská loď, třetí muž ve věku 60 let byl nalezen bez záchranné vesty vyčerpaný, jak se drží bójky.
+?	Two of the men were rescued by a local fishing boat, while the third man, aged 60, was found exhausted and clinging to a buoy without a lifejacket.
+?	Two men were rescued by a local fishing boat, a third man aged in his 60s was found without a life vest exhausted as he was clinging to a buoy.
+NOTES: flawless
+
+SRC	Všichni byli předáni na palubu pobřežního záchranného člunu a převezemi zpět na stanici záchranných člunů
+MT	They were all taken on board the inshore lifeboat and brought back to the lifeboat station
+	All were put on board the coastal lifeboat and taken back to the lifeboat station
+NOTES: lex:pobřežního-coastal
+
+SRC	Jones řekl: „Tři muži svržení do vody jsou šťastní, že jsou naživu a zcela bez zranění.
+	Mr Jones said: "The three men thrown in the water are lucky to be alive and completely uninjured.
+MT	Jones said: 'The three men thrown into the water are happy to be alive and completely unharmed.
+NOTES: lex:šťastní-lucky
+
+SRC	Motor lodi měl lano pro nouzové vypnutí, ale nějak došlo k jeho odpojení od osoby, která člun řídila, když došlo k převrácení.
+?	The boat's engine had a rope for an emergency shutdown, but somehow there was a disconnect from the person who was driving the boat when it was overturned.
+?	The boat's engine had an emergency kill cord but it had somehow come detached from the person driving the boat when it capsized.
+NOTES: flawless
+
+SRC	Někdo shora nad těmi hochy držel ochrannou ruku.
+	Someone was watching over these guys today.
+MT	Someone from above the boys held a protective hand.
+NOTES: lex:hochy-guys
+
