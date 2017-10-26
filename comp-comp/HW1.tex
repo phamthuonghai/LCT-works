@@ -1,0 +1,125 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+
+\title{NTIN090 - HW1}
+\author{Thuong-Hai Pham}
+\date{October 2017}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 3}
+\textbf{\textit{Show that every Turing machine can be modified to a Turing machine which can perform only
+two of three operations (i.e. move head and change a state, or write on tape and move head, or write on tape
+and change a state) in every step. Write exact definition of the modified Turing machine.}}
+
+In standard Turing machine, the transition function is $$\delta:Q\times\Sigma\to Q\times\Sigma\times\left\{R,N,L\right\}\cup \left\{\perp\right\}$$
+
+For simplicity, having termination $\perp$ left aside, $\delta(q, s) = (q', s', d)$.
+\begin{enumerate}
+    \item If $q'\ne q$, there is a `change state' operation.
+    \item If $s'\ne s$, there is a `write' operation. 
+    \item If $d\ne N$, there is a `move head' operation.
+\end{enumerate}
+
+In contrary, the Turing machine mentioned in the question adds a constraint that the three operations above can not be performed in a single step, i.e.
+\begin{equation} \label{eq:cond}
+    (q'=q)\lor(s'=s)\lor(d=N)
+\end{equation} must be fulfilled.
+
+One simple solution to construct this variant of Turing machine is described as follow:
+\begin{enumerate}
+    \item For every state in Q, add two additional states, hence, the new set of states is $\{q_j,ql_j,qr_j|\forall q_j \in Q\}$
+    \item For every transition $\delta(q_i, s) = (q_j, s', d)$ that does not meet the criterion (\ref{eq:cond}) must be replaced with two transitions:
+        \begin{itemize}
+            \item $\delta(q_i, s) = (qd_j, s', N)$ (`change state' and `write', satisfies (\ref{eq:cond}))
+            \item $\delta(qd_j, s') = (q_j, s', d)$ (`change state' and `move head', satisfies (\ref{eq:cond}))
+        \end{itemize}
+\end{enumerate}
+$qd_j=ql_j$ if d=L and $qd_j=qr_j$ if d=R. Both $ql_j, qr_j$ are the corresponding states of $q_j$ as described in step 1.
+
+\section{Problem 7}
+\textbf{\textit{Consider a variant of Turing machine which has one-directional tape and its head can perform
+only two movements: move right and reset which moves the head on the first cell. Show how a (standard)
+Turing machine can be transformed to the described variant of Turing machine.}}
+
+As the described variant of Turing machine does not support head movement with L (left move) and N (stay still), one has to simulate these movements.
+
+Let the set of states to be extended to $$\{q_i, m\_find(q_i), m\_move(q_i), m\_move2(q_i), m\_leftmost(q_i)|\forall q_i \in Q\}$$
+so each original state will have four modes: normal, find the marker (m\_find), move the marker (m\_move), find the marker in m\_move mode (m\_move2) and deal with the leftmost cell (m\_leftmost).
+
+In addition, the alphabet is extended as $\{s, marked(s)|\forall s \in \Sigma\}$, which contains the normal symbol and a marked version of that symbol.
+
+With the extended set of states and alphabet, the N movements can be simulated as:
+\begin{enumerate}
+    \item Mark the current symbol $s\to marked(s)$, then enter m\_find mode.
+    \item Reset.
+    \item While in m\_find mode, go right until read a marked symbol, that is the cell that started this N simulation, un-mark that symbol, return to normal mode.
+\end{enumerate}
+
+More complicated, the L movement would be simulated as:
+\begin{enumerate}
+    \item Mark the current symbol, enter m\_leftmost mode.
+    \item Reset.
+    \item While in m\_leftmost mode:
+        \begin{itemize}
+            \item If the current symbol (in the leftmost cell of the tape) is not marked, mark it, enter m\_move mode.
+            \item If the current symbol is not marked, terminates (going to the left of the leftmost cell is not eligible as this is one-directional tape).
+        \end{itemize}
+    \item While in m\_move mode:
+        \begin{enumerate}
+            \item Go right.
+            \item If this symbol was:
+                \begin{itemize}
+                    \item marked: un-mark it, reset, enter m\_find mode.
+                    \item not marked: reset, enter m\_move2 mode.
+                \end{itemize}
+        \end{enumerate}
+    \item While in m\_move2 mode, go right until read a marked symbol, then enter m\_move mode.
+    \item While in m\_find mode, go right until read a marked symbol, that cell is on the left of the cell that started this L simulation, un-mark that symbol, return to normal mode.
+\end{enumerate}
+
+While the m\_find mode is obvious, the combination of m\_move and m\_move2 mode is illustrated in Table \ref{table:m_move}. The two modes are used to mark a new marker to the left of the original cell (starting in the leftmost cell, then move it to the desired destination). Consequently, one can use the m\_find mode as in N movement to find this new marker.
+
+\begin{table}
+\centering
+\begin{tabular}{ |c|c|c|c|c|c }
+ \hline
+  Before m\_move & - & - & - & x & - \\
+ \hline
+  \multirow{3}{4em}{During m\_move} & x & - & - & x & - \\
+ \cline{2-6}
+  & - & x & - & x & - \\
+ \cline{2-6}
+  & - & - & x & x & - \\
+ \hline
+  After m\_move & - & - & x & - & - \\
+ \hline
+\end{tabular}
+\caption{Example of the tape in m\_move and m\_move2}
+\label{table:m_move}
+\end{table}
+
+The machine needs to memorise the original state (in normal mode), so it will be able to return to that state after the simulation. Hence, each original state has its four corresponding states in four modes instead of simply adding four new states.
+
+Formally, with the extended set of states (from original Q) and alphabet (from original $\Sigma$) and the movements of $\{\lambda,R\}$ ($\lambda$ is to reset the head position), the transition function needs to be modified as follow:
+\begin{itemize}
+    \item Replace $\delta(q_i, s) = (q_j, s', N)$ with $\delta(q_i, s) =(m\_find(q_j), marked(s'), \lambda)$
+    \item Add $\delta(m\_find(q), s) = (m\_find(q), s, R),\forall q\in Q,s\in\Sigma$
+    \item Add $\delta(m\_find(q), marked(s)) = (q, s, R),\forall q\in Q,s\in\Sigma$
+    \item Replace $\delta(q_i, s) = (q_j, s', L)$ with $\delta(q_i, s) =(m\_leftmost(q_j), marked(s'), \lambda)$
+    \item Add $\delta(m\_leftmost(q), marked(s)) = \perp,\forall q\in Q,s\in\Sigma$
+    \item Add $\delta(m\_leftmost(q), s) = (m\_move(q), marked(s), R),\forall q\in Q,s\in\Sigma$
+    \item Add $\delta(m\_move(q), s) = (m\_move2(q), s, \lambda),\forall q\in Q,s\in\Sigma$
+    \item Add $\delta(m\_move(q), marked(s)) = (m\_find(q), s, \lambda),\forall q\in Q,s\in\Sigma$
+    \item Add $\delta(m\_move2(q), s) = (m\_move2(q), s, R),\forall q\in Q,s\in\Sigma$
+    \item Add $\delta(m\_move2(q), marked(s)) = (m\_move(q), marked(s), R),$\\
+    $\forall q\in Q,s\in\Sigma$
+\end{itemize}
+
+\end{document}
