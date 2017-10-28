@@ -195,6 +195,15 @@ void turn_params(char *param, int argc, char **argv, int *var)
         }
 }
 
+/*
+ * Command line parameters:
+ * -d: debug mode
+ * -n: use naive tree
+ *
+ * Ex:
+ * + Run classical Splay tree:  splaygen -s 69 -t 10 | splaytree
+ * + Run naive Splay tree:      splaygen -s 69 -t 10 | splaytree -n
+ */
 int main(int argc, char **argv)
 {
     turn_params("-d", argc, argv, &DEBUG);
@@ -239,6 +248,12 @@ int main(int argc, char **argv)
             search_count += 1;
         }
     }
+
+
+    if (search_count == 0)
+        printf("%d,0\n", n);
+    else
+        printf("%d,%f\n", n, dep_total/search_count);
 
     return 0;
 }
