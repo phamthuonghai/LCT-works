@@ -1,0 +1,131 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+\title{NPFL095 - word2vec}
+\author{Thuong-Hai Pham}
+\date{October 2017}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Q1}. Table 1 gives an overview of relationship types used in evaluation.
+Would you expect to find the pair (kind, mean) in the ``Opposite" type? Why? Why not?
+
+I would not expect to find the pair (kind, mean) in ``Opposite" row because the meaning that ``kind" carries to be opposite to ``mean" is only one of several meanings of ``kind" (benevolent, type, etc.). Similar situation applies for ``mean" (medium, despicable, etc.). Hence, their vectors are not expected to be ``pulled" to the right places in the vector space after training, and the authors surely do not want to reduce their score by introducing this pair to their test set.
+
+
+\textbf{Q2}. Which word would you expect to be the closest to the result of calculation vector(``asymmetric") - vector(``disrespectful") + vector(``respectful")?
+
+Obviously it should be ``symmetric". This word appears in the 3\textsuperscript{rd} position when we try the demo\footnote{http://bionlp-www.utu.fi/wv\_demo/}:
+\begin{enumerate}
+    \item asymmetrical
+    \item symmetrical
+    \item \textbf{symmetric}
+    \item asymmetry
+    \item respectful
+\end{enumerate}
+
+
+\textbf{Q3}.
+
+\textit{3a)} Compute the values of the hidden layer and output layer of CBOW, when applied to w2 with context of one previous and one following word (N=2).
+Compute $P(w2|w1,w3)$.
+
+Word vector after input projection
+\[
+W=
+  \begin{pmatrix} w1\\ w3
+  \end{pmatrix}
+  \times IN
+  =
+  \begin{pmatrix}
+    0 & 1 & 0 & 0 \\
+    0 & 0 & 0 & 1
+  \end{pmatrix}
+  \times
+  \begin{pmatrix}
+    2.0 &  0.5 & -0.5\\
+    0.2 & -0.5 & 0.3\\
+    0.1 & -0.1 & 0.4\\
+    0.8 & 0.5 & -0.3
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    0.2 & -0.5 & 0.3\\
+    0.8 & 0.5 & -0.3
+  \end{pmatrix}
+\]
+
+Hidden layer is
+$H=
+  \begin{pmatrix}
+    1.0 & 0 & 0
+  \end{pmatrix}
+$
+
+Output layer before softmax
+\[
+O=H\times OUT=
+  \begin{pmatrix}
+    1.0 & 0 & 0
+  \end{pmatrix}\times
+  \begin{pmatrix}
+    ln(4) & 0 & ln(2) & ln(3)\\
+    ln(8) & 0 & -ln(8) & -ln(3)\\
+    ln(8) & ln(4) & ln(8) & ln(3)\\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    ln(4) & 0 & ln(2) & ln(3)
+  \end{pmatrix}
+\]
+
+Hence
+\[
+P(w_2|w_1,w_3)=\frac{e^{ln(4)}}{e^{ln(4)}+e^0+e^{ln(2)}+e^{ln(3)}}=\frac{4}{4+1+2+3}=0.4
+\]
+
+\textit{3b)} Compute the values of the hidden layer and output vectors of Skip-gram with C=1, when applied to w2.
+Compute $P(w1|w2)$ and $P(w3|w2)$.
+
+Hidden layer (word vector after projection)
+$
+H=
+  \begin{pmatrix}
+    2.0 &  0.5 & -0.5
+  \end{pmatrix}
+$
+
+Output layer before softmax:
+\[
+O=
+  \begin{pmatrix}
+    2.0 &  0.5 & -0.5
+  \end{pmatrix}\times
+  \begin{pmatrix}
+    ln(4) & 0 & ln(2) & ln(3)\\
+    ln(8) & 0 & -ln(8) & -ln(3)\\
+    ln(8) & ln(4) & ln(8) & ln(3)\\
+  \end{pmatrix}
+  =
+  \begin{pmatrix}
+    ln(16) & ln(0.5) & ln(0.5) & ln(3)
+  \end{pmatrix}
+\]
+
+Hence
+\[
+P(w_1|w_2)=\frac{e^{ln(0.5)}}{e^{ln(16)}+e^{ln(0.5)}+e^{ln(0.5)}+e^{ln(3)}}=\frac{0.5}{16+0.5+0.5+3}=0.025
+\]
+
+\[
+P(w_3|w_2)=\frac{e^{ln(3)}}{e^{ln(16)}+e^{ln(0.5)}+e^{ln(0.5)}+e^{ln(3)}}=\frac{3}{16+0.5+0.5+3}=0.15
+\]
+
+\textbf{Q4}. One nice property of word vectors is that they are, in a sense, additive. Computing vector(``Czech") + vector(``currency") tends to give you something which is both Czech and a currency. However, the meaning of phrases like ``heavy rain", ``kick the bucket", ``New York Times" or ``Toronto Maple Leafs" is not compositional, i.e. it is not a combination of meanings of the individual words. How would you cope with that?
+
+One simple solution to deal with this phenomenon is to use a dictionary of this type of MWEs, then treat them as single token during tokenization. More complex approach should be to train a model to detect MWEs, which can be incorporated as a part of a tokenizer.
+
+\end{document}
