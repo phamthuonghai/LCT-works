@@ -1,0 +1,56 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+\title{NPFL095 - NMT Subword Units}
+\author{Thuong-Hai Pham}
+\date{November 2017}
+
+\def\<#1>{$\langle$\ignorespaces#1\unskip$\rangle$}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Q1.} Why do we need subword units in NMT?
+
+In this paper, subword units were used to address the problem of translating out-of-vocabulary (OOV) words. Majority of these are translatable as:
+\begin{itemize}
+    \item Name entities: direct copied or transliterated (using phonemes).
+    \item Cognates and loanwords: using character-level translation rules.
+    \item Morphologically complex words: translated via separate morpheme translation.
+\end{itemize}
+
+\bigskip
+
+\textbf{Q2.} If you have the following vocabulary
+
+\{`w i n \</w>' : 3, `w i n n e r \</w>' : 2, `o l d e s t \</w>': 6, `w i d e s t \</w>': 1 \}. 
+
+What will be the first two BPE merge operations?
+
+Initially, the list of pairs is:
+
+\{(`d', `e'): 3, (`e', `r'): 2, (`e', `s'): 9, (`e', `w'): 6, (`i', `d'): 3, (`l', `o'): 7, (`n', `e'): 6, (`o', `w'): 7, (`r', `\</w>'): 2, (`s', `t'): 9, (`t', `\</w>'): 9, (`w', `\</w>'): 5, (`w', `e'): 8, (`w', `i'): 3\}.
+
+Hence, the first operation merges `e' and `s' (most frequent, first in lexical order), noted that there are other pairs with the same occurrence and are suitable as well.
+
+After that, the list of pairs becomes:
+
+\{(`d', `es'): 3, (`e', `r'): 2, (`e', `w'): 6, (`es', `t'): 9, (`i', `d'): 3, (`l', `o'): 7, (`n', `e'): 6, (`o', `w'): 7, (`r', `\</w>'): 2, (`t', `\</w>'): 9, (`w', `\</w>'): 5, (`w', `e'): 2, (`w', `es'): 6, (`w', `i'): 3\}.
+
+Therefore, the second operation is to merge `es' and `t'.
+
+\bigskip
+
+\textbf{Q3.} What are the advantages and disadvantages of \textit{BPE} (independently applied on the source and target language) versus \textit{joint BPE}?
+
+Because of encoding two vocabularies separately, \textit{BPE} outputs a smaller vocabulary size and also guarantees each units to be seen in training text (must be in source language or target language or both). However, this encoding scheme might not segment words in the same way for both languages, hence, machine translation model will have a harder task to map subword units between languages.
+
+\bigskip
+
+\textbf{Q4.} Section 5.1 says ``For the 50 000 most frequent words, the representation is the same for all neural networks, and all neural networks achieve comparable unigram F1 for this category". Do really \textit{all} 50k most frequent German words (according to the training set frequency) have the same representation in BPE-Joint90k and WDict? Why? Can you prove it?
+
+All50k most frequent words will be the same for \textit{WUnk}, \textit{WDict} and \textit{C2-50k} as they all maintain a list of those words. Yet I doubt that \textit{BPE-Joint90k} will share this similar list of words. To be more precise, that means after a certain number of merge operations, \textit{BPE-Joint90k} has to reconstruct all the \textit{50k} most frequent words. However, with the total number of 89500 operations for both source and target languages, this scheme hardly reach that point.
+
+\end{document}
