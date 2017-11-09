@@ -1,0 +1,166 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{natbib}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{minted}
+\usemintedstyle{emacs}
+
+\title{NTIN090 - HW2}
+\author{Thuong-Hai Pham}
+\date{November 2017}
+
+\newtheorem{lemma}{Lemma}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 6}
+\textbf{\textit{Is the following language (partially) decidable?}}
+\[B=\{(M, w); M \text{ terminates on input } w \text{ and the tape of } M \text{ is empty after the computation}\}\]
+
+\textbf{Partial decidability}
+
+WLOG, assume $M$ is 1-tape TM, consider the following multi-tape Turing Machine (TM) $RB(M,w)$:
+\begin{enumerate}
+    \item Copy $w$ to tape 3.
+    \item Simulate $M(w)$  with tape 1 as the tape of $M$.
+    \item For each transition with head movement, write the movement (L,R) to tape 2, move right on tape 2.
+    \item When the simulation terminates, check if the tape is empty by:
+        \begin{enumerate}
+            \item Read tape 2 from right to left.
+            \item For each `L' read, move right on tape 1, `R' read, move left.
+            \item After tape 2, read tape 3 from right to left until blank, for each symbol on tape 3, move right on tape 1.
+            \item On each move, check if the current cell is a non-blank symbol, then reject (terminate), else continue.
+            \item After no non-blank symbol found, accept.
+        \end{enumerate}
+\end{enumerate}
+
+Tape 2 and 3 help $RB$ to memorize which cell might be written (contains non-blank symbol) after the computation. If $M(w)$ terminates, the length of input word, number of L and R moves are finite, so there is always a decision for $(M,w)$. Hence, $RB$ accepts $(M,w)\in B$ and rejects or loops with $(M,w)\notin B$. Therefore, $B$ is partially decidable (recognizable) with $RB$ as its recognizer.
+
+\bigskip
+\textbf{Undecidability}
+
+% Consider the complement of language $B$:
+% \[\bar{B}=\{(M, w); M\text{ loops on } w \text{ or } M \text{ terminates on } w \text{ and the tape of } M \text{ is not empty after the computation}\}\]
+% \[B'=\{(M, w); M \text{ terminates on } w \text{ and the tape of } M \text{ is not empty after the computation}\}\]
+
+Consider the language $ACCEPT=\{(M,w); w\in L(M)\}$ and the TM below which computes function $f$:
+
+\begin{listing}[ht]
+	\begin{minted}[frame=single]{pascal}
+program f(M):
+    program N(w):
+        if M(w) accepts:
+            clean_tape // a finite process as in RB
+        else
+            write a non-blank symbol to tape
+    return N
+	\end{minted}
+\end{listing}
+
+$(M,w)\in ACCEPT \Leftrightarrow (N=f(M),w)\in B$ (i.e. $ACCEPT$ is m-reducible to $B$). Hence, if there exists a decider $DB$ for $B$, one can also use it to decide $ACCEPT$, which is a contradiction because $ACCEPT$ is undecidable. Consequently, $B$ is undecidable.
+
+In conclusion, \textbf{$B$ is partially decidable but not decidable}.
+
+\section{Problem 7}
+\textbf{\textit{Are the following languages (partially) decidable where M is a (code of a) Turing machine and
+$k \in \mathbb{N}$ and $|w|$ is the length of a word w.}}
+
+\subsection{$B=\{w; |w| \le k\}$} \label{7.1}
+It is trivial to construct a TM $M$ to be the decider of this language $B$ as follows:
+\begin{itemize}
+    \item Set of tape symbols $\Sigma$.
+    \item Set of accepting states $F=\{q_0..q_k\}$.
+    \item Set of states $Q=F \cup \{q_r\}$, $q_r$ is the rejecting state.
+    \item Initial state $q_0$.
+    \item Transition function: $\delta: Q \times \Sigma \to Q \times \Sigma \times \{R\} \cup \{\perp\}$.
+    \begin{itemize}
+        \item $\delta(q_i, s) = (q_{i+1}, s, R), \forall i=0..k-1,s\in\Sigma\setminus\{\lambda\}$.
+        \item $\delta(q_i, \lambda) = \perp, \forall i=0..k$.
+        \item $\delta(q_k, s) = (q_r, s, R), \forall s \in \Sigma\setminus\{\lambda\}$.
+        \item $\delta(q_r, s) = \perp, \forall s \in \Sigma$
+    \end{itemize}
+\end{itemize}
+
+The above TM $M$ always halts, and accepts (after at most k+1 transitions) or rejects (after k+2 transitions). Hence, language \textbf{$B$ is decidable}.
+
+
+
+\subsection{$B=\{(M,k); |L(M)| \le k\}$} \label{7.2}
+
+$|L(M)| \le k$ is a non-trivial property as:
+\begin{itemize}
+    \item M accepts nothing ($L(M)=\emptyset$) is in this class.
+    \item M accepts everything ($L(M)=\Sigma^*$) is not in this class.
+\end{itemize}
+
+Hence, by Rice's Theorem, $B$ is undecidable.
+
+On the other hand, consider the complement of $B$:
+
+\[\bar{B}=\{(M,k); |L(M)| > k\}\],
+
+Because the set of all finite words $\Sigma^*$ is countable, one can construct a recognizer $RB'$ for $\bar{B}$ as follow:
+
+\begin{enumerate}
+    \item Run the 1st step of $M$ on the 1st word.
+    \item Run the 2nd step of $M$ on the 1st word, the 1st step of $M$ on the 2nd word.
+    \item Run the the 3rd step of $M$ on the 1st word, the 2nd step of $M$ on 2nd word, the 1st step of $M$ on the 3rd word.
+    \item ...
+\end{enumerate}
+
+If $(M,k)\in \bar{B}$ then after a finite number of steps, $M$ will accept word $k+1$  then $RB'$ accepts, otherwise, $RB'$ will loop forever. Hence, $\bar{B}$ is partially decidable. Assume that $B$ is also partially decidable,
+
+$B,\bar{B}$ are partially decidable $\Leftrightarrow B$ is decidable,
+
+which contradicts the undecidability proven by Rice's Theorem. Therefore, \textbf{$B$ is not partially decidable (and not decidable)}.
+
+
+\subsection{$B=\{M; |L(M)| \ge 10\}$}
+
+$|L(M)| \ge 10$ is a non-trivial property as:
+\begin{itemize}
+    \item M accepts only empty word ($L(M)=\{''\}$) is not in this class.
+    \item M accepts everything ($L(M)=\Sigma^*$) is in this class.
+\end{itemize}
+
+Hence, by Rice's Theorem, $B$ is undecidable.
+
+Using the same strategy as in \ref{7.2} (recognizer for $RB'$), one can construct a recognizer $RB$ for $B$. Therefore, \textbf{$B$ is partially decidable, and undecidable.}
+
+\subsection{$B=\{M; L(M)=\{w; |w|=10\}\}$}
+It is trivial to design a TM $DL$ that decide language $L=\{w; |w|=10\}$ by scanning through the whole input words as in \ref{7.1} with a modification that $q_{10}$ is the only accepting state, the others are rejecting states. Hence, $L$ is a decidable language. This property depicts a set of decidable languages, so $B$ is undecidable, a corollary of Rice's Theorem.
+
+On the other hand, consider the complement of $B$:
+
+\[\bar{B}=\{M; L(M)\text{ contains a word of length }\neq k\}\]
+
+By the same strategy as in \ref{7.2}, a recognizer $RB'$ is able to accept a word of not length k after finite steps if $M\in \bar{B}$. Therefore, $\bar{B}$ is partially decidable. Assume that $B$ is also partially decidable leads to a contradiction as 
+
+$B,\bar{B}$ are both partially decidable $\Leftrightarrow B$ is decidable.
+
+Hence, \textbf{$B$ is not partially decidable (and not decidable)}.
+
+% Consider the language $EMPTY=\{M; L(M)=\emptyset\}$.
+
+
+\subsection{$B=\{(M,k); L(M) \textnormal{ contains a word of length } k\}$}
+
+``$L(M)$ contains a word of length $k$" is a non-trivial property as:
+\begin{itemize}
+    \item M accepts nothing ($L(M)=\emptyset$) is not in this class.
+    \item M accepts k-length words ($L(M)=\Sigma^k$) is in this class.
+\end{itemize}
+
+Hence, by Rice's Theorem, $B$ is undecidable.
+
+Using the same strategy as in \ref{7.2}, one can construct a recognizer $RB$ for this language $B$. If $(M,k)\in B$, then after a finite number of steps, $RB$ will halt and accept $(M,k)$. Therefore, \textbf{$B$ is partially decidable, and undecidable.}
+
+
+\end{document}
