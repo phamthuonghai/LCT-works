@@ -9,13 +9,13 @@ bool DEBUG = false;
 bool NAIVE = false;
 
 
-typedef int KEY_TYPE;
+typedef long int KEY_TYPE;
 
 struct node
 {
-    KEY_TYPE key;   // priority
-    int eid;        // element id
-    int order;
+    KEY_TYPE key;       // priority
+    long int eid;       // element id
+    long int order;
     node *parent;
     node *child;
     node *left;
@@ -26,7 +26,7 @@ struct node
 class FibHeap
 {
     private:
-        int nNodes;
+        long int nNodes;
     public:
         node *minH;
         FibHeap()
@@ -38,20 +38,20 @@ class FibHeap
         {
             Init();
         }
-        node *CreateNode(int, int);
+        node *CreateNode(long int, KEY_TYPE);
         void InsertToList(node *, node *);
         void Insert(node *, bool);
         node *Link(node *, node *);
-        int Consolidate();
-        int ExtractMin();
-        int Cut(node *, node *);
-        void DecreaseKey(node *, int);
+        long int Consolidate();
+        long int ExtractMin();
+        void Cut(node *, node *);
+        void DecreaseKey(node *, KEY_TYPE);
         void PrintHeads();
         void Free(node *x = nullptr);
         void Init();
 };
 
-node* FibHeap::CreateNode(int e, KEY_TYPE k)
+node* FibHeap::CreateNode(long int e, KEY_TYPE k)
 {
     node *x;
     x = new node;
@@ -131,7 +131,7 @@ node *FibHeap::Link(node *x, node *y)
     x->order++;
 }
 
-int FibHeap::Consolidate()
+long int FibHeap::Consolidate()
 {
     if (DEBUG)
     {
@@ -142,13 +142,13 @@ int FibHeap::Consolidate()
     if (minH == nullptr)
         return 0;
 
-    int d, i, D, nSteps = 0;
+    long int d, i, D, nSteps = 0;
     bool isJoined = false;
 
     if (NAIVE)
         D = nNodes;
     else
-        D = 2*((int)log2(nNodes));
+        D = 2*((long int)log2(nNodes));
 
     node* A[D+1];
     for (i = 0; i <= D; i++)
@@ -204,10 +204,10 @@ int FibHeap::Consolidate()
 }
 
 // Actually delete min node, return the number of steps
-int FibHeap::ExtractMin()
+long int FibHeap::ExtractMin()
 {
     node *memMinH = minH;
-    int nSteps = 0;
+    long int nSteps = 0;
 
     if (minH->child == nullptr)
     {
@@ -252,7 +252,7 @@ int FibHeap::ExtractMin()
     return nSteps;
 }
 
-int FibHeap::Cut(node* p, node* x)
+void FibHeap::Cut(node* p, node* x)
 {
     if (x == x->right)
     {
@@ -272,7 +272,7 @@ int FibHeap::Cut(node* p, node* x)
     Insert(x);
 }
 
-void FibHeap::DecreaseKey(node *x, int k)
+void FibHeap::DecreaseKey(node *x, KEY_TYPE k)
 {
     if (x == nullptr or x->key <= k)
         return;
@@ -304,7 +304,7 @@ void FibHeap::PrintHeads()
     printf("Heap heads: ");
     do
     {
-        printf("(%d, %d) ", p->eid, p->key);
+        printf("(%ld, %ld) ", p->eid, p->key);
         p = p->right;
     } while (p != minH);
     printf("\n");
@@ -361,8 +361,8 @@ int main(int argc, char **argv)
         freopen("data.csv", "r", stdin);
 
     char line[50];
-    int n = 0, e, nExtracts = 0, nOps = 0;
-    float nSteps = 0;
+    long int n = 0, e, nExtracts = 0, nOps = 0;
+    double nSteps = 0;
     char command[3];
     KEY_TYPE k;
 
@@ -375,17 +375,17 @@ int main(int argc, char **argv)
             if (n != 0)
             {
                 if (nExtracts == 0)
-                    printf("%d,0\n", n);
+                    printf("%ld,0\n", n);
                 else
-                    printf("%d,%f\n", n, nSteps/nExtracts);
+                    printf("%ld,%f\n", n, nSteps/nExtracts);
             }
 
             nSteps = 0;
             nExtracts = 0;
             nOps = 0;
-            sscanf(line, "%s %d", command, &n);
+            sscanf(line, "%s %ld", command, &n);
             fh.Init();
-            for (int i=0; i<n; ++i)
+            for (long int i=0; i<n; ++i)
                 el_ptrs[i] = nullptr;
         }
         else
@@ -393,12 +393,12 @@ int main(int argc, char **argv)
             switch (line[2])
             {
                 case 'S':                                               // INS
-                    sscanf(line, "%s %d %d", command, &e, &k);
+                    sscanf(line, "%s %ld %ld", command, &e, &k);
                     el_ptrs[e] = fh.CreateNode(e, k);
                     fh.Insert(el_ptrs[e], true);
                     break;
                 case 'C':                                               // DEC
-                    sscanf(line, "%s %d %d", command, &e, &k);
+                    sscanf(line, "%s %ld %ld", command, &e, &k);
                     fh.DecreaseKey(el_ptrs[e], k);
                     break;
                 case 'L':                                               // DEL
@@ -413,7 +413,7 @@ int main(int argc, char **argv)
             if (DEBUG)
             {
                 nOps++;
-                printf("%d-%c-", nOps, line[2]);
+                printf("%ld-%c-", nOps, line[2]);
                 fh.PrintHeads();
             }
         }
@@ -421,9 +421,9 @@ int main(int argc, char **argv)
     }
 
     if (nExtracts == 0)
-        printf("%d,0\n", n);
+        printf("%ld,0\n", n);
     else
-        printf("%d,%f\n", n, nSteps/nExtracts);
+        printf("%ld,%f\n", n, nSteps/nExtracts);
 
 
     delete[] el_ptrs;
