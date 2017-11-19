@@ -68,11 +68,20 @@ node* FibHeap::CreateNode(long int e, KEY_TYPE k)
 
 void FibHeap::InsertToList(node *x, node *y)
 {
-    // Insert y to the right of x
-    (x->right)->left = y;
-    y->left = x;
-    y->right = x->right;
-    x->right = y;
+    /*
+     * Insert y to the right of x,
+     * i.e. in the main list, to the begining of the list
+     * which will lead to slightly different results in special test
+     *
+     * (x->right)->left = y;
+     * y->left = x;
+     * y->right = x->right;
+     * x->right = y;
+        */
+    (x->left)->right= y;
+    y->right = x;
+    y->left = x->left;
+    x->left = y;
 }
 
 void FibHeap::Insert(node* x, bool isNew = false)
@@ -150,7 +159,7 @@ long int FibHeap::Consolidate()
     else
         D = 2*((long int)log2(nNodes));
 
-    node* A[D+1];
+    node **A = new node*[D+1];
     for (i = 0; i <= D; i++)
         A[i] = nullptr;
 
@@ -182,6 +191,8 @@ long int FibHeap::Consolidate()
                 break;
         }
     }
+
+    delete[] A;
 
     x = minH;
     node *newMinH = minH;
@@ -304,7 +315,7 @@ void FibHeap::PrintHeads()
     printf("Heap heads: ");
     do
     {
-        printf("(%ld, %ld) ", p->eid, p->key);
+        printf("(%ld, %ld, %ld) ", p->eid, p->key, p->order);
         p = p->right;
     } while (p != minH);
     printf("\n");
@@ -358,10 +369,10 @@ int main(int argc, char **argv)
     turn_params("-n", argc, argv, &NAIVE);
 
     if (DEBUG)
-        freopen("data.csv", "r", stdin);
+        freopen("data.txt", "r", stdin);
 
     char line[50];
-    long int n = 0, e, nExtracts = 0, nOps = 0;
+    long int n = 0, e, nExtracts = 0, nOps = 0, tmp;
     double nSteps = 0;
     char command[3];
     KEY_TYPE k;
@@ -375,9 +386,9 @@ int main(int argc, char **argv)
             if (n != 0)
             {
                 if (nExtracts == 0)
-                    printf("%ld,0\n", n);
+                    printf("%ld,0,0,0\n", n);
                 else
-                    printf("%ld,%f\n", n, nSteps/nExtracts);
+                    printf("%ld,%f,%f,%ld\n", n, nSteps/nExtracts, nSteps, nExtracts);
             }
 
             nSteps = 0;
@@ -404,7 +415,10 @@ int main(int argc, char **argv)
                 case 'L':                                               // DEL
                     if (fh.minH != nullptr)
                         el_ptrs[fh.minH->eid] = nullptr;
-                    nSteps += fh.ExtractMin();
+                    tmp = fh.ExtractMin();
+                    nSteps += tmp;
+                    if (DEBUG)
+                        printf("%ld\n", tmp);
                     nExtracts++;
                     break;
                 default:
@@ -421,9 +435,9 @@ int main(int argc, char **argv)
     }
 
     if (nExtracts == 0)
-        printf("%ld,0\n", n);
+        printf("%ld,0,0,0\n", n);
     else
-        printf("%ld,%f\n", n, nSteps/nExtracts);
+        printf("%ld,%f,%f,%ld\n", n, nSteps/nExtracts, nSteps, nExtracts);
 
 
     delete[] el_ptrs;
