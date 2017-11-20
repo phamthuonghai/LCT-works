@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+
+\title{NPFL095 - NMT Attention}
+\author{Thuong-Hai Pham}
+\date{November 2017}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Q1.} What are the limitations of the encoder-decoder approach to machine translation?
+
+The limitation of the encoder-decoder approach is that the encoder has to output a fixed-length context vector from source sentence, which then be used in the decoder to output target sentence's words. This means that all decoded words are based on the same context vector, sentence level instead of the part that it gives most information (clause, phrase, etc.). In addition, compressing all information into a fixed-length vector leads to the loss of information when the sentence becomes longer.
+
+\bigskip
+
+\textbf{Q2.} What are the benefits of using a bidirectional RNN in machine translation? Do you think Bi-RNN helps even without the attention?
+
+The advantage of bidirectional RNN is that information is flowing in both ways, from left to right and right to left. Hence, a word can get both information from words to both its left and right. This is useful because, for example, an adjective should agree with the gender of a noun which follows after it.
+
+In my opinion, Bi-RNN may not help without the attention. The normal RNN will face the problem of exploding/vanishing gradients, so its modifications (LSTM, GRU) are needed to learn long-term dependency. However, LSTM, for example, when decides to forget an information, can not recover that piece of information in the following units. While attention can pick up these information from the hidden units of RNN separately and decide how to combine them later.
+
+\bigskip
+
+\textbf{Q3.} Let's translate a three-word sentence as in the paper, but with a simplified alignment model $a(s_{i-1}, h_j) = s_{i-1} \cdot h_j$ (i.e. using a dot product instead of a feedforward neural network).
+Let the forward hidden states be (0.1, 0.2), (-0.3, 0.4) and (0.5, 0)
+and the backward hidden states be (0.2, 0.2), (0.5, -0.3) and (-0.1, 0.5).
+Suppose that after translating the first word, we have $s_1 = (-2, 1, 1, 1)$.
+Compute $c_2$.
+
+$h_1=(0.1,0.2,0.2,0.2) \Rightarrow e_{21}=s_1\cdot h_1=0.4$
+
+$h_2=(-0.3,0.4,0.5,-0.3) \Rightarrow e_{22}=s_1\cdot h_2=1.2$
+
+$h_3=(0.5,0,-0.1,0.5) \Rightarrow e_{23}=s_1\cdot h_3=-0.6$
+
+$\alpha_{21}=\frac{\exp(e_{21})}{\exp(e_{21})+\exp(e_{22})+\exp(e_{23})}=\frac{1.49}{5.36}=0.28$
+
+$\alpha_{22}=\frac{3.32}{5.36}=0.62$
+
+$\alpha_{23}=\frac{0.55}{5.36}=0.10$
+
+$c_2=\alpha_{21}h_1+\alpha_{22}h_2+\alpha_{23}h_3=(-0.108,0.304,0.356,-0.08)$
+
+\bigskip
+
+\textbf{Q4.} What are the benefits of soft-alignment?
+
+By soft-alignment, the alignment model proposed does not strictly match sets of words between two sentences. Although ``traditional" word alignment has different types of relation: one-to-one, one-to-many, many-to-many, it is still 0/1 relationship e.g. (the set of words contains) $w_1$ in source is (or is not) matched with (the set of words contains) $w_2$ in target. This 0/1 value can not be trained as weight as in soft-alignment because we can not compute the gradient for back-propagation.
+
+In addition, using soft-alignment allows surrounding words to ``contribute" their semantic/syntactic ``meaning" to the prediction of the current word in an amount proportional to their weights.
+
+\end{document}
