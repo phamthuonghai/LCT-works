@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{NPFL095 - MALOPA}
+\author{Thuong-Hai Pham}
+\date{December 2017}
+
+\usepackage{natbib}
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Q1.} What are the limitations of the mainstream approach for multilingual NLP applications? What benefits could bring a single multilingual parser?
+
+The mainstream approach for multilingual NLP applications is to create a separate model for each language. This can not exploit the common phenomena shared between languages. In addition, to build, tune and deploy a large number of models is not economically optimized, which models also can not guarantee to work well in the code-switching and code-mixing contexts, as in social media. All of these can be mitigated by a single multilingual parser.
+
+\bigskip
+
+\textbf{Q2.} Why do we need parsing? Do you know about any application where parsing is needed for the state-of-the-art (SOTA) results?
+
+Parsing shows us how basic units (morphemes, words) are composed into a larger chunk. Although there are several structures proposed, I personally believe these all are more ``true" structures of sentences rather than a linear sequence.
+
+To classify the textual entailment between the premise and the hypothesis sentences, Chen et al. \cite{chen2016enhancing} used parse trees produced by the Stanford PCFG Parser \cite{klein2003accurate} to feed into the encoder, which is a variant of LSTM yet dynamically constructed, the Tree-LSTM \cite{tai2015improved}. This model is currently in top-5 ranking on the Stanford Natural Language Inference Corpus \cite{snli:emnlp2015}.
+
+    Liu et al. \cite{liu2017learning} also used a series of operations based on the Matrix Tree
+Theorem\footnote{https://ocw.mit.edu/courses/mathematics/18-314-combinatorial-analysis-fall-2014/readings/MIT18\_314F14\_mt.pdf} to incorporate structural information into the the weight attentions which mechanism then combines values from LSTM's hidden layers. This model achieved SOTA result for text classification on the Yelp dataset.
+
+\bigskip
+
+\textbf{Q3.} Section 3.4 mentions 3 ways of defining Language Embeddings. Preliminary experiments showed that one-hot encoding of the language ID yielded the best results. Why do you think typological properties-based embedding did not performed the best?
+
+When using typological property-based embedding, the authors actually stripped off information that would be fed into the embedding layer. Feeding just the IDs (which are basically labels) of languages A and B (and with the gold parse during training), the network is able to figure out the similarities and also differences between these two by their learned embeddings. While defining these two languages by only 5 order attributes makes the network hard to learn the differences that is not related to the 5 order attributes. By that, doing both embedding methods at the same time might help.
+
+\bigskip
+
+\textbf{Q4.} Section 3.2 mentions the usage of Fine-grained POS Tag Embeddings. If such information is only available for some languages, why using them is still beneficial?
+
+In Section 3.5, the limited existence of Fine-grained POS Tag Embeddings is actually an advantage, by which the network is able to identify the specific group of languages that possess those tags, and inclined to parse the sentence in the way of those languages.
+
+\bigskip
+
+\textbf{Q5.} What do you like and dislike about the paper? Is there anything unclear?
+
+In Section 4.1, do you have any guess why precision is not reported? And why did fine-grained POS tags improve the performance of Spanish which fine-grained POS tags are not available?
+
+\bibliographystyle{plain}
+\bibliography{malopa}
+\end{document}
