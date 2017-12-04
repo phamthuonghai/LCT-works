@@ -1,0 +1,74 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{NPFL063 - HW 2}
+\author{Thuong-Hai Pham}
+\date{December 2017}
+
+\usepackage{qtree}
+
+\begin{document}
+
+\maketitle
+
+\section{Analyze the following sentences:}
+
+\subsection{The monkey ate a banana and a big melon.}
+\Tree [.S [.NP [.Det The ] [.N monkey ] ] [.V ate ] [.NP [.NP [.Det a ] [.N banana ] ] [.Conj and ] [.NP [.Det a ] [.Adj big ] [.N melon ] ] ] ]
+
+\subsection{The small monkey gave me a banana.}
+\Tree [.S [.NP [.Det The ] [.Adj small ] [.N monkey ] ] [.V gave ] [.NP [.Pron me ] ] [.NP [.Det a ] [.N banana ] ] ]
+
+\subsection{The monkey gave a banana to me.}
+\Tree [.S [.NP [.Det The ] [.N monkey ] ] [.V gave ] [.NP [.Det a ] [.N banana ] ] [.PP [.P to ] [.NP [.Pron me ] ] ] ]
+
+\Tree [.S [.NP [.Det The ] [.N monkey ] ] [.V gave ] [.NP [.Det a ] [.N banana ] [.PP [.P to ] [.NP [.Pron me ] ] ] ] ]
+
+\subsection{George saw the big dog of my friend.}
+\Tree [.S [.NP [.N George ] ] [.V saw ] [.NP [.Det the ] [.Adj big ] [.N dog ] [.PP [.P of ] [.NP [.Det my ] [.N friend ] ] ] ] ]
+
+\subsection{The shop is at the corner of the street.}
+\Tree [.S [.NP [.Det The ] [.N shop ] ] [.V is ] [.PP [.P at ] [.NP [.Det the ] [.N corner ] [.PP [.P of ] [.NP [.Det the ] [.N street ] ] ] ] ] ]
+
+\subsection{The parents of the groom and the bride.}
+\Tree [.NP [.Det The ] [.N parents ] [.PP [.P of ] [.NP [.NP [.Det the ] [.N groom ] ] [.Conj and ] [.NP [.Det the ] [.N bride ] ] ] ] ]
+
+\Tree [.NP [.NP [.Det The ] [.N parents ] [.PP [.P of ] [.NP [.Det the ] [.N groom ] ] ] ] [.Conj and ] [.NP [.Det the ] [.N bride ] ] ]
+
+\subsection{His son sings and her daughter plays the piano.}
+\Tree [.S [.S [.NP [.Det His ] [.N son ] ] [.V sings ] ] [.Conj and ] [.S [.NP [.Det her ] [.N daughter ] ] [.V plays ] [.NP [.Det the ] [.N piano ] ] ] ]
+
+
+\section{}
+
+\subsection{Two sentences that are correct according to both this grammar and grammar of
+Standard English (GSE). Draw the corresponding syntactic trees.}
+
+The boy sees a small book.
+
+\Tree [.S [.NP [.Det The ] [.N boy ] ] [.V sees ] [.NP [.Det a ] [.Adj small ] [.N book ] ] ]
+
+The girl gives a small book to the boy.
+
+\Tree [.S [.NP [.Det The ] [.N girl ] ] [.V gives ] [.NP [.Det a ] [.Adj small ] [.N book ] ] [.PP [.P to ] [.NP [.Det the ] [.N boy ] ] ] ]
+
+This sentence can also have a second parse tree as in question 1.c, which PP is attached to NP ``a small book" instead of S.
+
+\Tree [.S [.NP [.Det The ] [.N girl ] ] [.V gives ] [.NP [.Det a ] [.Adj small ] [.N book ] [.PP [.P to ] [.NP [.Det the ] [.N boy ] ] ] ] ]
+
+\subsection{A sentence that is correct according to this grammar, but incorrect according to
+GSE. Where is the problem?}
+
+``The boy sees a interesting book."
+
+This sentence is correct according to the given grammar. However, `a' must be changed to `an' in GSE. Even if `an' is added to the `Det' category, the sentence above is still correct and one parser can not get these phenomenon right, yet which might be solved by a parser with probability.
+
+\subsection{A sentence that is incorrect according to this grammar, but is correct according
+to the GSE. Where is the problem?}
+
+``The boy sees a small interesting book."
+``The boy sees a man."
+
+These two sentences are correct according to GSE but not the given grammar, which illustrate that the given grammar is too limited and can not cover the GSE vocabulary (`man' missing) or GSE's rule-set (two adjectives together: small interesting).
+
+\end{document}
