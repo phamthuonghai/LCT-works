@@ -1,0 +1,138 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+
+\title{NTIN090 - HW3}
+\author{Thuong-Hai Pham}
+\date{December 2017}
+
+\usepackage{graphicx}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 6}
+
+% DTIME(f(n)) ⊆ NTIME(f(n)) ⊆ DSPACE(f(n)) ⊆ NSPACE(f(n)).
+% 
+% L ⊆ NL ⊆ P ⊆ NP ⊆ PSPACE ⊆ NPSPACE ⊆ EXP.
+% 
+% Savitch's theorem: For any function f(n) ≥ log_2(n) it holds that NSPACE(f(n)) ⊆ SPACE(f^2(n)).
+% 
+% Space hierarchy theorem: For any space constructible function f : N → N, there exists a language A that is decidable in space O(f(n)) but not in space o(f(n)).
+% f1, f2 : N → N, where f1(n) ∈ o(f2(n)) and f2 is space constructible,DSPACE(f1(n)) \subsetneq DSPACE(f2(n)).
+% 0 ≤ a < b, DSPACE(n^a) \subsetneq DSPACE(n^b).
+% NL \subsetneq PSPACE \subsetneq EXPSPACE = \Cup_k∈N DSPACE(2^{n^k})
+
+% Time hierarchy theorem: For any time constructible function f : N → N, there exists a language A that is decidable in time O(f(n)) but not in time o(f(n)/ log f(n)).
+% f1, f2 : N → N, where f1(n) ∈ o(f2(n)/ log f2(n)) and f2 is time constructible, DTIME(f1(n)) \subsetneq DTIME(f2(n)).
+% 0 ≤ a < b, DTIME(n^a) \subsetneq DTIME(n^b)
+% P \subsetne EXP
+
+\subsection{$DSPACE(n)$ and $DTIME(2^{n^3})$}
+
+As a corollary of Deterministic Space Hierarchy Theorem
+
+\[DSPACE(n) \subsetneq DSPACE(n^3)\]
+
+For any language $L\in NSPACE(f(n)), f(n)\geq \log_2n$, there is a constant $c_L$ so that $L\in TIME(2^{c_Lf(n)})$, hence: 
+
+\[NSPACE(n^3) \subseteq DTIME(2^{n^3})\],
+
+and
+
+\[DSPACE(n^3) \subseteq NSPACE(n^3)\]
+
+Therefore,
+
+\[DSPACE(n) \subsetneq DTIME(2^{n^3})\]
+
+
+\subsection{$DSPACE(n^3)$ and $NSPACE(n\log n)$}
+
+According to Savitch's Theorem:
+
+\[NSPACE(n\log n) \subseteq DSPACE(n^2\log^2 n)\]
+
+On the other hand, because of
+
+\[\lim_{n\to\infty} \frac{n^2\log^2 n}{n^3} = \lim_{n\to\infty} \frac{\log^2 n}{n} = \lim_{x\to\infty} \frac{x^2}{2^x} = 0 \Rightarrow n^2\log^2 n \in o(n^3)\],
+
+\[\Rightarrow DSPACE(n^2\log^2 n) \subsetneq DSPACE(n^3)\]
+
+Hence, 
+
+\[NSPACE(n\log n) \subsetneq DSPACE(n^3)\]
+
+\subsection{$DTIME(2^{n^3})$ and $NTIME(n\log n)$}
+
+\[NTIME(n\log n) \subseteq DTIME(2^{n\log n})\]
+
+On the other hand,
+
+\[\lim_{n\to\infty} \frac{2^{n\log n}}{\frac{2^{n^3}}{n^3}} = \lim_{n\to\infty} \frac{2^{n\log n} 2^{3\log n}}{2^{n^3}} = \lim_{n\to\infty} \frac{1}{2^{n^3 - n\log n - 3\log n}} = 0\]
+
+\[\Rightarrow 2^{n\log n} \in o\left (\frac{2^{n^3}}{n^3}\right ) \Rightarrow DTIME(2^{n\log n}) \subsetneq DTIME(2^{n^3})\]
+
+Therefore,
+
+\[NTIME(n\log n) \subsetneq DTIME(2^{n^3})\]
+
+\subsection{$NSPACE(n\log n)$ and $DSPACE(n)$}
+
+\[\lim_{n\to\infty} \frac{n}{n\log n} = 0 \Rightarrow n \in o(n\log n)\]
+
+\[\Rightarrow DSPACE(n) \subsetneq DSPACE(n\log n)\]
+
+On the other hand,
+
+\[DSPACE(n\log n) \subseteq NSPACE(n\log n)\]
+
+Hence,
+
+\[DSPACE(n) \subsetneq NSPACE(n\log n)\]
+
+\section{Problem 7}
+
+\subsection{A in L} \label{7.1}
+Consider a Turing Machine (TM) M71 that decides language A as below:
+\begin{itemize}
+    \item Simulate a counter on the working tape, initialized as 0.
+    \item Read the input from left to right.
+    \item For each symbol read, increase the counter if it is `(', decrease the counter if it is `)'.
+    \item Reject if the current counter is 0 and `)' is read (violates the properly nested rule)
+    \item Accept if the counter is zero at the end of the input
+\end{itemize}
+
+Because the counter value can not exceed the input length n, the number of cells needed on the working tape is bound by $O(\log n)$. Hence, \textbf{A is in L}.
+
+\subsection{B in L}
+A TM A72 that decides language B will first check if the input string is properly nested regardless of type, using the TM A71 in \ref{7.1}.
+
+If A71 rejects, A72 rejects.
+
+If A71 accepts, then A72 performs the second phase to ensure the brackets and parentheses are placed properly as follow:
+\begin{enumerate}
+    \item Reserve the first cell of the first working tape, use the rest to simulate counter A.
+    \item Simulate counter B on the second working tape.
+    \item Read the input tape from left to right.
+    \item If right bracket or parenthesis is read, then
+    \begin{enumerate}
+        \item Write that symbol to the first cell of the first working tape.
+        \item Initialize counter A=1, counter B=0.
+        \item Move the head on the input tape from right to left. With each move: 
+            \begin{enumerate}
+                \item Increase counter B.
+                \item If right bracket or parenthesis is read, increase counter A, if left then decrease counter A.
+                \item Stop when A=0.
+            \end{enumerate}
+        \item A=0, check if the first cell of the first working tape and current symbol on the input tape are the same type, if not then reject.
+        \item Move the head on the input tape right. On each move, decrease counter B until B is 0. Continue step 3.
+    \end{enumerate}
+    \item At the end of the input string, accept.
+\end{enumerate}
+
+With the same argument, both counter values can not exceed the input length n. With one more reserved cell, the number of tape cells needed on both working tapes is still bound by $O(\log n)$. Hence, \textbf{B is in L}.
+
+\end{document}
