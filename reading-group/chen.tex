@@ -1,0 +1,60 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{NPFL095 - Chen}
+\author{Thuong-Hai Pham}
+\date{December 2017}
+
+\usepackage{graphicx}
+\usepackage{tikz-dependency}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Q1.} Make a sample parse for ``I sent him the letter", similar to Figure 1. Relations you can use are {nsubj, root, obj, iobj, det}, ignore punctuation. Here obj means direct object and iobj indirect object.
+
+\begin{dependency}
+    \begin{deptext}[column sep=1.8em]
+        I \& sent \& him \& the \& letter \\
+        PRP \& VBD \& PRP \& DT \& NN \\
+    \end{deptext}
+    \deproot{2}{root}
+    \depedge{2}{1}{nsubj}   
+    \depedge{2}{3}{iobj}
+    \depedge{2}{5}{obj}
+    \depedge{5}{4}{det}
+\end{dependency} 
+
+\bigskip
+
+\textbf{Q2.} Why is it important for all RIGHT-ARCs associated with an element to occur before a LEFT-ARC?
+
+It is not important.
+
+\bigskip
+
+\textbf{Q3.} Why can't the arc-standard algorithm be used to parse non-projective sentences? Do you know (or even better: can you come up with) a way how to allow parsing non-projectivities?
+
+In arc-standard system, an arc is only formed between two words on top of the stack, and all words between these two words are already processed (popped out of the stack). Hence, there is no such scenario for two crossed arcs to be formed.
+
+To deal with non-projectivities, one may use Attardi's algorithm or arc-standard with SWAP operation.
+
+\bigskip
+
+\textbf{Q4.} The Introduction mentions features of four different properties: higher-order, higher-support, dense and sparse. Can you explain each of the four properties. Which properties pairs are mutually exclusive?
+
+By higher-order, the parser takes into consideration not only parent-child interaction but interactions between siblings, grandparent-child-grandchild, etc. I am confused with the concept of higher-support property, even the referenced paper did not mention that concept.
+
+Sparse features are features which contain many zeros, e.g. one-hot vectors. While dense features do not, hence are able to encode the same information with lower dimension. Dense and sparse are mutually exclusive.
+
+\bigskip
+
+\textbf{Q5.} What do you like and dislike about the paper? Is there anything unclear?
+
+The paper is clear and easy to re-implement. However, it still requires a predefined features template.
+
+What is the definition of higher-support property?
+
+
+\end{document}
