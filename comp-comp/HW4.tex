@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+
+\title{NTIN090 - HW4}
+\author{Thuong-Hai Pham}
+\date{December 2017}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 5}
+Consider the following variant of partition problem.
+
+\textbf{Instance}: Positive integers $a_1,...,a_{3k}$.
+
+\textbf{Question}: Can integers $a_1,...,a_{3k}$ be split into 3 groups so that the sum of integers in each group is the same (i.e. $\frac{1}{3}\sum_{i=1}^{3k}a_i$)?
+
+Is this problem polynomial or NP-complete if all integers are binary coded? Is this problem polynomial or NP-complete if all integers are unary coded?
+
+\subsection{Binary coded}
+% Show that B is in NP
+
+Let's call our problem B. Consider an arbitrary instance of PARTITION problem $A=\{a_1,...,a_n\}, \sum_{a\in A}a=2m$ and function $f: A \mapsto A'$:
+
+\[f(A)=A\cup X, X=\begin{cases}
+                    \{1,m-1\} \text{ if } n=3k-2,k\in \mathbb{N^+} \\
+                    \{m\} \text{ if } n=3k-1,k\in \mathbb{N^+} \\
+                    \{1,1,m-2\} \text{ if } n=3k,k\in \mathbb{N^+}
+                \end{cases}\]
+
+$f$ is polynomial-time computable as the only operation is to compute m.
+
+These following statements are equivalent:
+\begin{enumerate}
+    \item $A\in PARTITION$.
+    \item $A=A_1\cup A_2,\sum_{a\in A_1}a=\sum_{a\in A_2}a=\frac{1}{2}\sum_{a\in A}a=m$.
+    \item $f(A) = A_1\cup A_2\cup X, \sum_{a\in A_1}a=\sum_{a\in A_2}a=\sum_{a\in X}a=\frac{1}{3}\sum_{a\in f(A)}a=m$.
+    \item $f(A) \in B$.
+\end{enumerate}
+
+Hence, $PARTITION \le_{m}^{p} B$. Because PARTITION is NP-complete, our problem B is NP-hard.
+
+On the other hand, given a solution of B, one can verify the solution by calculating sum of the three subsets and check if these sums satisfy the problem's requirement in polynomial time. Hence, B is in NP.
+
+Therefore,\textbf{ B is NP-complete}.
+
+\subsection{Unary coded}
+
+Let the unary-coded version of our problem B be UNARY-B.
+
+Consider a non-deterministic Turing machine that solve problem B. For each element in A, there are three branches can be split into, corresponding to which set the element is assigned to. After going through all elements, if there is a branch that has three sets satisfy the condition, then accepts, else rejects. The length of each branch can not exceed the input size m, which leads to the complexity of NTIME(m). Hence, there is a deterministic Turing machine that simulates this non-deterministic one in $O(2^m)$.
+
+Given an input of problem UNARY-B, one can transform this input of size m from unary coded format to binary coded format in O(m). This transformation reduces the input size from m to log(m). Consequently, the aforementioned deterministic Turing machine is used to solve the transformed input, which requires time complexity of $O(2^{log(m)})$. The total time complexity is $O(m+2^{log(m)})$, which is polynomial to the input size m. Hence, \textbf{UNARY-B is polynomial}.
+
+\section{Problem 6}
+Decide whether the following problem is polynomial or NP-complete.
+
+\textbf{Instance}: An undirected graph G = (V, E).
+
+\textbf{Question}: Does G contain a path through all vertices?
+
+\subsection{``A path" implies a simple path}
+
+If the mentioned path implies a simple path, then the given question is to find a Hamilton path which visits all vertices of G exactly one. Let's name the given problem as HAM-PATH.
+
+Consider an arbitrary instance G = (V, E) of the Hamiltonian cycle problem, HAM-CYCLE, and a function $f: G\mapsto G'$ as follow:
+\begin{enumerate}
+    \item Choose an arbitrary vertex u.
+    \item Add three new vertices, $V' = V\cup\{u',v_1,v_2\}$.
+    \item $E' = E\cup\{(u',v)| (u,v)\in E\}\cup\{(u,v_1), (u',v_2)\}$.
+    \item $G'=(V', E')$.
+\end{enumerate}
+
+It is obvious that the function $f$ is polynomial-time computable, and:
+\begin{itemize}
+    \item If G is in HAM-CYCLE, there is a cycle $C = (u, v_a,...,v_b,u)$ which all vertices appears once in C. Hence, there is a path $P=(v_1, u, v_a,...,v_b,u',v_2)$ from $v_1$ to $v_2$ in G', which all vertices on the path is also visited exactly once. Therefore, G' is in HAM-PATH.
+    \item On the other hand, if G' is in HAM-PATH, the found path, without the loss of generality, has to start with $v_1$ and ends with $v_2$, i.e. $P=(v_1, u, v_a,...,v_b,u',v_2)$. Hence, there is a cycle $C = (u, v_a,...,v_b,u)$ in G that satisfies the HAM-CYCLE.
+\end{itemize}
+
+Therefore, $G \in HAM-CYCLE \Leftrightarrow f(G)\in HAM-PATH$, that means $HAM-CYCLE \le_m^p HAM-PATH$. Moreover, HAM-CYCLE is NP-complete, that leads to the conclusion that HAM-PATH is NP-hard.
+
+It is important to note that the proof above does not hold for an extreme case, in which G only has two vertices connected by one edge. In this case, G is not in HAM-CYCLE, but f(G) is in HAM-PATH. However, this extreme case can be handled separately.
+
+Given a solution of the questioned problem HAM-PATH, one can verify by following the path and check if all vertices are visited exactly once, i.e. it can be verified in polynomial time. Hence, HAM-PATH is also in NP. Therefore, the \textbf{questioned problem HAM-PATH is NP-complete}. 
+
+
+\subsection{``A path" implies a walk, not a simple path}
+
+If the path to be found does not imply a simple path, one vertices can be visited more than once on the path.
+
+In that case, given an undirected graph G = (V, E),
+
+``G contain a path through all vertices"$\Leftrightarrow$ ``G is connected" because:
+\begin{enumerate}
+    \item G contain a path through all vertices $\Rightarrow$ G is connected, which is obvious.
+    \item G is connected \\ $\Rightarrow \forall v_i, v_{i+1} \in V = \{v_1,..,v_{|V|}\}$, there is a path $p_i$ to go from $v_i$ to $v_{i+1}$
+    \\ $\Rightarrow P = (p_1,...,p_{|V|-1})$  is one of the path through all vertices.
+\end{enumerate}
+
+That means our questioned problem is polynomially reducible to connectivity problem. Moreover, the graph connectivity problem can be solved by Bread-first search algorithm, which time complexity is $O(|V|+|E|)$, i.e. it is in P. Hence, \textbf{the questioned problem is polynomial}.
+
+\end{document}
