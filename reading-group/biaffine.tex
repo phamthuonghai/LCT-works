@@ -1,0 +1,39 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+
+\title{NPFL095 - Deep Biaffine Parser}
+\author{Thuong-Hai Pham}
+\date{January 2018}
+
+\usepackage{graphicx}
+\usepackage{amsmath,amsfonts,amssymb}
+
+\begin{document}
+
+\maketitle
+
+\textbf{Q1.} Your task is to guess dependency relation labels (e.g. UD-style nsubj, obj, obl, advcl,...) in an unlabeled dependency tree, but you can see only one of the following four: dependent node word form, dependent node PoS tag, governing node word form and governing node PoS tag. Which one would you choose and why? (The answer is not contained in the paper.)
+
+Having an unlabeled dependency tree, a choice between governor's or dependant's information does not matter much. In that case, the word form is a better choice, as it provides more information. While PoS tags can be inferred from the sentences (reconstructed from the tree).
+
+Assume that the task is to guess the label of a given arc (no full tree exposed), I would go with the dependant's word form. Considering between governor and dependant, it is notable that one governor may have more than one dependant. Hence, governor's information can not help to distinguish labels of incoming arcs to that node. Word form is chosen with the same argument, it provides more information, although might be ambiguous in some cases.
+
+\bigskip
+
+\textbf{Q2.} Can you please help me completing/fixing the Linear algebra recap below?
+
+\begin{itemize}
+    \item \textbf{Bilinear transformation} in the NN context, is a function $f$ of two variables $x_1$ and $x_2$ ($n_1$-dimensional and $n_2$-dimensional, resp.), which can be written as $f(x_1, x_2)=x_1^\intercal W x_2$. For any fixed $x_1$, $f(x_1, x_2)$ is linear in $x_2$ and for any fixed $x_2$, $f(x_1, x_2)$ is linear in $x_1$.
+
+    \item \textbf{Biaffine transformation} in the NN context, is a function f of two variables $x_1$ and $x_2$ ($n_1$-dimensional and $n_2$-dimensional, resp.), which can be written as $f(x_1, x_2) = x_1^\intercal W_1 x_2 + (x_1\oplus x_2)^\intercal W_2 + b,$ where $x_1 \oplus x_2 $is a $n_1+n_2$ dimensional vector and $W_1, W_2$ and $b$ are parameters with dimensions $n_1\times n_2$, $n_1+n_2$, 1, resp.
+
+\end{itemize}
+
+\bigskip
+
+\textbf{Q3.} What do you like and dislike about the paper? Is there anything unclear?
+
+I like the simplicity of the model that leads into a SOTA result. This biaffine attention is from the translation task, so if we apply a better attention mechanism from MT, should the result of dependency parsing be better?
+
+
+\end{document}
