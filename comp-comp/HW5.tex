@@ -1,0 +1,114 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage{minted}
+
+\DeclareMathOperator*{\argmax}{argmax}
+
+\title{NTIN090 - HW5}
+\author{Thuong-Hai Pham}
+\date{January 2018}
+
+\begin{document}
+
+\maketitle
+
+\section{Problem 8}
+
+Prove that if there exists a polynomial algorithm deciding Hamiltonicity problem, then there
+also exists an algorithm which finds a Hamiltonian cycle in a given graph in polynomial time (if a Hamiltonian
+exists).
+
+Assume that there exists a polynomial decider $IsHam(G)$ for Hamiltonicity problem given graph $G=(V,E)$, one can construct the program $FindHam(G)$ which finds a Hamiltonian cycle in $G$ as follow:
+
+\begin{minted}[frame=single]{pascal}
+program FindHam(G)
+    res := []
+    if IsHam(G) then
+        return res
+
+    u := arbitrary node in G
+    while G has unchecked edges do
+        for all edge e = (u, v) do
+            Gt := G - e             // Remove e from graph G
+            if IsHam(Gt) then
+                G := Gt
+            else
+                add u to res
+                mark e as checked
+                next := v
+        u := next
+        
+    return res
+\end{minted}
+
+The main procedure of $FindHam(G)$ is for a vertex $u$, delete all edge $e$ from $u$ that is not crucial to the Hamiltonian property (deleting $e$ from $G$ does not make $G$ not Hamiltonian). The deletion might delete edges from other Hamiltonian cycles, yet we only need one cycle.
+
+The complexity of $FindHam$ is at most the multiplication of $|E|$ and the complexity of $IsHam$, which is polynomial. Hence, $FindHam$ is polynomial.
+
+
+\section{Problem 9}
+
+Consider the following weighted version of Sumset-Sum problem.
+
+\textbf{Instance:} A set of $k$ items $A$, size $s(a)\in \mathbb{N}$ and value $v(a)\in \mathbb{N}$ associated with each item $a\in A$ and size
+limit $l$.
+
+\textbf{Feasible solution:} A set $A'\subseteq A$ satisfying $\sum_{a\in A'}s(a) \le l$.
+
+\textbf{Objective:} Maximize the sum of values of items in $A'$, that is $\sum_{a\in A'}v(a)$.
+
+Construct a pseudo-polynomial algorithm that finds the optimal solution. Construct a fully polynomial approximation scheme.
+
+\subsection{Pseudo-polynomial algorithm to find the optimal solution}
+Consider a Dynamic Programming algorithm that computes $F(i,v)$, minimum sum in size of items in $A''$, which $A''$ is a subset of $A[1..i]$ (the first i items of A) and $\displaystyle \sum_{a\in A''}v(a)=v$. Let $\displaystyle V=\max_{a\in A}(v(a))$, 
+
+$$F(i,v)=min(F(i-1,v),F(i-1,v-v(A_i))+s(A_i)),\forall v\le kV, 1\le i\le k$$
+
+For more technical details, $F(0,0)$ should be initialized as 0, others are $\infty$. The value of optimal solution is $\displaystyle \argmax_{v\le kV}(F(k,v)<l)$. While the set $O$ of optimal solution can be found by back-tracking.
+
+It is obvious that the complexity of this algorithm is $O(k^2 V)$ which is polynomial to the length of inputs and the maximum value of inputs. Hence, the algorithm is pseudo-polynomial.
+
+\subsection{Fully polynomial approximation scheme}
+
+Given $$\epsilon > 0 \text{, let } \delta=\frac{\epsilon V}{k} \text{ and } v'(a)=\left \lfloor \frac{v(a)}{\delta} \right \rfloor, \forall a\in A$$.
+
+Value of a set $$v(A)=\sum_{a\in A}v(a), v'(A)=\sum_{a\in A}v'(a)$$
+
+We can use the Dynamic Programming algorithm in the previous section to find $O' \subseteq A$ that is in the set of feasible solution, and maximize the sum of new values (i.e. $v'(O')$). In addition, let O be the optimal solution found by the Dynamic Programming algorithm over the original values $v(a)$.
+
+It is obvious that $v(a)-\delta v'(a)\le \delta, \forall a\in A$ (by scaling down and take the floor). Hence,
+
+\begin{equation}
+    v(O)-\delta v'(O)\le \delta k \\
+    \Leftrightarrow \delta v'(O)\ge v(O)- \delta k
+\end{equation}
+
+Moreover, 
+$$v(O')\ge \delta v'(O') \text{ because } v(a)\ge \delta v'(a),\forall a\in A$$
+
+and
+
+$$v'(O')\ge v'(O), (O' \text{ is the optimal solution over } v'(a))$$
+
+Therefore,
+
+
+\begin{equation}
+\begin{aligned}
+v(O')&\ge \delta v'(O) \\
+    &\ge v(O) - \delta k \text{ , because of (1)} \\
+    &\ge v(O) - \epsilon V
+\end{aligned}
+\end{equation}
+
+WLOG, a set $\{a|a\in A,v(a)=V\}$ must be a feasible solution. Because if $s(a)>l$, any set that contains $a$ is also not a feasible solution, then we can remove these members of A before running the algorithm. Hence, $v(O)\ge V$.
+
+$$(2) \Rightarrow v(O')\ge v(O)-\epsilon v(O) = (1-\epsilon)v(O)$$
+
+which means the approximation ratio is $1-epsilon$, i.e. this is an approximation scheme for the problem.
+
+On the other hand, the maximum value of inputs that the proposed algorithm has to work with is $\frac{k}{\epsilon}$. Therefore, the complexity is $O\left ( \frac{k^3}{\epsilon}\right )$. With that, we have proved the proposed algorithm is a fully polynomial time approximation scheme for the given problem.
+
+\end{document}
