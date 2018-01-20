@@ -1,3 +1,6 @@
+// !!!!!!! THIS CODE CONTAINS STUPIDLY WRONG IMPLEMENTATION OF CUCKOO HASHING AND TABULAR !!!!!!!
+
+
 #include <iostream>
 #include <time.h>
 #include <inttypes.h>
