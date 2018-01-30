@@ -2,10 +2,12 @@
 #include <cstdlib>
 #include "abtree.h"
 
+//#define DEBUG 1
+
 /* command line: abtree [a] [b] */
 int main(int argc, char *argv[]) {
-#ifdef DEGUB
-    FILE *fp = freopen("../tmp.txt", "r", stdin);
+#ifdef DEBUG
+    FILE *fp = freopen("../bia.txt", "r", stdin);
 #endif
     char line[50], command;
     int n = 0, st_visit, st_edit, k, cnt_ops = 0;
@@ -37,7 +39,7 @@ int main(int argc, char *argv[]) {
             sum_edit += st_edit;
             sum_visit += st_visit;
             cnt_ops++;
-#ifdef DEGUB
+#ifdef DEBUG
             printf("\n%s %d %d\n", line, st_edit, st_visit);
             tree->display();
 #endif
