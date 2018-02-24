@@ -60,7 +60,7 @@ def task1(file_path, codec='utf-8'):
             h, _ = entropy(new_text)
             print('%f\n' % h)
             res.append(h)
-        print('min: %f, avg: %f, max: %f\n' % (min(res), max(res), sum(res)/len(res)))
+        print('min: %f, avg: %f, max: %f\n' % (min(res), sum(res)/len(res), max(res)))
 
     print('=== Mess up characters ===\n')
     for prob in probs:
@@ -74,6 +74,8 @@ def task1(file_path, codec='utf-8'):
         print('min: %f, avg: %f, max: %f\n' % (min(res), max(res), sum(res)/len(res)))
 
 if __name__ == '__main__':
+    # random.seed(42), similar to srand in C++, used for debug only
+
     print('\n========================== TEXTEN1 ==========================\n')
     task1('TEXTEN1.txt')
 
