@@ -150,11 +150,13 @@ class Network:
         self.session.run([self.training, self.summaries["train"]], {self.windows: windows, self.labels: labels})
 
     def evaluate(self, dataset, windows, labels):
-        acc, _ = self.session.run([self.accuracy, self.summaries[dataset]], {self.windows: windows, self.labels: labels})
+        acc, _ = self.session.run([self.accuracy, self.summaries[dataset]],
+                                  {self.windows: windows, self.labels: labels})
         return acc
 
-    def predict(self, dataset, windows):
-        preds, _ = self.session.run([self.predictions, self.summaries[dataset]], {self.windows: windows})
+    def predict(self, dataset, windows, labels):
+        preds, _ = self.session.run([self.predictions, self.summaries[dataset]],
+                                    {self.windows: windows, self.labels: labels})
         return preds
 
     def save(self, path):
@@ -176,14 +178,14 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--alphabet_size", default=100, type=int, help="Alphabet size.")
     parser.add_argument("--embedding_size", default=10, type=int, help="Embedding size.")
-    parser.add_argument("--batch_size", default=4048, type=int, help="Batch size.")
-    parser.add_argument("--epochs", default=50, type=int, help="Number of epochs.")
-    parser.add_argument("--threads", default=1, type=int, help="Maximum number of threads to use.")
+    parser.add_argument("--batch_size", default=4000, type=int, help="Batch size.")
+    parser.add_argument("--epochs", default=80, type=int, help="Number of epochs.")
+    parser.add_argument("--threads", default=8, type=int, help="Maximum number of threads to use.")
     parser.add_argument("--window", default=5, type=int, help="Size of the window to use.")
     parser.add_argument("--test", dest='test', action='store_true', help="Should output test file.")
-    parser.add_argument("--hidden_layer_units", default=30, type=int, help="Size of the hidden layer.")
-    parser.add_argument("--layers", default=2, type=int, help="Number of layers.")
-    parser.add_argument("--learning_rate", default=0.01, type=float, help="Initial learning rate.")
+    parser.add_argument("--hidden_layer_units", default=20, type=int, help="Size of the hidden layer.")
+    parser.add_argument("--layers", default=3, type=int, help="Number of layers.")
+    parser.add_argument("--learning_rate", default=0.001, type=float, help="Initial learning rate.")
     parser.add_argument("--activation", default="relu", type=str, help="Activation function.")
     args = parser.parse_args()
 
@@ -225,6 +227,6 @@ if __name__ == "__main__":
     # Generate the uppercased test set
     if args.test:
         test_windows, test_labels = test.all_data()
-        mask = network.predict("test", test_windows)
+        mask = network.predict("test", test_windows, test_labels)
         with open(os.path.join(args.logdir, "predict.txt"), "w") as f:
             f.write(test.text_with_mask(mask))
