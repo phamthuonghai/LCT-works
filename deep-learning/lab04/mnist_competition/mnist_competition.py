@@ -70,6 +70,10 @@ class Network:
                 features = tf.layers.flatten(features)
             elif def_params[0] == 'R':
                 features = tf.layers.dense(features, units=int(def_params[1]), activation=tf.nn.relu)
+            elif def_params[0] == 'RB':
+                features = tf.layers.dense(features, units=int(def_params[1]), activation=None, use_bias=False)
+                features = tf.layers.batch_normalization(features, training=self.is_training)
+                features = tf.nn.relu(features)
             elif def_params[0] == 'CB':
                 features = tf.layers.conv2d(features, filters=int(def_params[1]), kernel_size=int(def_params[2]),
                                             strides=int(def_params[3]), padding=def_params[4], activation=None,
@@ -112,6 +116,7 @@ if __name__ == "__main__":
 
     # Parse arguments
     parser = argparse.ArgumentParser()
+    parser.add_argument("--params", default=None, type=str, help="Params file.")
     parser.add_argument("--batch_size", default=1000, type=int, help="Batch size.")
     parser.add_argument("--epochs", default=200, type=int, help="Number of epochs.")
     parser.add_argument("--threads", default=8, type=int, help="Maximum number of threads to use.")
@@ -121,13 +126,37 @@ if __name__ == "__main__":
                         help="Description of the CNN architecture.")
     args = parser.parse_args()
 
-    # Create logdir name
-    args.logdir = "logs/{}-{}".format(
-        os.path.basename(__file__),
-        ",".join(("{}={}".format(re.sub("(.)[^_]*_?", r"\1", key), value) for key, value in sorted(vars(args).items())))
-    )
+    if args.params is not None:
+        import json
+        import random
+        from collections import namedtuple
+        with open(args.params, 'r') as f:
+            param_list = json.load(f)
+            while True:
+                param = param_list[random.randint(0, len(param_list)-1)]
+                logdir = "logs/{}-{}".format(
+                    os.path.basename(__file__),
+                    ",".join(
+                        "{}={}".format(re.sub("(.)[^_]*_?", r"\1", key), value) for key, value in sorted(param.items()))
+                )
+                if not os.path.exists(logdir):
+                    param['logdir'] = logdir
+                    args = namedtuple('Params', param.keys())(*param.values())
+                    break
+    else:
+        # Create logdir name
+        args.logdir = "logs/{}-{}".format(
+            os.path.basename(__file__),
+            ",".join(("{}={}".format(
+                re.sub("(.)[^_]*_?", r"\1", key), value) for key, value in sorted(vars(args).items())))
+        )
+
     if not os.path.exists("logs"):
         os.mkdir("logs")  # TF 1.6 will do this by itself
+
+    print("=====================================================")
+    print(args.logdir)
+    print("=====================================================")
 
     # Load the data
     from tensorflow.examples.tutorials import mnist
