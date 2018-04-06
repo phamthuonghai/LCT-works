@@ -20,23 +20,18 @@ class Network:
             self.labels = tf.placeholder(tf.int64, [None], name="labels")
             self.masks = tf.placeholder(tf.float32, [None, self.HEIGHT, self.WIDTH, 1], name="masks")
             self.is_training = tf.placeholder(tf.bool, [], name="is_training")
+            self.learning_rate = tf.placeholder_with_default(0.01, None)
 
             # Computation
             loss, masks_loss, self.labels_predictions, self.masks_predictions = self.build_model(params)
+            self.loss = loss + params.masks_loss_coef * masks_loss
 
             # Training
             global_step = tf.train.create_global_step()
-            if params.learning_rate_final is not None and params.batches_per_epoch is not None:
-                lr = tf.train.exponential_decay(params.learning_rate, global_step, params.batches_per_epoch,
-                                                (params.learning_rate_final/params.learning_rate) **
-                                                (1.0/(params.epochs-1)),
-                                                staircase=True)
-            else:
-                lr = params.learning_rate
+
             with tf.control_dependencies(tf.get_collection(tf.GraphKeys.UPDATE_OPS)):
-                self.training = tf.train.AdamOptimizer(learning_rate=lr).minimize(
-                    params.train_loss_coef * loss + (1 - params.train_loss_coef) * masks_loss,
-                    global_step=global_step, name="training")
+                self.training = tf.train.AdamOptimizer(learning_rate=self.learning_rate).minimize(
+                    self.loss, global_step=global_step, name="training")
 
             # Summaries
             accuracy = tf.reduce_mean(tf.cast(tf.equal(self.labels, self.labels_predictions), tf.float32))
@@ -51,16 +46,18 @@ class Network:
             summary_writer = tf.contrib.summary.create_file_writer(params.logdir, flush_millis=10 * 1000)
             self.summaries = {}
             with summary_writer.as_default(), tf.contrib.summary.record_summaries_every_n_global_steps(100):
-                self.summaries["train"] = [tf.contrib.summary.scalar("train/loss", loss),
-                                           tf.contrib.summary.scalar("train/masks_loss", masks_loss),
+                self.summaries["train"] = [tf.contrib.summary.scalar("train/loss", self.loss),
+                                           tf.contrib.summary.scalar("train/loss_cls", loss),
+                                           tf.contrib.summary.scalar("train/loss_masks", masks_loss),
                                            tf.contrib.summary.scalar("train/accuracy", accuracy),
                                            tf.contrib.summary.scalar("train/iou", self.iou),
                                            tf.contrib.summary.image("train/images", self.images),
                                            tf.contrib.summary.image("train/masks", self.masks_predictions)]
             with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
                 for dataset in ["dev", "test"]:
-                    self.summaries[dataset] = [tf.contrib.summary.scalar(dataset + "/loss", loss),
-                                               tf.contrib.summary.scalar(dataset + "/masks_loss", masks_loss),
+                    self.summaries[dataset] = [tf.contrib.summary.scalar(dataset + "/loss", self.loss),
+                                               tf.contrib.summary.scalar(dataset + "/loss_cls", loss),
+                                               tf.contrib.summary.scalar(dataset + "/loss_masks", masks_loss),
                                                tf.contrib.summary.scalar(dataset + "/accuracy", accuracy),
                                                tf.contrib.summary.scalar(dataset + "/iou", self.iou),
                                                tf.contrib.summary.image(dataset + "/images", self.images),
@@ -84,15 +81,16 @@ class Network:
         """
         raise NotImplementedError()
 
-    def train(self, images, labels, masks):
+    def train(self, images, labels, masks, lr):
         self.session.run([self.training, self.summaries["train"]],
-                         {self.images: images, self.labels: labels, self.masks: masks, self.is_training: True})
+                         {self.images: images, self.labels: labels, self.masks: masks,
+                          self.is_training: True, self.learning_rate: lr})
 
     def evaluate(self, dataset, images, labels, masks):
-        iou, _ = self.session.run([self.iou, self.summaries[dataset]],
-                                  {self.images: images, self.labels: labels,
-                                   self.masks: masks, self.is_training: False})
-        return iou
+        loss, iou, _ = self.session.run([self.loss, self.iou, self.summaries[dataset]],
+                                        {self.images: images, self.labels: labels,
+                                         self.masks: masks, self.is_training: False})
+        return loss, iou
 
     def predict(self, images):
         return self.session.run([self.labels_predictions, self.masks_predictions],
@@ -105,44 +103,63 @@ class Network:
         self.saver.restore(self.session, path)
 
 
+def get_layer(layer_def, features, is_training):
+    def_params = layer_def.split('-')
+    if def_params[0] == 'C':
+        features = tf.layers.conv2d(features, filters=int(def_params[1]), kernel_size=int(def_params[2]),
+                                    strides=int(def_params[3]), padding='same', activation=tf.nn.relu)
+    elif def_params[0] == 'M':
+        features = tf.layers.max_pooling2d(features, pool_size=int(def_params[1]),
+                                           strides=int(def_params[2]), padding='same')
+    elif def_params[0] == 'F':
+        features = tf.layers.flatten(features)
+    elif def_params[0] == 'R':
+        features = tf.layers.dense(features, units=int(def_params[1]), activation=tf.nn.relu)
+    elif def_params[0] == 'RB':
+        features = tf.layers.dense(features, units=int(def_params[1]), activation=None, use_bias=False)
+        features = tf.layers.batch_normalization(features, training=is_training)
+        features = tf.nn.relu(features)
+    elif def_params[0] == 'RD':
+        features = tf.layers.dense(features, units=int(def_params[1]), activation=None, use_bias=False)
+        features = tf.layers.dropout(features, rate=float(def_params[2]), training=is_training)
+    elif def_params[0] == 'CB':
+        features = tf.layers.conv2d(features, filters=int(def_params[1]), kernel_size=int(def_params[2]),
+                                    strides=int(def_params[3]), padding='same', activation=None,
+                                    use_bias=False)
+        features = tf.layers.batch_normalization(features, training=is_training)
+        features = tf.nn.relu(features)
+    return features
+
+
 class CNN(Network):
     def build_model(self, params):
         features = self.images
-        layer_defs = params.cnn.strip().split(',')
-        masks_output_layer = None
-        for layer_def in layer_defs:
-            def_params = layer_def.split('-')
-            if def_params[0] == 'C':
-                features = tf.layers.conv2d(features, filters=int(def_params[1]), kernel_size=int(def_params[2]),
-                                            strides=int(def_params[3]), padding=def_params[4],
-                                            activation=tf.nn.relu)
-            elif def_params[0] == 'M':
-                features = tf.layers.max_pooling2d(features, pool_size=int(def_params[1]),
-                                                   strides=int(def_params[2]))
-            elif def_params[0] == 'F':
-                features = tf.layers.flatten(features)
-            elif def_params[0] == 'R':
-                features = tf.layers.dense(features, units=int(def_params[1]), activation=tf.nn.relu)
-            elif def_params[0] == 'RB':
-                features = tf.layers.dense(features, units=int(def_params[1]), activation=None, use_bias=False)
-                features = tf.layers.batch_normalization(features, training=self.is_training)
-                features = tf.nn.relu(features)
-            elif def_params[0] == 'CB':
-                features = tf.layers.conv2d(features, filters=int(def_params[1]), kernel_size=int(def_params[2]),
-                                            strides=int(def_params[3]), padding=def_params[4], activation=None,
-                                            use_bias=False)
-                features = tf.layers.batch_normalization(features, training=self.is_training)
-                features = tf.nn.relu(features)
-            elif def_params[0] == 'O':
-                masks_output_layer = features
-            else:
-                continue
 
-        labels_output_layer = tf.layers.dense(features, self.LABELS, activation=None, name="labels_output_layer")
+        part_defs = params.cnn.strip().split(';')
+
+        # Common part
+        common_layer = features
+        for layer_def in part_defs[0].split(','):
+            common_layer = get_layer(layer_def, common_layer, self.is_training)
+
+        # Classification part
+        classify_layer = common_layer
+        for layer_def in part_defs[1].split(','):
+            classify_layer = get_layer(layer_def, classify_layer, self.is_training)
+
+        labels_output_layer = tf.layers.dense(classify_layer, self.LABELS, activation=None)
         labels_predictions = tf.argmax(labels_output_layer, axis=1)
-        masks_predictions = tf.round(tf.sigmoid(masks_output_layer))
-        loss = tf.losses.sparse_softmax_cross_entropy(self.labels, labels_output_layer, scope="loss")
-        masks_loss = tf.nn.sigmoid_cross_entropy_with_logits(labels=self.masks, logits=masks_output_layer)
+
+        loss = tf.losses.sparse_softmax_cross_entropy(self.labels, labels_output_layer)
+
+        # Masking part
+        mask_layer = common_layer
+        for layer_def in part_defs[2].split(','):
+            mask_layer = get_layer(layer_def, mask_layer, self.is_training)
+
+        masks_predictions = tf.round(tf.sigmoid(mask_layer))
+        masks_loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(labels=self.masks, logits=mask_layer))
+
         return loss, masks_loss, labels_predictions, masks_predictions
 
 

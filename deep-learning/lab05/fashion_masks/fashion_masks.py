@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import numpy as np
+import sys
 
 try:
     from .models import get_model
@@ -65,7 +66,10 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--params", default="params_cnn.json", type=str, help="Param file path.")
     parser.add_argument("--epochs", default=300, type=int, help="Number of epochs.")
-    parser.add_argument("--early_stop", default=5, type=int, help="Number of epochs to endure before early stopping.")
+    parser.add_argument("--learning_rate", default=0.01, type=float, help="Initial learning rate.")
+    parser.add_argument("--lr_drop_max", default=5, type=int, help="Number of epochs to drop learning rate.")
+    parser.add_argument("--lr_drop_rate", default=0.3, type=float, help="Rate of dropping learning rate.")
+    parser.add_argument("--early_stop", default=10, type=int, help="Number of epochs to endure before early stopping.")
     parser.add_argument("--threads", default=4, type=int, help="Maximum number of threads to use.")
     _args = parser.parse_args()
 
@@ -102,21 +106,25 @@ def main():
     network = get_model(param.model)(param)
 
     # Train
-    max_iou = 0
+    min_loss = 10000
     early_stopping = 0
+    lr = _args.learning_rate
     for i in range(_args.epochs):
         while not train.epoch_finished():
             images, labels, masks = train.next_batch(param.batch_size)
-            network.train(images, labels, masks)
+            network.train(images, labels, masks, lr)
 
-        cur_iou = network.evaluate("dev", dev.images, dev.labels, dev.masks)
-        print(cur_iou)
-        if cur_iou > max_iou:
-            max_iou = cur_iou
+        cur_loss, cur_iou = network.evaluate("dev", dev.images, dev.labels, dev.masks)
+        print("IoU: %f, loss: %f" % (cur_iou, cur_loss))
+        sys.stdout.flush()
+        if cur_loss < min_loss:
+            min_loss = cur_loss
             network.save(os.path.join(param.logdir, "model"))
             early_stopping = 0
         else:
             early_stopping += 1
+            if early_stopping > _args.lr_drop_max:
+                lr *= _args.lr_drop_rate
             if early_stopping > _args.early_stop:
                 break
 
