@@ -49,6 +49,7 @@ class Network:
                 self.summaries["train"] = [tf.contrib.summary.scalar("train/loss", self.loss),
                                            tf.contrib.summary.scalar("train/loss_cls", loss),
                                            tf.contrib.summary.scalar("train/loss_masks", masks_loss),
+                                           tf.contrib.summary.scalar("train/lr", self.learning_rate),
                                            tf.contrib.summary.scalar("train/accuracy", accuracy),
                                            tf.contrib.summary.scalar("train/iou", self.iou),
                                            tf.contrib.summary.image("train/images", self.images),
@@ -128,6 +129,8 @@ def get_layer(layer_def, features, is_training):
                                     use_bias=False)
         features = tf.layers.batch_normalization(features, training=is_training)
         features = tf.nn.relu(features)
+    elif def_params[0] == 'D':
+        features = tf.layers.dropout(features, rate=float(def_params[1]), training=is_training)
     return features
 
 
