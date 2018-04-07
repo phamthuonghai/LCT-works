@@ -106,7 +106,7 @@ class Network:
             self.windows = tf.placeholder(tf.int32, [None, 2 * args.window + 1], name="windows")
             self.labels = tf.placeholder(tf.int32, [None], name="labels")
 
-            # TODO: Define a suitable network with appropriate loss function
+            # Define a suitable network with appropriate loss function
             char_embeddings = tf.get_variable("char_embeddings", [args.alphabet_size, args.embedding_size])
             embedded_chars = tf.nn.embedding_lookup(char_embeddings, self.windows)
             embedded_chars = tf.layers.flatten(embedded_chars)
@@ -121,7 +121,7 @@ class Network:
             output = tf.layers.dense(hidden_layer, 2, activation=None, name="output")
             self.predictions = tf.argmax(output, axis=1, output_type=tf.int32, name="predictions")
 
-            # TODO: Define training
+            # Define training
             loss = tf.losses.sparse_softmax_cross_entropy(logits=output, labels=self.labels)
             global_step = tf.train.create_global_step()
             self.training = tf.train.AdamOptimizer(args.learning_rate).minimize(loss, global_step=global_step)
