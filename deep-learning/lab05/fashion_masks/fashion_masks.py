@@ -67,8 +67,8 @@ def main():
     parser.add_argument("--params", default="params_cnn.json", type=str, help="Param file path.")
     parser.add_argument("--epochs", default=300, type=int, help="Number of epochs.")
     parser.add_argument("--learning_rate", default=0.01, type=float, help="Initial learning rate.")
-    parser.add_argument("--min_learning_rate", default=1e-4, type=float, help="Minimum learning rate.")
-    parser.add_argument("--lr_drop_max", default=10, type=int, help="Number of epochs to drop learning rate.")
+    parser.add_argument("--min_learning_rate", default=1e-3, type=float, help="Minimum learning rate.")
+    parser.add_argument("--lr_drop_max", default=5, type=int, help="Number of epochs to drop learning rate.")
     parser.add_argument("--lr_drop_rate", default=0.7, type=float, help="Rate of dropping learning rate.")
     parser.add_argument("--early_stop", default=20, type=int, help="Number of epochs to endure before early stopping.")
     parser.add_argument("--threads", default=4, type=int, help="Maximum number of threads to use.")
@@ -124,7 +124,7 @@ def main():
             early_stopping = 0
         else:
             early_stopping += 1
-            if early_stopping > _args.lr_drop_max:
+            if early_stopping % _args.lr_drop_max == 0:
                 lr *= _args.lr_drop_rate
                 lr = max(_args.min_learning_rate, lr)
             if early_stopping > _args.early_stop:
