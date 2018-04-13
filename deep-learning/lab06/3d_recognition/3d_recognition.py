@@ -136,9 +136,9 @@ class Network:
 
             self.saver = tf.train.Saver()
 
-    def train_batch(self, voxels, labels):
+    def train_batch(self, voxels, labels, lr):
         self.session.run([self.training, self.summaries["train"]],
-                         {self.voxels: voxels, self.labels: labels, self.is_training: True})
+                         {self.voxels: voxels, self.labels: labels, self.is_training: True, self.learning_rate: lr})
 
     def evaluate(self, dataset_name, dataset, batch_size):
         loss, accuracy = 0, 0
@@ -210,7 +210,7 @@ if __name__ == "__main__":
                 break
             num_retry += 1
             if num_retry > n_params:
-                exit(1)
+                exit(111)
 
     if not os.path.exists("logs"):
         os.mkdir("logs")  # TF 1.6 will do this by itself
@@ -233,7 +233,7 @@ if __name__ == "__main__":
     for i in range(args.epochs):
         while not train.epoch_finished():
             voxels, labels = train.next_batch(param.batch_size)
-            network.train_batch(voxels, labels)
+            network.train_batch(voxels, labels, lr)
 
         cur_loss, cur_acc = network.evaluate("dev", dev, param.batch_size)
         print("Acc: %f, loss: %f" % (cur_acc, cur_loss))
@@ -252,7 +252,7 @@ if __name__ == "__main__":
 
     # Predict test data
     network.restore(os.path.join(param.logdir, "model"))
-    with open("{}/3d_recognition_test.txt".format(args.logdir), "w") as test_file:
-        labels = network.predict(test, args.batch_size)
+    with open("{}/3d_recognition_test.txt".format(param.logdir), "w") as test_file:
+        labels = network.predict(test, param.batch_size)
         for label in labels:
             test_file.write('%d\n' % label)

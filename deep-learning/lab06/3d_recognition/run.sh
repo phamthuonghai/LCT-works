@@ -2,9 +2,9 @@
 
 while [ 1 ]
 do
-    python 3d_recognition.py --params=./params.json
+    CUDA_VISIBLE_DEVICES=$1 python 3d_recognition.py --params=./params.json
     done=$?
-    if [ "$done" -ne 0 ]; then
+    if [ "$done" -eq 111 ]; then
         break
     fi
 done
