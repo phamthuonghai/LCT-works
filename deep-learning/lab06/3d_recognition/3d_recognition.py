@@ -18,13 +18,18 @@ class Dataset:
         else:
             self._permutation = np.arange(len(self._voxels))
 
-    def split(self, ratio):
-        split = int(len(self._voxels) * ratio)
+    def split(self, ratio, bag_id=0):
+        l_voxels = len(self._voxels)
+        partition_size = int(l_voxels * ratio)
+        first_split = l_voxels - (bag_id+1) * partition_size
+        second_split = l_voxels - bag_id * partition_size
 
         first, second = Dataset.__new__(Dataset), Dataset.__new__(Dataset)
-        first._voxels, second._voxels = self._voxels[:split], self._voxels[split:]
+        first._voxels = np.concatenate((self._voxels[:first_split], self._voxels[second_split:]), axis=0)
+        second._voxels = self._voxels[first_split:second_split]
         if self._labels is not None:
-            first._labels, second._labels = self._labels[:split], self._labels[split:]
+            first._labels = np.concatenate((self._labels[:first_split], self._labels[second_split:]), axis=0)
+            second._labels = self._labels[first_split:second_split]
         else:
             first._labels, second._labels = None, None
 
@@ -206,53 +211,63 @@ if __name__ == "__main__":
                 param['logdir'] = logdir
                 param['epochs'] = args.epochs
                 param['threads'] = args.threads
-                param = namedtuple('Params', param.keys())(*param.values())
                 break
             num_retry += 1
             if num_retry > n_params:
                 exit(111)
 
-    if not os.path.exists("logs"):
-        os.mkdir("logs")  # TF 1.6 will do this by itself
+    os.makedirs(param['logdir'])
 
     print("=====================================================")
-    print(param.logdir)
+    print(param['logdir'])
     print("=====================================================")
 
-    # Load the data
-    train, dev = Dataset("modelnet{}-train.npz".format(param.modelnet_dim)).split(param.train_split)
-    test = Dataset("modelnet{}-test.npz".format(param.modelnet_dim), shuffle_batches=False)
+    # Load the test data
+    test = Dataset("modelnet{}-test.npz".format(param['modelnet_dim']), shuffle_batches=False)
 
-    # Construct the network
-    network = Network(param)
+    if 'bagging' in param:
+        n_bags = int(1. / param['train_split'])
+    else:
+        n_bags = 1
+    param_dict = param
+    par_logdir = param_dict['logdir']
 
-    # Train
-    min_loss = 10000
-    early_stopping = 0
-    lr = args.learning_rate
-    for i in range(args.epochs):
-        while not train.epoch_finished():
-            voxels, labels = train.next_batch(param.batch_size)
-            network.train_batch(voxels, labels, lr)
+    for bag_id in range(n_bags):
+        param_dict['logdir'] = os.path.join(par_logdir, str(bag_id))
+        param = namedtuple('Params', param_dict.keys())(*param_dict.values())
 
-        cur_loss, cur_acc = network.evaluate("dev", dev, param.batch_size)
-        print("Acc: %f, loss: %f" % (cur_acc, cur_loss))
-        sys.stdout.flush()
-        if cur_loss < min_loss:
-            min_loss = cur_loss
-            network.save(os.path.join(param.logdir, "model"))
-            early_stopping = 0
-        else:
-            early_stopping += 1
-            if early_stopping % args.lr_drop_max == 0:
-                lr *= args.lr_drop_rate
-                lr = max(args.min_learning_rate, lr)
-            if early_stopping > args.early_stop:
-                break
+        # Load the data
+        train, dev = Dataset("modelnet{}-train.npz".format(param.modelnet_dim)).split(param.train_split, bag_id)
+        # Construct the network
+        network = Network(param)
 
-    # Predict test data
-    network.restore(os.path.join(param.logdir, "model"))
-    with open("{}/3d_recognition_test.txt".format(param.logdir), "w") as test_file:
-        labels = network.predict(test, param.batch_size)
-        for label in labels:
-            test_file.write('%d\n' % label)
+        # Train
+        min_loss = 10000
+        early_stopping = 0
+        lr = args.learning_rate
+        for i in range(args.epochs):
+            while not train.epoch_finished():
+                voxels, labels = train.next_batch(param.batch_size)
+                network.train_batch(voxels, labels, lr)
+
+            cur_loss, cur_acc = network.evaluate("dev", dev, param.batch_size)
+            print("Acc: %f, loss: %f" % (cur_acc, cur_loss))
+            sys.stdout.flush()
+            if cur_loss < min_loss:
+                min_loss = cur_loss
+                network.save(os.path.join(param.logdir, "model"))
+                early_stopping = 0
+            else:
+                early_stopping += 1
+                if early_stopping % args.lr_drop_max == 0:
+                    lr *= args.lr_drop_rate
+                    lr = max(args.min_learning_rate, lr)
+                if early_stopping > args.early_stop:
+                    break
+
+        # Predict test data
+        network.restore(os.path.join(param.logdir, "model"))
+        with open("{}/3d_recognition_test.txt".format(param.logdir), "w") as test_file:
+            labels = network.predict(test, param.batch_size)
+            for label in labels:
+                test_file.write('%d\n' % label)
