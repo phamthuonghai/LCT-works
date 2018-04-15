@@ -290,8 +290,8 @@ for f in glob.glob('./results/*.txt'):
 
 # Duplicate the top-2 best
 prev_res['./results/6R-32-4.txt_2'] = prev_res['./results/6R-32-4.txt']
-prev_res['./results/6R-32-4.txt_3'] = prev_res['./results/6R-32-4.txt']
 prev_res['./results/5R-32-4.txt_2'] = prev_res['./results/5R-32-4.txt']
+prev_res['./results/5R-32-4.txt_3'] = prev_res['./results/5R-32-4.txt']
 
 df = pd.DataFrame.from_dict(prev_res)
 
@@ -302,8 +302,8 @@ np.savetxt('./results/res.res', res.values, fmt='%d')
 for col in df:
     print('Res diff to %s = %d' % (col, sum(df[col] != res)))
 
+col = './results/5R-32-4.txt'
 for the_id in range(20):
-    col = './results/6R-32-4.txt'
     test = np.load('modelnet20-test.npz')
     mis_match_ids = df[col] != res
     test_sample = test['voxels'][mis_match_ids].squeeze()
@@ -363,7 +363,7 @@ with open(args.params, 'w') as f:
     json.dump(full_set, f)
 """
 
-test_data = b'{Wp48S^xk9=GL@E0stWa761SMbT8$j;0G51L|p(Ff`djUCncd$K_AVKhofrotXe2>U4{^6w-Lq@e%xJdx3vm#W3G_Wa$}_sJ!8&G5Hn1~t(mNcLXE$$zb`>s_mUo`7Au>UTAJbKMEDL1FrWj=z>_P7{tr?4n<KEfVWAWb6orJ*i@SYIN%S<uU+*UFV1nmG+`W|cA(aI3-<8ON?wwnRIvud9(CVAwDY+s3+&Wa5Ux)Z%XTQ|Yj>cA5&&x3)RHp2Op<`^}cac5qr5hOAc<RDttm$wuiWrUV-VRfh$(OWbf*5Y;J=r%1;aVJOy_{-RDn2<K0U=t!UZbwXJic_-Umb5-A+y#vx5*hTf^a&LchDb$Cr!}LC1*-}EedSODz&JeFIPMorFH*{ukR#VBWV5EE3O1bB9gnWU+Oy1@gz$8*&HF+(bTFCsY|8D=S20CqEH{yRkZ_%39e>?eTwixvfeJmJ11VibXu8<i1FfWBcE^@F<f`&G6Vx5+{bBZ5Z=2AG^N21cWa#T&X=-dyFbJmXFU4TMD#T8k^gj_$2(xHPepiy0W;gwJBx?3A_Vd{*rd)65wGn-8#S-z5kZP}?7==e`crexl#O>fihVPux*>*F$^eI-$6+RLsfB%I-S(wFt-d!G@L9PFwojJbLm6cNY+em-tvAOQTWUtrOqGGlz>hEK_2H-VC;gm|Y_Da7-~6+9f%;$6l9rf=i?U`JUWafT^?)49(Gz5nh-NI7T7*Tg3`TbzKf^h1{6hXkL`B-lQ3)Kv9Ub@pIIa$u0Y!J?00H0xm<|8{-i`ZGvBYQl0ssI200dcD'
+test_data = b'{Wp48S^xk9=GL@E0stWa761SMbT8$j;0G51LR|nDf`djUCncd$K_AVKhofrotXe2>U4{^6w-Lq@e%xJdx3vm#W3G_Wa$}_sJ!8&G5Hn1~t(mNcLXE$$zb`>s_mUo`7Au>UTAJbKMEDL1FrWj=z>_P7{tr?4n<KEfVWAWb6orJ*i@SYIN%S<uU+*UFV1nmG+`W|cA(aI3-7vda;e963$eekq&@_q7)lZg8GG=ANVl%NJsIGigRkYWF3~goiMeze)$iwz<{!&aGXmj1@uM*s_W0Y`(f2a6sWQbSRk|!sTjEIl60YT?Fi+oAtr{dl!8h%7T$ZXH!11-1rPU$LQVYWtpmfRGaHs*E;jIA-Un+g>EA2KuxU4P@OOr$n#3^PO3>%qX*BN#l62~39oY1-vU(TYido;)~LlYx)Fs|+s>yhd#1jUqX1c}KUp^Wq#&2WYg-v77i$8)Y|86IlKX*V<?(-|D2TXuIrh?j;W+YhW*labhdHka^WVLV`j9_SSUznmYo*XiYFSt5(!z8oh~MM8`4REXMmxNubvOlMnX_g7jL|e0ouT!|Yr+j_s9QlBF|=L(h%fLtP&RwNPcfz&TY?Gne0crY&2CoGoxVOH4t&QIFctCROC)SjG`NG1`<~O0xM8_&OXD->q6w>R?*vs4OuB=9OPi!<QA#3QFG}BWZs!@a&l-F>W^<mm4_OpBZw;+M;E}p-eRSha?_b4U7X(G=lcyuSPz~9rc4{TI^>=39AjqyM7X3QL)DEb0T-2Y2I!000000brs6Pp@hB200G_vm<|8{1M7=yvBYQl0ssI200dcD'
 
 if __name__ == "__main__":
     import base64
