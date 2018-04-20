@@ -58,6 +58,17 @@ def get_layer(layer_def, features, is_training):
     return features
 
 
+def variable_summaries(var, name):
+    mean = tf.reduce_mean(var)
+    stddev = tf.sqrt(tf.reduce_mean(tf.square(var - mean)))
+    return [
+        tf.contrib.summary.scalar('activation/' + name + '_mean', mean),
+        tf.contrib.summary.scalar('activation/' + name + '_stddev', stddev),
+        tf.contrib.summary.scalar('activation/' + name + '/max', tf.reduce_max(var)),
+        tf.contrib.summary.scalar('activation/' + name + '/min', tf.reduce_min(var)),
+    ]
+
+
 class Network:
     WIDTH, HEIGHT = 224, 224
     LABELS = 250
@@ -122,7 +133,9 @@ class Network:
             with summary_writer.as_default(), tf.contrib.summary.record_summaries_every_n_global_steps(10):
                 self.summaries["train"] = [tf.contrib.summary.scalar("train/loss", self.loss),
                                            tf.contrib.summary.scalar("train/lr", self.learning_rate),
-                                           tf.contrib.summary.scalar("train/accuracy", self.accuracy)]
+                                           tf.contrib.summary.scalar("train/accuracy", self.accuracy)]\
+                                          + variable_summaries(nasnet_features, 'pretrained')\
+                                          + variable_summaries(features, 'near_output')
             with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
                 self.given_loss = tf.placeholder(tf.float32, [], name="given_loss")
                 self.given_accuracy = tf.placeholder(tf.float32, [], name="given_accuracy")
