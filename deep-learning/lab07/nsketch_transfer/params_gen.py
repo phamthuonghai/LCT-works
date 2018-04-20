@@ -6,14 +6,10 @@ params_set = {
     'pretrained': [
         'nasnet',
     ],
-    'train_again': [
-        False,
-        True,
-    ],
     'batch_size': [
         # 16,
-        # 32,
-        64,
+        32,
+        # 64,
     ],
     'model': [
         'R-50',
@@ -22,6 +18,11 @@ params_set = {
         'R-300;R-300',
         'R-500;R-500;R-500;R-500',
     ],
+    'warmup': [
+        10,
+        # 20,
+        # 1000,
+    ]
 }
 
 

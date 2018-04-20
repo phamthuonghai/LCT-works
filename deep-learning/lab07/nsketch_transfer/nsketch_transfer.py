@@ -82,8 +82,11 @@ class Network:
             # Create NASNet
             images = 2 * (tf.tile(tf.image.convert_image_dtype(self.images, tf.float32), [1, 1, 1, 3]) - 0.5)
             with tf.contrib.slim.arg_scope(nasnet.nasnet_mobile_arg_scope()):
-                features, _ = nasnet.build_nasnet_mobile(images, num_classes=None, is_training=args.train_again)
+                features, _ = nasnet.build_nasnet_mobile(images, num_classes=None, is_training=True)
             self.nasnet_saver = tf.train.Saver()
+            # Load NASNet
+
+            nasnet_features = features
 
             # Computation and training.
             #
@@ -91,16 +94,26 @@ class Network:
             # - loss is stored in `self.loss`
             # - training is stored in `self.training`
             # - label predictions are stored in `self.predictions`
-            for layer_def in args.model.strip().split(';'):
-                features = get_layer(layer_def, features, self.is_training)
-            output = tf.layers.dense(features, self.LABELS, activation=None)
-            self.predictions = tf.argmax(output, axis=1)
-            self.loss = tf.losses.sparse_softmax_cross_entropy(self.labels, output)
+            with tf.variable_scope('our_beloved_vars'):
+                for layer_def in args.model.strip().split(';'):
+                    features = get_layer(layer_def, features, self.is_training)
+                output = tf.layers.dense(features, self.LABELS, activation=None)
 
-            global_step = tf.train.create_global_step()
-            with tf.control_dependencies(tf.get_collection(tf.GraphKeys.UPDATE_OPS)):
-                self.training = tf.train.AdamOptimizer(learning_rate=self.learning_rate).minimize(
-                    self.loss, global_step=global_step, name="training")
+                self.predictions = tf.argmax(output, axis=1)
+                tf.losses.sparse_softmax_cross_entropy(self.labels, output)
+
+            self.loss = tf.losses.get_total_loss()
+            optimizer = tf.train.AdamOptimizer(learning_rate=self.learning_rate)
+            self.training = tf.contrib.slim.learning.create_train_op(self.loss,
+                                                                     optimizer,
+                                                                     clip_gradient_norm=args.clip_gradient,
+                                                                     variables_to_train=
+                                                                     tf.get_collection(tf.GraphKeys.TRAINABLE_VARIABLES,
+                                                                                       'our_beloved_vars'))
+            self.training_all = tf.contrib.slim.learning.create_train_op(self.loss,
+                                                                         optimizer,
+                                                                         clip_gradient_norm=args.clip_gradient,
+                                                                         variables_to_train=None)
 
             # Summaries
             self.accuracy = tf.reduce_mean(tf.cast(tf.equal(self.labels, self.predictions), tf.float32))
@@ -122,13 +135,15 @@ class Network:
             with summary_writer.as_default():
                 tf.contrib.summary.initialize(session=self.session, graph=self.session.graph)
 
-            self.saver = tf.train.Saver()
-
-            # Load NASNet
             self.nasnet_saver.restore(self.session, self.CHECKPOINTS[args.pretrained])
 
     def train_batch(self, images, labels, learning_rate):
         self.session.run([self.training, self.summaries["train"]],
+                         {self.images: images, self.labels: labels,
+                          self.is_training: True, self.learning_rate: learning_rate})
+
+    def train_batch_all(self, images, labels, learning_rate):
+        self.session.run([self.training_all, self.summaries["train"]],
                          {self.images: images, self.labels: labels,
                           self.is_training: True, self.learning_rate: learning_rate})
 
@@ -154,12 +169,6 @@ class Network:
             labels.append(self.session.run(self.predictions, {self.images: images, self.is_training: False}))
         return np.concatenate(labels)
 
-    def save(self, path):
-        self.saver.save(self.session, path)
-
-    def restore(self, path):
-        self.saver.restore(self.session, path)
-
 
 if __name__ == "__main__":
     import argparse
@@ -177,9 +186,10 @@ if __name__ == "__main__":
     parser.add_argument("--threads", default=16, type=int, help="Maximum number of threads to use.")
     parser.add_argument("--learning_rate", default=0.01, type=float, help="Initial learning rate.")
     parser.add_argument("--min_learning_rate", default=1e-4, type=float, help="Minimum learning rate.")
-    parser.add_argument("--lr_drop_max", default=5, type=int, help="Number of epochs to drop learning rate.")
+    parser.add_argument("--lr_drop_max", default=3, type=int, help="Number of epochs to drop learning rate.")
     parser.add_argument("--lr_drop_rate", default=0.7, type=float, help="Rate of dropping learning rate.")
-    parser.add_argument("--early_stop", default=20, type=int, help="Number of epochs to endure before early stopping.")
+    parser.add_argument("--early_stop", default=10, type=int, help="Number of epochs to endure before early stopping.")
+    parser.add_argument("--warm_up_epochs", default=20, type=int, help="Number of epochs to warmup.")
     args = parser.parse_args()
 
     with open(args.params, 'r') as f:
@@ -225,7 +235,10 @@ if __name__ == "__main__":
     for i in range(args.epochs):
         while not train.epoch_finished():
             images, labels = train.next_batch(param.batch_size)
-            network.train_batch(images, labels, lr)
+            if i > param.warmup:
+                network.train_batch_all(images, labels, lr)
+            else:
+                network.train_batch(images, labels, lr)
 
         cur_acc, cur_loss = network.evaluate("dev", dev, param.batch_size)
 
@@ -240,18 +253,16 @@ if __name__ == "__main__":
 
         if cur_loss < min_loss:
             min_loss = cur_loss
-            network.save(os.path.join(param.logdir, "model"))
             early_stopping = 0
         else:
             early_stopping += 1
             if early_stopping % args.lr_drop_max == 0:
                 lr *= args.lr_drop_rate
                 lr = max(args.min_learning_rate, lr)
-            if early_stopping > args.early_stop:
+            if early_stopping > args.early_stop and i > args.warm_up_epochs:
                 break
 
     # Predict test data
-    network.restore(os.path.join(param.logdir, "model"))
     with open("{}/nsketch_transfer_test.txt".format(param.logdir), "w") as test_file:
         labels = network.predict(test, param.batch_size)
         for label in labels:
