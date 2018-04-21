@@ -7,8 +7,10 @@ import numpy as np
 import tensorflow as tf
 
 try:
+    from nets.inception import inception_v3
     from nets.nasnet import nasnet
 except Exception as e:
+    from .nets.inception import inception_v3
     from .nets.nasnet import nasnet
 
 
@@ -73,7 +75,8 @@ class Network:
     WIDTH, HEIGHT = 224, 224
     LABELS = 250
     CHECKPOINTS = {
-        'nasnet': 'nets/nasnet/model.ckpt'
+        'nasnet': 'nets/nasnet/model.ckpt',
+        'inception_v3': 'nets/inception/inception_v3.ckpt',
     }
 
     def __init__(self, args, seed=42):
@@ -90,12 +93,16 @@ class Network:
             self.is_training = tf.placeholder(tf.bool, [], name="is_training")
             self.learning_rate = tf.placeholder_with_default(0.01, None)
 
-            # Create NASNet
             images = 2 * (tf.tile(tf.image.convert_image_dtype(self.images, tf.float32), [1, 1, 1, 3]) - 0.5)
-            with tf.contrib.slim.arg_scope(nasnet.nasnet_mobile_arg_scope()):
-                features, _ = nasnet.build_nasnet_mobile(images, num_classes=None, is_training=True)
+
+            if args.pretrained == 'inception_v3':
+                with tf.contrib.slim.arg_scope(inception_v3.inception_v3_arg_scope()):
+                    features, _ = inception_v3.inception_v3(images, num_classes=None, is_training=True)
+                    features = tf.squeeze(features, [1, 2])
+            else:
+                with tf.contrib.slim.arg_scope(nasnet.nasnet_mobile_arg_scope()):
+                    features, _ = nasnet.build_nasnet_mobile(images, num_classes=None, is_training=True)
             self.nasnet_saver = tf.train.Saver()
-            # Load NASNet
 
             nasnet_features = features
 

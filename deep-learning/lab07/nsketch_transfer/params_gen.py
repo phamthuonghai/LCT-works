@@ -5,6 +5,7 @@ import itertools
 params_set = {
     'pretrained': [
         'nasnet',
+        'inception_v3',
     ],
     'batch_size': [
         # 16,
