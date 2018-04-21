@@ -1,4 +1,9 @@
 #!/usr/bin/env bash
+#$ -cwd
+#$ -j y
+#$ -S /bin/bash
+
+source ../../.env/bin/activate
 
 while [ 1 ]
 do
