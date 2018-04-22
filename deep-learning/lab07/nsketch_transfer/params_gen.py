@@ -5,7 +5,7 @@ import itertools
 params_set = {
     'pretrained': [
         'nasnet',
-        'inception_v3',
+        # 'inception_v3',
     ],
     'batch_size': [
         # 16,
@@ -13,19 +13,23 @@ params_set = {
         # 64,
     ],
     'model': [
-        'R-50',
-        'R-50;R-50',
-        'R-300',
-        'R-300;R-300',
-        'R-500;R-500;R-500;R-500',
+        '',
+        'D-0.5',
+        'D-0.5;RB-20;D-0.5',
+        # 'RB-20;RB-20',
+        # 'R-300;R-300',
+        # 'R-300;R-300;R-300;R-300',
+        # 'R-500;R-500;R-500;R-500',
     ],
     'clip_gradient': [
         0,
         # 100,
     ],
     'warmup': [
-        10,
+        # 10,
         # 20,
+        40,
+        60,
         # 1000,
     ]
 }
