@@ -1,5 +1,6 @@
 import numpy as np
 
+
 class MorphoDataset:
     """Class capable of loading morphological datasets in vertical format.
 
@@ -105,7 +106,8 @@ class MorphoDataset:
             self._sentence_lens[i] = len(self._factors[self.FORMS].word_ids[i])
 
         self._shuffle_batches = shuffle_batches
-        self._permutation = np.random.permutation(len(self._sentence_lens)) if self._shuffle_batches else np.arange(len(self._sentence_lens))
+        self._permutation = np.random.permutation(len(self._sentence_lens)) if self._shuffle_batches else np.arange(
+            len(self._sentence_lens))
 
     @property
     def sentence_lens(self):
@@ -156,7 +158,8 @@ class MorphoDataset:
 
     def epoch_finished(self):
         if len(self._permutation) == 0:
-            self._permutation = np.random.permutation(len(self._sentence_lens)) if self._shuffle_batches else np.arange(len(self._sentence_lens))
+            self._permutation = np.random.permutation(len(self._sentence_lens)) if self._shuffle_batches else np.arange(
+                len(self._sentence_lens))
             return True
         return False
 
