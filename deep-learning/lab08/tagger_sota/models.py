@@ -54,6 +54,8 @@ class Model:
             with summary_writer.as_default():
                 tf.contrib.summary.initialize(session=self.session, graph=self.session.graph)
 
+            self.saver = tf.train.Saver()
+
     def build_model(self, args, num_words, num_chars, num_tags):
         raise NotImplemented
 
@@ -93,6 +95,12 @@ class Model:
                                           self.word_ids: word_ids[dataset.FORMS],
                                           self.charseq_ids: charseq_ids[dataset.FORMS]}))
         return tags
+
+    def save(self, path):
+        self.saver.save(self.session, path)
+
+    def restore(self, path):
+        self.saver.restore(self.session, path)
 
 
 class CLE(Model):

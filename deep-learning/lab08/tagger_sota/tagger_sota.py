@@ -107,6 +107,7 @@ if __name__ == "__main__":
         sys.stdout.flush()
         if cur_loss < min_loss:
             min_loss = cur_loss
+            network.save(os.path.join(param.logdir, "model"))
             early_stopping = 0
         else:
             early_stopping += 1
@@ -117,6 +118,7 @@ if __name__ == "__main__":
                 break
 
     # Predict test data
+    network.restore(os.path.join(param.logdir, "model"))
     with open("{}/tagger_sota_test.txt".format(param.logdir), "w") as test_file:
         forms = test.factors[test.FORMS].strings
         tags = network.predict(test, param.batch_size)
