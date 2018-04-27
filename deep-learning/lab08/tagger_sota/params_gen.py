@@ -5,7 +5,6 @@ import itertools
 params_set = {
     'batch_size': [
         32,
-        128,
     ],
     'model': [
         {
@@ -22,6 +21,10 @@ params_set = {
             'rnn_cell_dim': 64,
             'we_dim': 64,
         }
+    ],
+    'dropout': [
+        0,
+        0.5,
     ],
     'learning_rate': [
         0.01,

@@ -18,6 +18,8 @@ class Model:
             self.charseq_lens = tf.placeholder(tf.int32, [None], name="charseq_lens")
             self.charseq_ids = tf.placeholder(tf.int32, [None, None], name="charseq_ids")
             self.tags = tf.placeholder(tf.int32, [None, None], name="tags")
+            self.is_training = tf.placeholder(tf.bool, [], name="is_training")
+            self.learning_rate = tf.placeholder_with_default(0.01, None)
 
             output_layer, self.predictions = self.build_model(args, num_words, num_chars, num_tags)
 
@@ -31,7 +33,8 @@ class Model:
             loss = tf.losses.sparse_softmax_cross_entropy(self.tags, output_layer, weights)
 
             global_step = tf.train.create_global_step()
-            self.training = tf.train.AdamOptimizer().minimize(loss, global_step=global_step, name="training")
+            self.training = tf.train.AdamOptimizer(learning_rate=self.learning_rate).minimize(
+                loss, global_step=global_step, name="training")
 
             # Summaries
             self.current_accuracy, self.update_accuracy = tf.metrics.accuracy(self.tags, self.predictions,
@@ -43,6 +46,7 @@ class Model:
             self.summaries = {}
             with summary_writer.as_default(), tf.contrib.summary.record_summaries_every_n_global_steps(10):
                 self.summaries["train"] = [tf.contrib.summary.scalar("train/loss", self.update_loss),
+                                           tf.contrib.summary.scalar("train/lr", self.learning_rate),
                                            tf.contrib.summary.scalar("train/accuracy", self.update_accuracy)]
             with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
                 for dataset in ["dev", "test"]:
@@ -59,7 +63,7 @@ class Model:
     def build_model(self, args, num_words, num_chars, num_tags):
         raise NotImplemented
 
-    def train_epoch(self, train, batch_size):
+    def train_epoch(self, train, batch_size, lr):
         while not train.epoch_finished():
             sentence_lens, word_ids, charseq_ids, charseqs, charseq_lens = train.next_batch(batch_size,
                                                                                             including_charseqs=True)
@@ -68,7 +72,9 @@ class Model:
                              {self.sentence_lens: sentence_lens,
                               self.charseqs: charseqs[train.FORMS], self.charseq_lens: charseq_lens[train.FORMS],
                               self.word_ids: word_ids[train.FORMS], self.charseq_ids: charseq_ids[train.FORMS],
-                              self.tags: word_ids[train.TAGS]})
+                              self.tags: word_ids[train.TAGS],
+                              self.learning_rate: lr,
+                              self.is_training: True})
 
     def evaluate(self, dataset_name, dataset, batch_size):
         self.session.run(self.reset_metrics)
@@ -79,7 +85,8 @@ class Model:
                              {self.sentence_lens: sentence_lens,
                               self.charseqs: charseqs[dataset.FORMS], self.charseq_lens: charseq_lens[dataset.FORMS],
                               self.word_ids: word_ids[dataset.FORMS], self.charseq_ids: charseq_ids[dataset.FORMS],
-                              self.tags: word_ids[dataset.TAGS]})
+                              self.tags: word_ids[dataset.TAGS],
+                              self.is_training: False})
         acc, loss, _ = self.session.run([self.current_accuracy, self.current_loss, self.summaries[dataset_name]])
         return acc, loss
 
@@ -93,7 +100,8 @@ class Model:
                                           self.charseqs: charseqs[dataset.FORMS],
                                           self.charseq_lens: charseq_lens[dataset.FORMS],
                                           self.word_ids: word_ids[dataset.FORMS],
-                                          self.charseq_ids: charseq_ids[dataset.FORMS]}))
+                                          self.charseq_ids: charseq_ids[dataset.FORMS],
+                                          self.is_training: False}))
         return tags
 
     def save(self, path):
@@ -160,6 +168,7 @@ class CLE(Model):
         # Concatenate the outputs for fwd and bwd directions (in the third dimension).
         rnn_output = tf.concat(rnn_outputs, axis=2)
 
+        rnn_output = tf.layers.dropout(rnn_output, rate=args.dropout, training=self.is_training)
         # Add a dense layer (without activation) into num_tags classes and
         # store result in `output_layer`.
         output_layer = tf.layers.dense(rnn_output, num_tags)

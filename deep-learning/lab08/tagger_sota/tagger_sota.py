@@ -100,7 +100,7 @@ if __name__ == "__main__":
     early_stopping = 0
     lr = param.learning_rate
     for e_id in range(param.epochs):
-        network.train_epoch(train, param.batch_size)
+        network.train_epoch(train, param.batch_size, lr)
 
         cur_acc, cur_loss = network.evaluate("dev", dev, param.batch_size)
         print("#%3d: acc: %f, loss: %f" % (e_id, cur_acc, cur_loss))
