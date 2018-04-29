@@ -13,3 +13,7 @@
 # FASHION_MASKS
 
 * Up-scaling with convolution
+
+# NSKETCH_TRANSFER
+* inception_v3, vgg16 as features
+* use small learning rate when tuning or else the a big drop
