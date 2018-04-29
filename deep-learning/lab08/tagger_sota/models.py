@@ -125,6 +125,8 @@ class CLE(Model):
         # Create word embeddings for num_words of dimensionality args.we_dim
         # using `tf.get_variable`.
         word_embeddings = tf.get_variable('word_embeddings', [num_words, args.we_dim], dtype=tf.float32)
+        word_embeddings = tf.layers.dropout(word_embeddings, rate=args.we_dropout,
+                                            noise_shape=[num_words, 1], training=self.is_training)
 
         # Embed self.word_ids according to the word embeddings, by utilizing
         # `tf.nn.embedding_lookup`.
@@ -134,6 +136,9 @@ class CLE(Model):
 
         # Generate character embeddings for num_chars of dimensionality args.cle_dim.
         char_embeddings = tf.get_variable('char_embeddings', [num_chars, args.cle_dim], dtype=tf.float32)
+        # char_embeddings dropout
+        char_embeddings = tf.layers.dropout(char_embeddings, rate=args.cle_dropout,
+                                            noise_shape=[num_chars, 1], training=self.is_training)
 
         # Embed self.charseqs (list of unique words in the batch) using the character embeddings.
         char_embedded = tf.nn.embedding_lookup(char_embeddings, self.charseqs)

@@ -13,6 +13,8 @@ params_set = {
             'rnn_cell': 'LSTM',
             'rnn_cell_dim': 64,
             'we_dim': 64,
+            'we_dropout': 0,
+            'cle_dropout': 0,
         },
         {
             'name': 'CLE',
@@ -20,10 +22,20 @@ params_set = {
             'rnn_cell': 'GRU',
             'rnn_cell_dim': 64,
             'we_dim': 64,
-        }
+            'we_dropout': 0.5,
+            'cle_dropout': 0.5,
+        },
+        {
+            'name': 'CLE',
+            'cle_dim': 32,
+            'rnn_cell': 'GRU',
+            'rnn_cell_dim': 64,
+            'we_dim': 64,
+            'we_dropout': 0,
+            'cle_dropout': 0.5,
+        },
     ],
     'dropout': [
-        0,
         0.5,
     ],
     'learning_rate': [
