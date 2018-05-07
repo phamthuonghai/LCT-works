@@ -52,6 +52,7 @@ class Network:
             self.target_ids = tf.placeholder(tf.int32, [None, None], name="target_ids")
             self.target_seqs = tf.placeholder(tf.int32, [None, None], name="target_seqs")
             self.target_seq_lens = tf.placeholder(tf.int32, [None], name="target_seq_lens")
+            self.learning_rate = tf.placeholder_with_default(0.01, None)
 
             # Training. The rest of the code assumes that
             # - when training the decoder, the output layer with logits for each generated
@@ -68,7 +69,8 @@ class Network:
             weights = tf.sequence_mask(target_lens, dtype=tf.float32)
             loss = tf.losses.sparse_softmax_cross_entropy(target_ids, output_layer, weights=weights)
             global_step = tf.train.create_global_step()
-            self.training = tf.train.AdamOptimizer().minimize(loss, global_step=global_step, name="training")
+            self.training = tf.train.AdamOptimizer(learning_rate=self.learning_rate).minimize(
+                loss, global_step=global_step, name="training")
 
             # Summaries
             accuracy_training = tf.reduce_all(tf.logical_or(
@@ -91,6 +93,7 @@ class Network:
             self.summaries = {}
             with summary_writer.as_default(), tf.contrib.summary.record_summaries_every_n_global_steps(10):
                 self.summaries["train"] = [tf.contrib.summary.scalar("train/loss", self.update_loss),
+                                           tf.contrib.summary.scalar("train/lr", self.learning_rate),
                                            tf.contrib.summary.scalar("train/accuracy", self.update_accuracy_training)]
             with summary_writer.as_default(), tf.contrib.summary.always_record_summaries():
                 for dataset in ["dev", "test"]:
@@ -101,6 +104,8 @@ class Network:
             self.session.run(tf.global_variables_initializer())
             with summary_writer.as_default():
                 tf.contrib.summary.initialize(session=self.session, graph=self.session.graph)
+
+            self.saver = tf.train.Saver()
 
     def build_model(self, args, source_chars, target_chars, bow, eow):
         # Append EOW after target_seqs
@@ -265,7 +270,7 @@ class Network:
 
         return output_layer, predictions_training, target_seqs, target_lens, predictions, prediction_lens
 
-    def train_epoch(self, train, batch_size):
+    def train_epoch(self, train, batch_size, learning_rate):
         while not train.epoch_finished():
             sentence_lens, _, charseq_ids, charseqs, charseq_lens = train.next_batch(batch_size,
                                                                                      including_charseqs=True)
@@ -275,7 +280,8 @@ class Network:
                 {self.sentence_lens: sentence_lens,
                  self.source_ids: charseq_ids[train.FORMS], self.target_ids: charseq_ids[train.LEMMAS],
                  self.source_seqs: charseqs[train.FORMS], self.target_seqs: charseqs[train.LEMMAS],
-                 self.source_seq_lens: charseq_lens[train.FORMS], self.target_seq_lens: charseq_lens[train.LEMMAS]})
+                 self.source_seq_lens: charseq_lens[train.FORMS], self.target_seq_lens: charseq_lens[train.LEMMAS],
+                 self.learning_rate: learning_rate})
 
     def evaluate(self, dataset_name, dataset, batch_size):
         self.session.run(self.reset_metrics)
@@ -288,7 +294,14 @@ class Network:
                               self.source_seqs: charseqs[train.FORMS], self.target_seqs: charseqs[train.LEMMAS],
                               self.source_seq_lens: charseq_lens[train.FORMS],
                               self.target_seq_lens: charseq_lens[train.LEMMAS]})
-        return self.session.run([self.current_accuracy, self.summaries[dataset_name]])[0]
+        acc, loss, _ = self.session.run([self.current_accuracy, self.current_loss, self.summaries[dataset_name]])
+        return acc, loss
+
+    def save(self, path):
+        self.saver.save(self.session, path)
+
+    def restore(self, path):
+        self.saver.restore(self.session, path)
 
     def predict(self, dataset, batch_size):
         lemmas = []
@@ -316,17 +329,18 @@ if __name__ == "__main__":
     import datetime
     import os
     import re
+    import sys
 
     # Fix random seed
     np.random.seed(42)
 
     # Parse arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("--epochs", default=30, type=int, help="Number of epochs.")
+    parser.add_argument("--epochs", default=100, type=int, help="Number of epochs.")
     parser.add_argument("--threads", default=16, type=int, help="Maximum number of threads to use.")
     parser.add_argument("--batch_size", default=32, type=int, help="Batch size.")
-    parser.add_argument("--char_dim", default=128, type=int, help="Character embedding dimension.")
-    parser.add_argument("--rnn_dim", default=128, type=int, help="Dimension of the encoder and the decoder.")
+    parser.add_argument("--char_dim", default=256, type=int, help="Character embedding dimension.")
+    parser.add_argument("--rnn_dim", default=256, type=int, help="Dimension of the encoder and the decoder.")
     args = parser.parse_args()
 
     # Create logdir name
@@ -353,13 +367,33 @@ if __name__ == "__main__":
                       threads=args.threads)
 
     # Train
+    min_loss = 10000
+    early_stopping = 0
+    lr_drop_max = 4
+    lr_drop_rate = 0.5
+    early_stop = 20
+    min_learning_rate = 1e-4
+    lr = 1e-3
     for i in range(args.epochs):
-        network.train_epoch(train, args.batch_size)
+        network.train_epoch(train, args.batch_size, lr)
 
-        accuracy = network.evaluate("dev", dev, args.batch_size)
+        accuracy, cur_loss = network.evaluate("dev", dev, args.batch_size)
         print("{:.2f}".format(100 * accuracy))
+        sys.stdout.flush()
+        if cur_loss < min_loss:
+            min_loss = cur_loss
+            network.save(os.path.join(args.logdir, "model"))
+            early_stopping = 0
+        else:
+            early_stopping += 1
+            if early_stopping % lr_drop_max == 0:
+                lr *= lr_drop_rate
+                lr = max(min_learning_rate, lr)
+            if early_stopping > early_stop:
+                break
 
     # Predict test data
+    network.restore(os.path.join(args.logdir, "model"))
     with open("{}/lemmatizer_sota_test.txt".format(args.logdir), "w", encoding="utf-8") as test_file:
         forms = test.factors[test.FORMS].strings
         lemmas = network.predict(test, args.batch_size)
