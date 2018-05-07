@@ -17,3 +17,8 @@
 # NSKETCH_TRANSFER
 * inception_v3, vgg16 as features
 * use small learning rate when tuning or else the a big drop
+
+# LEMMATIZER
+* Get the contextual embeddings by bidirectional RNN
+* Parsing and lemmatizing jointly
+* Beam search?
